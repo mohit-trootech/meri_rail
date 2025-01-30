@@ -30,6 +30,7 @@ THIRD_PARTY_APPS = [
 ]
 PROJECT_APPS = [
     "users.apps.UsersConfig",
+    "stations.apps.StationsConfig",
 ]
 DJANGO_APPS = [
     "django.contrib.admin",
