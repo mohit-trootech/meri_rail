@@ -19,7 +19,7 @@ APPEND_SLASH = True
 # -------------------------------------------------
 SECRET_KEY = env.get("SECRET_KEY")
 
-
+CITIES_LIGHT_INCLUDE_COUNTRIES = ["IN"]
 # Application definition
 # -------------------------------------------------
 THIRD_PARTY_APPS = [
@@ -27,6 +27,8 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "corsheaders",
     "email_validator",
+    "cities_light",
+    "rest_framework_simplejwt",
 ]
 PROJECT_APPS = [
     "users.apps.UsersConfig",

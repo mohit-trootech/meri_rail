@@ -7,14 +7,19 @@ from django.db.models import (
     CASCADE,
 )
 from stations.utils.constants import ModelVerbose
+from cities_light.models import City, Region
 
 
 class Station(Model):
     name = CharField(max_length=255, unique=True)
     code = CharField(max_length=8, unique=True)
     name_hi = CharField(max_length=512)
-    district = CharField(max_length=255, null=True, blank=True)
-    state = CharField(max_length=255, null=True, blank=True)
+    district = ForeignKey(
+        City, null=True, blank=True, on_delete=CASCADE, related_name="stations"
+    )
+    state = ForeignKey(
+        Region, null=True, blank=True, on_delete=CASCADE, related_name="stations"
+    )
     latitude = CharField(null=True, blank=True)
     longitude = CharField(null=True, blank=True)
     address = TextField(null=True, blank=True)
