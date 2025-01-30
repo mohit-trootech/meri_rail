@@ -72,6 +72,3 @@ class Otp(TimeStampedModel):
 
     def __str__(self):
         return "{user}'s OTP".format(user=self.user.username)
-
-    def save(self, *args, **kwargs):
-        return super(Otp, self).save(*args, **kwargs)

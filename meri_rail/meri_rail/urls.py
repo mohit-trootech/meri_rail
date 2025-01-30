@@ -1,5 +1,5 @@
 """
-URL configuration for quick_rail project.
+URL configuration for meri_rail project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/

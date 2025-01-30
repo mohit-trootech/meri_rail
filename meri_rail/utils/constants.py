@@ -3,10 +3,10 @@
 class Settings:
     """Settings Constants"""
 
-    ROOT_URLCONF = "quick_rail.urls"
+    ROOT_URLCONF = "meri_rail.urls"
     AUTH_USER_MODEL = "users.User"
-    WSGI_APPLICATION = "quick_rail.wsgi.application"
-    ASGI_APPLICATION = "quick_rail.asgi.application"
+    WSGI_APPLICATION = "meri_rail.wsgi.application"
+    ASGI_APPLICATION = "meri_rail.asgi.application"
     LANGUAGE_CODE = "en-us"
     TIME_ZONE = "Asia/Kolkata"
     USE_I18N = True

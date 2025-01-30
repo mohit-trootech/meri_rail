@@ -19,23 +19,28 @@ APPEND_SLASH = True
 # -------------------------------------------------
 SECRET_KEY = env.get("SECRET_KEY")
 
-# Basic Django Installed Apps
+
+# Application definition
 # -------------------------------------------------
-INSTALLED_APPS = [
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "django_extensions",
+    "corsheaders",
+    "email_validator",
+]
+PROJECT_APPS = [
+    "users.apps.UsersConfig",
+]
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "django_extensions",
-    "pnr",
-    "quickpnr",
-    "users",
-    "corsheaders",
-    "email_validator",
 ]
+INSTALLED_APPS = THIRD_PARTY_APPS + PROJECT_APPS + DJANGO_APPS
+
 
 # Middlewares
 # -------------------------------------------------
