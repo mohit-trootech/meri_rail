@@ -30,7 +30,13 @@ THIRD_PARTY_APPS = [
     "cities_light",
     "rest_framework_simplejwt",
 ]
-PROJECT_APPS = ["users.apps.UsersConfig", "stations.apps.StationsConfig", "meri_rail"]
+PROJECT_APPS = [
+    "users.apps.UsersConfig",
+    "stations.apps.StationsConfig",
+    "trains.apps.TrainsConfig",
+    "pnrs.apps.PnrsConfig",
+    "meri_rail",
+]
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

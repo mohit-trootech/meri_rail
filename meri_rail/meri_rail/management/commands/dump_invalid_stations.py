@@ -2,18 +2,13 @@ import json
 from cities_light.models import City, Region, Country
 from utils.utils import get_model
 from django.core.management import BaseCommand
-from django.conf import settings
-from os.path import join
 from time import time
+from meri_rail.constants import ManagementHelp, Fixtures, Messages
 
 country = Country.objects.get(name="India")
 
 Station = get_model(app_label="stations", model_name="Station")
 Utterance = get_model(app_label="stations", model_name="Utterance")
-INVALID_FIXTURE_REGION = join(
-    settings.BASE_DIR, "fixtures/stations/invalid_region.json"
-)
-INVALID_FIXTURE_CITY = join(settings.BASE_DIR, "fixtures/stations/invalid_city.json")
 
 
 def load_data(filepath):
@@ -82,12 +77,12 @@ def temporary_station_instance(station: json):
 
 
 class Command(BaseCommand):
-    help = "Load station data from JSON file"
+    help = ManagementHelp.DUMP_INVALID_STATION_FIXTURE
 
     def handle(self, *args, **options):
         start_from = time()
-        invalid_cities_raw = load_data(INVALID_FIXTURE_CITY)
-        invalid_region_raw = load_data(INVALID_FIXTURE_REGION)
+        invalid_cities_raw = load_data(Fixtures.INVALID_FIXTURE_CITY)
+        invalid_region_raw = load_data(Fixtures.INVALID_FIXTURE_REGION)
         stations = combine_raw_data(invalid_cities_raw, invalid_region_raw)
         stations_bulk = []
         for record in stations.values():
@@ -103,7 +98,5 @@ class Command(BaseCommand):
                 if utterance:
                     Utterance.objects.get_or_create(name=utterance, station=station)
         self.stdout.write(
-            self.style.SUCCESS(
-                f"Successfully loaded station data, took {time() - start_from:.6f}"
-            )
+            self.style.SUCCESS(Messages.TRAINS_DUMPED % (time() - start_from))
         )
