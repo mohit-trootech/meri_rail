@@ -1,6 +1,18 @@
 """Utilities Functions for PNR Scrapping"""
 
 from rest_framework_simplejwt.tokens import RefreshToken
+import json
+
+
+def load_data(filepath: str) -> dict:
+    """
+    Load data from json file.
+    :param filepath: str
+    :return: dict
+    """
+    with open(filepath, "r") as file:
+        data = json.load(file)
+    return data
 
 
 def get_model(app_label, model_name):

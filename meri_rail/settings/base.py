@@ -208,3 +208,9 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+# Railway Configuration Urls
+CAPTCHA_DRAW_URL = env.get("CAPTCHA_DRAW_URL")
+TRAIN_ROUTE_URL = env.get("TRAIN_ROUTE_URL")
+FETCH_TRAIN_DATA_URL = env.get("FETCH_TRAIN_DATA_URL")
+PNR_STATUS_URL = env.get("PNR_STATUS_URL")
