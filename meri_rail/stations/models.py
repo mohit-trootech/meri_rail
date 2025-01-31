@@ -11,7 +11,7 @@ from cities_light.models import City, Region
 
 
 class Station(Model):
-    name = CharField(max_length=255, unique=True)
+    name = CharField(max_length=255)
     code = CharField(max_length=8, unique=True)
     name_hi = CharField(max_length=512)
     district = ForeignKey(

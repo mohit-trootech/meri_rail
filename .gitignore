@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django
 
 ### Fixtures ###
-meri_rail/fixtures/*
+meri_rail/fixtures/*.txt
 
 ### Django ###
 *.log
