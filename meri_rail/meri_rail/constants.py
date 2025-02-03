@@ -21,6 +21,7 @@ class Fixtures:
 
 class ManagementHelp:
     DUMP_TRAIN_FIXTURE = _("Load train data from JSON file")
+    DUMP_TRAIN_DETAILS_FIXTURE = _("Dump train details data from JSON file")
     DUMP_TRAIN_DETAILS = _("Fetch details from Selenium and Load data")
     DUMP_STATION_FIXTURE = _("Load station data from JSON file")
     DUMP_INVALID_STATION_FIXTURE = _("Load invalid station data from JSON file")

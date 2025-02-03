@@ -1,12 +1,14 @@
-from django.contrib.admin import ModelAdmin, register
+from django.contrib import admin
 from utils.utils import get_model
 
+
 Train = get_model(app_label="trains", model_name="Train")
+TrainDetail = get_model(app_label="trains", model_name="TrainDetail")
+Schedule = get_model(app_label="trains", model_name="Schedule")
+Route = get_model(app_label="trains", model_name="Route")
 
 
-@register(Train)
-class TrainAdmin(ModelAdmin):
-    list_display = ("number", "name")
-    search_fields = ("number", "name")
-    ordering = ("name", "number")
-    readonly_fields = ("number",)
+admin.site.register(Train)
+admin.site.register(TrainDetail)
+admin.site.register(Schedule)
+admin.site.register(Route)

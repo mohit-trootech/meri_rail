@@ -53,11 +53,11 @@ class TrainDetail(Model):
         verbose_name_plural = ModelVerbose.TRAIN_DETAIL
 
     def __str__(self):
-        return TRAIN_STR % (self.number, self.name)
+        return TRAIN_STR % (self.train.number, self.train.name)
 
 
 class Schedule(Model):
-    train = ForeignKey("trains.Train", on_delete=CASCADE, related_name="schedule")
+    train = OneToOneField("trains.Train", on_delete=CASCADE, related_name="schedule")
     monday = CharField(max_length=10, null=True, blank=True)
     tuesday = CharField(max_length=10, null=True, blank=True)
     wednesday = CharField(max_length=10, null=True, blank=True)
@@ -71,7 +71,7 @@ class Schedule(Model):
         verbose_name_plural = ModelVerbose.SCHEDULE
 
     def __str__(self):
-        return TRAIN_STR % (self.number, self.name)
+        return TRAIN_STR % (self.train.number, self.train.name)
 
 
 class Route(Model):
@@ -81,7 +81,7 @@ class Route(Model):
     halt = CharField(max_length=10, null=True, blank=True)
     day_count = IntegerField(null=True, blank=True)
     platform = IntegerField(null=True, blank=True)
-    arrival = TimeField()
+    arrival = TimeField(null=True, blank=True)
     departure = TimeField(null=True, blank=True)
 
     class Meta:
@@ -89,4 +89,4 @@ class Route(Model):
         verbose_name_plural = ModelVerbose.ROUTE
 
     def __str__(self):
-        return TRAIN_STR % (self.number, self.name)
+        return TRAIN_STR % (self.train.number, self.train.name)

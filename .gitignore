@@ -1,8 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django
 
-### Fixtures ###
-meri_rail/fixtures/*.txt
 
 ### Django ###
 *.log
@@ -135,7 +133,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
