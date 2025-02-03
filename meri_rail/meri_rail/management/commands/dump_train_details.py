@@ -1,6 +1,7 @@
 from utils.utils import get_model
 from django.core.management import BaseCommand
 from time import time
+from json import dump
 from meri_rail.constants import Fixtures, ManagementHelp, Messages
 from utils.selenium_service import SeleniumService
 
@@ -14,31 +15,43 @@ class Command(BaseCommand):
     help = ManagementHelp.DUMP_TRAIN_FIXTURE
     service_class = SeleniumService
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.trains = Train.objects.all()
+        if not self.trains:
+            return self.stdout.write(self.style.WARNING("No self.trains found"))
+        self.manager_driver = SeleniumService()
+        self.invalid_trains = []
+
     def handle(self, *args, **options):
         start_from = time()
-        trains = Train.objects.all()
-        if not trains:
-            return self.stdout.write(self.style.ERROR("No trains found"))
-        # trains_raw = load_data(Fixtures.TRAIN_FIXTURE + "12915.json")
-        # train_bulk = []
-        fake_driver = self.service_class()
-        for train in trains:
-            train_raw_str = train.name_number
+        for train in self.trains:
             try:
-                captcha = fake_driver.validate_captcha()
-                data = fake_driver.load_train_details(
-                    captcha=captcha, train=train_raw_str
-                )
-                if data:
-                    with open(
-                        Fixtures.TRAIN_DETAILS_FIXTURE + f"{train.number}.json", "w"
-                    ) as file:
-                        file.write(data)
-                    print("Train Data Fetched ", train_raw_str)
-            except Exception:
-                pass
-        fake_driver.driver.quit()
-        # Train.objects.bulk_create(train_bulk, ignore_conflicts=True)
+                TrainDetail.objects.get(train=train)
+            except TrainDetail.DoesNotExist:
+                try:
+                    open(Fixtures.TRAIN_DETAILS_FIXTURE % train.number, "r")
+                except FileNotFoundError:
+                    try:
+                        captcha = self.manager_driver.validate_captcha()
+                        data = self.manager_driver.load_train_details(
+                            captcha=captcha, train=train.name_number_format
+                        )
+                        if "errorMessage" in data:
+                            self.invalid_trains.append(train)
+                            continue
+                        if data:
+                            with open(
+                                Fixtures.TRAIN_DETAILS_FIXTURE % train.number, "w"
+                            ) as file:
+                                file.write(data)
+                            print("Train Data Fetched ", train.name_number_format)
+                    except Exception:
+                        continue
+        if self.invalid_trains:
+            with open(Fixtures.INVALID_TRAIN_FIXTURE % train.number, "w") as file:
+                dump(self.invalid_trains, file)
+        self.manager_driver.driver.quit()
         self.stdout.write(
-            self.style.SUCCESS(Messages.INVALID_STATIONS_DUMPED % (time() - start_from))
+            self.style.SUCCESS(Messages.TRAINS_DETAILS_DUMPED % (time() - start_from))
         )

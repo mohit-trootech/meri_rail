@@ -19,7 +19,7 @@ class SeleniumService:
         self.time = round(time() * 1000)
         options = webdriver.FirefoxOptions()
         options.set_preference("devtools.jsonview.enabled", False)
-        options.add_argument("--headless")
+        # options.add_argument("--headless")
         self.driver = webdriver.Firefox(options=options)
 
     def get_json(self):

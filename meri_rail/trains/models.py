@@ -27,7 +27,7 @@ class Train(Model):
         return TRAIN_STR % (self.number, self.name)
 
     @property
-    def name_number(self):
+    def name_number_format(self):
         return TRAIN_NAME_NUMBER_VALID_FORMAT % (
             self.number,
             self.name.replace(" ", "+"),

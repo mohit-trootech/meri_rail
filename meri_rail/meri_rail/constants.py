@@ -5,7 +5,10 @@ from os.path import join
 
 class Fixtures:
     TRAIN_FIXTURE = join(settings.BASE_DIR, "fixtures/trains/trains.json")
-    TRAIN_DETAILS_FIXTURE = join(settings.BASE_DIR, "fixtures/trains/details/")
+    INVALID_TRAIN_FIXTURE = join(
+        settings.BASE_DIR, "fixtures/trains/invalid_trains.json"
+    )
+    TRAIN_DETAILS_FIXTURE = join(settings.BASE_DIR, "fixtures/trains/details/%s.json")
     STATION_FIXTURE = join(settings.BASE_DIR, "fixtures/stations/stations.json")
     POPULAR_FIXTURE = join(settings.BASE_DIR, "fixtures/stations/popular.json")
     INVALID_FIXTURE_REGION = join(
@@ -27,4 +30,4 @@ class Messages:
     INVALID_STATIONS_DUMPED = _("Successfully loaded stations data, took %.6f")
     STATIONS_DUMPED = _("Successfully loaded invalid stations data, took %.6f")
     TRAINS_DUMPED = _("Successfully loaded trains data, took %.6f")
-    TRAINS_DUMPED = _("Successfully loaded trains details, took %.6f")
+    TRAINS_DETAILS_DUMPED = _("Successfully loaded trains details, took %.6f")
