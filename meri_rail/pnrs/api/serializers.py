@@ -2,15 +2,15 @@ from rest_framework import serializers
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
 from pnrs.utils.constants import ValidationErrors
+from trains.api.serializers import TrainSerializer
+from stations.api.serializers import StationSerializer
 
 Pnr = get_model(app_label="pnrs", model_name="Pnr")
 Passengers = get_model(app_label="pnrs", model_name="Passengers")
 
 
-class PnrNumberSerializer(DynamicModelSerializer):
-    class Meta:
-        model = Pnr
-        fields = ("pnr",)
+class PnrNumberSerializer(serializers.Serializer):
+    pnr = serializers.IntegerField()
 
     def validate_pnr(self, value):
         """Validate Pnr Number"""
@@ -38,10 +38,18 @@ class PassengersSerializer(DynamicModelSerializer):
         )
 
 
-class PnrDetailSerializer(PnrNumberSerializer):
-    passengers = PassengersSerializer(many=True, read_only=True)
+class PnrDetailSerializer(DynamicModelSerializer):
+    passengers = PassengersSerializer(
+        read_only=True,
+        many=True,
+    )
+    train = TrainSerializer(read_only=True, many=False)
+    source = StationSerializer(read_only=True, many=False)
+    destination = StationSerializer(read_only=True, many=False)
+    boarding = StationSerializer(read_only=True, many=False)
 
-    class Meta(PnrNumberSerializer.Meta):
+    class Meta:
+        model = Pnr
         fields = (
             "pnr",
             "date_of_journey",
@@ -62,3 +70,14 @@ class PnrDetailSerializer(PnrNumberSerializer):
             "distance",
             "passengers",
         )
+
+    def create(self, validated_data):
+        passengers = validated_data.pop("passengers")
+        instance = super().create(validated_data)
+        for passenger in passengers:
+            try:
+                Passengers.objects.create(pnr=instance, **passenger)
+            except Exception as err:
+                instance.delete()
+                raise serializers.ValidationError({"message": str(err)})
+        return instance

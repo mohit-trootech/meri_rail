@@ -11,6 +11,7 @@ router.registry.extend(station_router.registry)
 
 urlpatterns = [
     path("api/", include(router.urls)),
+    path("api/", include("pnrs.urls")),
     path("users/", include("users.urls")),
     path("admin/", admin.site.urls),
 ]

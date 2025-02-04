@@ -3,15 +3,16 @@ from django.db.models import (
     CharField,
     DateField,
     IntegerField,
+    BigIntegerField,
     CASCADE,
     ForeignKey,
 )
 from django_extensions.db.models import TimeStampedModel
-from phonenumber_field.modelfields import PhoneNumberField  # type: ignore
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Pnr(TimeStampedModel):
-    pnr = IntegerField(unique=True)
+    pnr = BigIntegerField(unique=True)
     date_of_journey = DateField()
     train = ForeignKey("trains.Train", on_delete=CASCADE, related_name="pnrs")
     source = ForeignKey(

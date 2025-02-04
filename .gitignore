@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django
 
 meri_rail/fixtures/*.txt
+meri_rail/fixtures/temp/*
 
 ### Django ###
 *.log
