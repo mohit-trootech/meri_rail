@@ -15,3 +15,7 @@ class ModelVerbose:
 
     ROUTE = _("Route")
     ROUTES = _("Routes")
+
+
+class ValidationErrors:
+    pass

@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
     "email_validator",
     "cities_light",
     "rest_framework_simplejwt",
+    "phonenumber_field",
 ]
 PROJECT_APPS = [
     "users.apps.UsersConfig",

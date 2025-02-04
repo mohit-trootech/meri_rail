@@ -7,7 +7,7 @@ from django.db.models import (
     CASCADE,
 )
 from stations.utils.constants import ModelVerbose
-from cities_light.models import City, Region
+from cities_light.models import City, Region  # type:ignore
 
 
 class Station(Model):
