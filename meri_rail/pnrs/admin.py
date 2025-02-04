@@ -7,8 +7,8 @@ Passengers = get_model(app_label="pnrs", model_name="Passengers")
 
 class PassengersInline(StackedInline):
     model = Passengers
-    extra = 3
-    show_change_link = True
+    fk_name = "pnr"
+    extra = 0
 
 
 @register(Pnr)

@@ -1,13 +1,14 @@
-from django.contrib.admin import ModelAdmin, register, TabularInline
+from django.contrib.admin import ModelAdmin, register, StackedInline
 from utils.utils import get_model
 
 Station = get_model(app_label="stations", model_name="Station")
 Uttrance = get_model(app_label="stations", model_name="Utterance")
 
 
-class UtteranceAdmin(TabularInline):
+class UtteranceAdmin(StackedInline):
     model = Uttrance
-    extra = 3
+    fk_name = "station"
+    extra = 0
 
 
 @register(Station)

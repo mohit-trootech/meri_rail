@@ -86,12 +86,12 @@ class Command(BaseCommand):
                                     route.halt = "src"
                                     route.departure = item["departureTime"]
                                 elif item["departureTime"] == "00:00":
-                                    route.arrival = item["departureTime"]
-                                    route.halt = "dest"
-                                else:
                                     route.arrival = item["arrivalTime"]
-                                    route.departure = item["departureTime"]
-                                    route.halt = item["haltTime"]
+                                    route.halt = "dest"
+                            else:
+                                route.arrival = item["arrivalTime"]
+                                route.departure = item["departureTime"]
+                                route.halt = item["haltTime"]
                             self.valid_routes.append(route)
                     except Station.DoesNotExist:
                         continue

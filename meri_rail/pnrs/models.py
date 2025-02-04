@@ -64,4 +64,4 @@ class Passengers(Model):
         verbose_name_plural = "Passengers"
 
     def __str__(self):
-        return self.pnr
+        return str(self.serial_number)
