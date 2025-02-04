@@ -26,5 +26,5 @@ class Command(BaseCommand):
             train_bulk.append(Train(**{"number": train_data[0], "name": train_data[1]}))
         Train.objects.bulk_create(train_bulk, ignore_conflicts=True)
         self.stdout.write(
-            self.style.SUCCESS(Messages.INVALID_STATIONS_DUMPED & (time() - start_from))
+            self.style.SUCCESS(Messages.INVALID_STATIONS_DUMPED % (time() - start_from))
         )

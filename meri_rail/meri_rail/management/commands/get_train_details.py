@@ -54,8 +54,10 @@ class Command(BaseCommand):
                         continue
         self.manager_driver.driver.quit()
         if self.invalid_trains:
-            with open(Fixtures.INVALID_TRAIN_FIXTURE, "w") as file:
-                file.write(dump(self.invalid_trains))
+            with open(
+                file=Fixtures.INVALID_TRAIN_FIXTURE, mode="w", encoding="utf8"
+            ) as file:
+                dump(file, self.invalid_trains)
         self.stdout.write(
             self.style.SUCCESS(Messages.TRAINS_DETAILS_DUMPED % (time() - start_from))
         )
