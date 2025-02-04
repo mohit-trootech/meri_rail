@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib.admin import register, ModelAdmin
 from utils.utils import get_model
 
 
@@ -8,7 +8,22 @@ Schedule = get_model(app_label="trains", model_name="Schedule")
 Route = get_model(app_label="trains", model_name="Route")
 
 
-admin.site.register(Train)
-admin.site.register(TrainDetail)
-admin.site.register(Schedule)
-admin.site.register(Route)
+@register(Train)
+class TrainAdmin(ModelAdmin):
+    pass
+
+
+@register(TrainDetail)
+class TrainDetailAdmin(ModelAdmin):
+    list_display = ("train", "train__name", "train__number")
+    search_fields = ("train__name",)
+
+
+@register(Schedule)
+class ScheduleAdmin(ModelAdmin):
+    pass
+
+
+@register(Route)
+class RouteAdmin(ModelAdmin):
+    pass

@@ -1,8 +1,40 @@
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
+from cities_light.models import City, Region, Country  # type:ignore
 
 Station = get_model(app_label="stations", model_name="Station")
 Utterance = get_model(app_label="stations", model_name="Utterance")
+
+
+class CitiesLightBaseSerializer(DynamicModelSerializer):
+    class Meta:
+        fields = ["name", "name_ascii", "geoname_id"]
+
+
+class CountrySerializer(CitiesLightBaseSerializer):
+    class Meta(CitiesLightBaseSerializer.Meta):
+        model = Country
+        fields = CitiesLightBaseSerializer.Meta.fields + ["code2"]
+
+
+class CitySerializer(CitiesLightBaseSerializer):
+    class Meta(CitiesLightBaseSerializer.Meta):
+        model = City
+        fields = CitiesLightBaseSerializer.Meta.fields + [
+            "latitude",
+            "longitude",
+            "population",
+            "feature_code",
+            "timezone",
+        ]
+
+
+class RegionSerializer(CitiesLightBaseSerializer):
+    country = CountrySerializer(many=False, read_only=True)
+
+    class Meta(CitiesLightBaseSerializer.Meta):
+        model = Region
+        fields = CitiesLightBaseSerializer.Meta.fields + ["country"]
 
 
 class UtteranceSerializer(DynamicModelSerializer):
@@ -12,6 +44,8 @@ class UtteranceSerializer(DynamicModelSerializer):
 
 
 class StationSerializer(DynamicModelSerializer):
+    district = CitySerializer(many=False, read_only=True)
+    state = RegionSerializer(many=False, read_only=True)
     utterances = UtteranceSerializer(many=True, read_only=True)
 
     class Meta:

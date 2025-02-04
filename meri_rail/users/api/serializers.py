@@ -7,8 +7,8 @@ from users.constants import UserRegistrationMessages, AuthConstantsMessages, Mod
 from django.contrib.auth import authenticate
 from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
-from email_validator import validate_email as email_validation
-from email_validator import EmailNotValidError
+from email_validator import validate_email as email_validation  # type: ignore
+from email_validator import EmailNotValidError  # type: ignore
 
 
 User = get_model("users", "User")

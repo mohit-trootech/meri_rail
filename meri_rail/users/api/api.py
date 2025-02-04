@@ -1,4 +1,4 @@
-from rest_framework import mixins, viewsets, permissions, views, status
+from rest_framework import permissions, views, status
 from rest_framework.response import Response
 from utils.utils import get_model
 from users.api.serializers import (
@@ -12,11 +12,6 @@ from users.api.serializers import (
     GoogleAuthenticationLogin,
     GoogleAuthenticationSignup,
 )
-from users.tasks import (
-    generate_otp,
-    reset_password_otp,
-    reset_password_done,
-)
 from utils.utils import AuthService
 from rest_framework.generics import UpdateAPIView, CreateAPIView
 from users.constants import ResponseMessages
@@ -24,16 +19,11 @@ from users.constants import ResponseMessages
 User = get_model("users", "User")
 
 
-class RegistrationApiView(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class RegistrationApiView(CreateAPIView):
     """User Registeration API View"""
 
     serializer_class = RegistrationSerializer
     permission_classes = [permissions.AllowAny]
-
-    def create(self, request, *args, **kwargs):
-        """Register New User"""
-        instance = super().create(request, *args, **kwargs)
-        return instance
 
 
 class LoginApiView(views.APIView):
@@ -101,7 +91,6 @@ class EmailVerifyView(UpdateAPIView):
 
     def get(self, request, *args, **kwargs):
         """Send Email Verification OTP"""
-        generate_otp.delay(request.user.id)
         try:
             return Response(
                 {"message": ResponseMessages.OTP_GENERATED}, status=status.HTTP_200_OK
@@ -158,7 +147,6 @@ class ForgotPasswordView(UpdateAPIView):
             data=request.data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
-        reset_password_otp.delay(User.objects.get(email=request.data["email"]).id)
         return Response(
             {"message": ResponseMessages.PASSWORD_RESET_OTP_GENERATED},
             status=status.HTTP_200_OK,
@@ -172,7 +160,6 @@ class ForgotPasswordView(UpdateAPIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        reset_password_done.delay(user.id)
         return Response(
             {"message": ResponseMessages.PASSWORD_RESET_DONE},
             status=status.HTTP_200_OK,
