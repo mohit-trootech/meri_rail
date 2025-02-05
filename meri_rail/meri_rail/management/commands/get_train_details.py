@@ -47,7 +47,8 @@ class Command(BaseCommand):
                             ) as file:
                                 file.write(data)
                             print("Train Data Fetched ", train.name_number_format)
-                    except Exception:
+                    except Exception as err:
+                        print(err)
                         continue
         self.manager_driver.driver.quit()
         if self.invalid_trains:

@@ -1,4 +1,4 @@
-from django.contrib.admin import register, ModelAdmin, TabularInline, StackedInline
+from django.contrib.admin import register, ModelAdmin, StackedInline
 from utils.utils import get_model
 
 
@@ -8,7 +8,7 @@ Schedule = get_model(app_label="trains", model_name="Schedule")
 Route = get_model(app_label="trains", model_name="Route")
 
 
-class ScheduleInline(TabularInline):
+class ScheduleInline(StackedInline):
     model = Schedule
     fk_name = "train"
     extra = 0

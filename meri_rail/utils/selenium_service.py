@@ -4,16 +4,16 @@ from selenium.webdriver.common.by import By
 from django.conf import settings
 from utils.image_filter_service import ImageFiltering
 from os.path import join
+from utils.url_service import UrlServiceV1
 
 
 PAGE_SCREENSHOT = join(settings.BASE_DIR, "fixtures/temp/page_screenshot.png")
 
 
 class SeleniumService:
-    CAPTCHA_DRAW_URL = settings.CAPTCHA_DRAW_URL
-    TRAIN_ROUTE_URL = settings.TRAIN_ROUTE_URL
-    FETCH_TRAIN_DATA_URL = settings.FETCH_TRAIN_DATA_URL
-    PNR_STATUS_URL = settings.PNR_STATUS_URL
+    """Selenium Service Class"""
+
+    url_service = UrlServiceV1
 
     def __init__(self):
         self.time = round(time() * 1000)
@@ -34,7 +34,7 @@ class SeleniumService:
 
     def validate_captcha(self):
         """load captcha page"""
-        self.driver.get(self.CAPTCHA_DRAW_URL % self.time)
+        self.driver.get(self.url_service.get_captcha_draw_url(time=self.time))
         image = self.driver.find_element(By.TAG_NAME, "img")
         self.driver.save_screenshot(PAGE_SCREENSHOT)
         image_filter = ImageFiltering(image)
@@ -43,10 +43,14 @@ class SeleniumService:
 
     def load_train_details(self, captcha: int, train: str):
         """load train details"""
-        self.driver.get(self.TRAIN_ROUTE_URL % (captcha, train, self.time))
+        self.driver.get(
+            self.url_service.get_train_schedule_url(
+                captcha=captcha, train=train, time=self.time
+            )
+        )
         return self.get_json()
 
     def load_pnr_details(self, captcha: int, pnr: int):
         """load pnr details"""
-        self.driver.get(self.PNR_STATUS_URL % (captcha, pnr))
+        self.driver.get(self.url_service.get_pnr_status_url(captcha=captcha, pnr=pnr))
         return self.get_json()
