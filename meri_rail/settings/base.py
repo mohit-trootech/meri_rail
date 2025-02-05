@@ -30,7 +30,15 @@ THIRD_PARTY_APPS = [
     "cities_light",
     "rest_framework_simplejwt",
     "phonenumber_field",
+    "django_elasticsearch_dsl",
 ]
+
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": ["http://localhost:9300"],
+        "http_auth": ("elastic", "password"),
+    },
+}
 PROJECT_APPS = [
     "users.apps.UsersConfig",
     "stations.apps.StationsConfig",
