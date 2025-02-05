@@ -28,7 +28,8 @@ class ManagementHelp:
 
 
 class Messages:
-    INVALID_STATIONS_DUMPED = _("Successfully loaded stations data, took %.6f")
-    STATIONS_DUMPED = _("Successfully loaded invalid stations data, took %.6f")
+    STATIONS_DUMPED = _("Successfully loaded stations data, took %.6f")
+    INVALID_STATIONS_DUMPED = _("Successfully loaded invalid stations data, took %.6f")
     TRAINS_DUMPED = _("Successfully loaded trains data, took %.6f")
     TRAINS_DETAILS_DUMPED = _("Successfully loaded trains details, took %.6f")
+    TRAINS_DETAILS_FETCHED = _("Successfully fetched trains details, took %.6f")

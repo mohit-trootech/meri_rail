@@ -141,5 +141,5 @@ class Command(BaseCommand):
             with open(Fixtures.INVALID_FIXTURE_REGION, "w") as file:
                 json.dump(region_error, file, indent=4)
         self.stdout.write(
-            self.style.SUCCESS(Messages.STATIONS_DUMPED & (time() - start_from))
+            self.style.SUCCESS(Messages.STATIONS_DUMPED % (time() - start_from))
         )

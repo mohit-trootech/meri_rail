@@ -23,9 +23,6 @@ class Command(BaseCommand):
             return self.stdout.write(self.style.WARNING("No self.trains found"))
         self.manager_driver = SeleniumService()
         self.invalid_trains = []
-        self.valid_trains = []
-        self.valid_schedules = []
-        self.valid_routes = []
 
     def handle(self, *args, **options):
         start_from = time()
@@ -57,7 +54,8 @@ class Command(BaseCommand):
             with open(
                 file=Fixtures.INVALID_TRAIN_FIXTURE, mode="w", encoding="utf8"
             ) as file:
-                dump(file, self.invalid_trains)
+                breakpoint()
+                dump(self.invalid_trains, file)
         self.stdout.write(
-            self.style.SUCCESS(Messages.TRAINS_DETAILS_DUMPED % (time() - start_from))
+            self.style.SUCCESS(Messages.TRAINS_DETAILS_FETCHED % (time() - start_from))
         )
