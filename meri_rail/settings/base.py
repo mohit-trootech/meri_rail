@@ -35,7 +35,7 @@ THIRD_PARTY_APPS = [
 
 ELASTICSEARCH_DSL = {
     "default": {
-        "hosts": ["http://localhost:9300"],
+        "hosts": ["http://localhost:9200"],
         "http_auth": ("elastic", "password"),
     },
 }
