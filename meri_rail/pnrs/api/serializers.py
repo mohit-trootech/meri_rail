@@ -10,11 +10,11 @@ Passengers = get_model(app_label="pnrs", model_name="Passengers")
 
 
 class PnrNumberSerializer(serializers.Serializer):
-    pnr = serializers.IntegerField()
+    pnr = serializers.CharField()
 
     def validate_pnr(self, value):
         """Validate Pnr Number"""
-        if len(str(value)) != 10:
+        if len(value) != 10:
             raise serializers.ValidationError(ValidationErrors.INVALID_PNR_NUMBER)
         return value
 

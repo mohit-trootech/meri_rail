@@ -1,3 +1,6 @@
+from django.utils.translation import gettext_lazy as _
+
+
 # Settings Constants
 # =====================================================
 class Settings:
@@ -57,3 +60,156 @@ class UrlsV1:
     PNR_STATUS = "CommonCaptcha?inputCaptcha=%s&inputPnrNo=%s&inputPage=PNR&language=en"
     FARE = "CommonCaptcha?inputCaptcha=%s&trainNo=%s&dt=%s&sourceStation=%s&destinationStation=%s&classc=%s&quota=%s&inputPage=FARE&language=en&_=%s"
     TRAIN_BETWEEN_STATIONS = "CommonCaptcha?inputCaptcha=%s&dt=%s&sourceStation=%s&destinationStation=%s&flexiWithDate=%s&inputPage=TBIS&language=en&_=%s"
+
+
+class SeleniumServices:
+    """Selenium Services"""
+
+    PNR_STATUS = "pnr_status"
+    FARE_ENQUIRY = "fare_enquiry"
+
+
+class TrainQuota:
+    TQ = "TQ"
+    LD = "LD"
+    DF = "DF"
+    FT = "FT"
+    SS = "SS"
+    PT = "PT"
+    YU = "YU"
+    DP = "DP"
+    HP = "HP"
+    PH = "PH"
+    GN = "GN"
+
+    CHOICES = (
+        (TQ, _("Tatkal Quota")),
+        (LD, _("Ladies Quota")),
+        (DF, _("Defence Quota")),
+        (FT, _("Foreign Tourist Quota")),
+        (SS, _("Lower Berth Quota")),
+        (PT, _("Premium Tatkal Quota")),
+        (YU, _("Yuva Quota")),
+        (DP, _("Duty Pass Quota")),
+        (HP, _("Handicapped Quota")),
+        (PH, _("Parliament House")),
+        (GN, _("General Quota")),
+    )
+
+    @classmethod
+    def get_choice(cls):
+        return cls.CHOICES
+
+    @classmethod
+    def get_api_choices(cls):
+        return {
+            cls.TQ: _("Tatkal Quota)"),
+            cls.LD: _("Ladies Quota"),
+            cls.DF: _("Defence Quota"),
+            cls.FT: _("Foreign Tourist Quota"),
+            cls.SS: _("Lower Berth Quota"),
+            cls.PT: _("Premium Tatkal Quota"),
+            cls.YU: _("Yuva Quota"),
+            cls.DP: _("Duty Pass Quota"),
+            cls.HP: _("Handicapped Quota"),
+            cls.PH: _("Parliament House Quota"),
+            cls.GN: _("General Quota"),
+        }
+
+
+class JourneyClass:
+    FIRST_AC = "1A"
+    SECOND_AC = "2A"
+    THIRD_AC = "3A"
+    THIRD_ECONOMY = "3E"
+    SECOND = "2S"
+    SL = "SL"
+    EC = "EC"
+    EA = "EA"
+    CC = "CC"
+    FC = "FC"
+    VS = "VS"
+    CH = "CH"
+    SH = "SH"
+    VC = "VC"
+    EV = "EV"
+
+    CHOICES = (
+        (FIRST_AC, _("First AC")),
+        (SECOND_AC, _("Second AC")),
+        (THIRD_AC, _("Third AC")),
+        (THIRD_ECONOMY, _("Third AC Economy")),
+        (SECOND, _("Second Seating")),
+        (SL, _("Sleeper")),
+        (EC, _("Executive Class")),
+        (EA, _("Executive Anubhuti")),
+        (CC, _("AC Chair Car")),
+        (FC, _("First Class")),
+        (VS, _("Vista Dome Non AC")),
+        (CH, _("Chair Car High Capacity")),
+        (SH, _("Sleeper High Capacity")),
+        (VC, _("Vista Dome CC")),
+        (EV, _("Vista Dome AC")),
+    )
+
+    @classmethod
+    def get_choice(cls):
+        return cls.CHOICES
+
+    @classmethod
+    def get_api_choices(cls):
+        return {
+            cls.FIRST_AC: _("First AC"),
+            cls.SECOND_AC: _("Second AC"),
+            cls.THIRD_AC: _("Third AC"),
+            cls.THIRD_ECONOMY: _("Third AC Economy"),
+            cls.SECOND: _("Second Seating"),
+            cls.SL: _("Sleeper"),
+            cls.EC: _("Executive Class"),
+            cls.EA: _("Executive Anubhuti"),
+            cls.CC: _("AC Chair Car"),
+            cls.FC: _("First Class"),
+            cls.VS: _("Vista Dome Non AC"),
+            cls.CH: _("Chair Car High Capacity"),
+            cls.SH: _("Sleeper High Capacity"),
+            cls.VC: _("Vista Dome CC"),
+            cls.EV: _("Vista Dome AC"),
+        }
+
+
+class SeatType:
+    LB = "LB"
+    MB = "MB"
+    UB = "UB"
+    SL = "SL"
+    SM = "SM"
+    SU = "SU"
+    CHOICES = (
+        (LB, _("Lower Berth")),
+        (MB, _("Middle Berth")),
+        (UB, _("Upper Berth")),
+        (SL, _("Side Lower")),
+        (SM, _("Side Middle")),
+        (SU, _("Side Upper")),
+    )
+
+    @classmethod
+    def get_choice(cls):
+        return cls.CHOICES
+
+    @classmethod
+    def get_api_choices(cls):
+        return {
+            cls.LB: _("Lower Berth"),
+            cls.MB: _("Middle Berth"),
+            cls.UB: _("Upper Berth"),
+            cls.SL: _("Side Lower"),
+            cls.SM: _("Side Middle"),
+            cls.SU: _("Side Upper"),
+        }
+
+
+class ErrorMessages:
+    UNABLE_TO_PROCESS_TRY_AGAIN_LATER = _(
+        "Unable to process your request. Please try again later."
+    )

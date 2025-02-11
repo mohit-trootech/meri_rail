@@ -12,7 +12,7 @@ from users.api.serializers import (
     GoogleAuthenticationLogin,
     GoogleAuthenticationSignup,
 )
-from utils.utils import AuthService
+from utils.auth_service import AuthService
 from rest_framework.generics import UpdateAPIView, CreateAPIView
 from users.constants import ResponseMessages
 

@@ -1,12 +1,13 @@
-from django.contrib.admin import ModelAdmin, register, TabularInline
+from django.contrib.admin import ModelAdmin, register, StackedInline
 from utils.utils import get_model
 
 Fare = get_model(app_label="fare_enquiry", model_name="Fare")
 FareBreakDown = get_model(app_label="fare_enquiry", model_name="FareBreakDown")
 
 
-class FareBreakDownInline(TabularInline):
+class FareBreakDownInline(StackedInline):
     model = FareBreakDown
+    fk_name = "fare"
 
 
 @register(Fare)

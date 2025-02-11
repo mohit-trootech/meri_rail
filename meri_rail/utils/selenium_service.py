@@ -50,7 +50,20 @@ class SeleniumService:
         )
         return self.get_json()
 
-    def load_pnr_details(self, captcha: int, pnr: int):
+    def load_pnr_details(self, captcha: int, data: dict):
         """load pnr details"""
-        self.driver.get(self.url_service.get_pnr_status_url(captcha=captcha, pnr=pnr))
+        self.driver.get(self.url_service.get_pnr_status_url(captcha=captcha, data=data))
+        return self.get_json()
+
+    def fare_enquiry(self, captcha: int, fare_enquiry_data: dict):
+        """
+        fare enquiry
+        """
+        self.driver.get(
+            self.url_service.get_fare_url(
+                captcha=captcha,
+                fare_enquiry_data=fare_enquiry_data,
+                time=self.time,
+            )
+        )
         return self.get_json()

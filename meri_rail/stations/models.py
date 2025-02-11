@@ -6,7 +6,7 @@ from django.db.models import (
     ForeignKey,
     CASCADE,
 )
-from stations.utils.constants import ModelVerbose
+from stations.utils.constants import ModelVerbose, STATION_NAME_CODE_VALID_FORMAT
 from cities_light.models import City, Region  # type:ignore
 
 
@@ -31,6 +31,13 @@ class Station(Model):
 
     def __str__(self):
         return self.code
+
+    @property
+    def name_code_format(self):
+        return STATION_NAME_CODE_VALID_FORMAT % (
+            self.name.replace(" ", "+"),
+            self.code,
+        )
 
 
 class Utterance(Model):
