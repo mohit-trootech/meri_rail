@@ -30,7 +30,25 @@ THIRD_PARTY_APPS = [
     "cities_light",
     "rest_framework_simplejwt",
     "phonenumber_field",
+    "django_elasticsearch_dsl",
 ]
+
+
+# add certificate token
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": ["http://localhost:9200"],
+        "http_auth": ("elastic", "Gnvol0yDXYgTi*yNouij"),
+    },
+}
+ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = (
+    "django_elasticsearch_dsl.signals.RealTimeSignalProcessor"
+)
+ELASTICSEARCH_DSL_INDEX_SETTINGS = {}
+ELASTICSEARCH_DSL_AUTOSYNC = True
+ELASTICSEARCH_DSL_AUTO_REFRESH = True
+ELASTICSEARCH_DSL_PARALLEL = False
+# eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMjo5MjAwIl0sImZnciI6IjFlMzE0M2I5ZWRkMDY3YTEzMmUyODg3Yjc1NWE0MjhkYWEzNTkwZjdjNDI3NWU4OTY1ODBjOGJmMjVmMDhmNTQiLCJrZXkiOiJ0UTBDMnBRQjFRUTY4QS0tZkVRSjpBRzJPVjVFa1RRcUxkaEpkSEJKZ2JnIn0=
 PROJECT_APPS = [
     "users.apps.UsersConfig",
     "stations.apps.StationsConfig",

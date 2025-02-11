@@ -972,6 +972,18 @@
         "address": ""
     },
     {
+        "name": "NASIRPUR HALT",
+        "code": "NSN",
+        "utterances": [],
+        "name_hi": "\u0928\u0938\u0940\u0930\u092a\u0941\u0930 \u0939\u093e\u0932\u0924",
+        "district": "New Delhi",
+        "state": "Delhi",
+        "trainCount": "0",
+        "latitude": 28.604529,
+        "longitude": 77.109242,
+        "address": "392, Block RZ, Sagarpur East, Sagar Pur, New Delhi, Delhi 110046"
+    },
+    {
         "name": "RATANPUR",
         "code": "RPUR",
         "utterances": [],
