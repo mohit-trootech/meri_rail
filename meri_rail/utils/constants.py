@@ -209,6 +209,23 @@ class SeatType:
         }
 
 
+class TrainType:
+    EXP = "EXP"
+    RAJ = "RAJ"
+    SUP = "SUP"
+    RLM = "RLM"
+    CHOICES = (
+        (EXP, _("Express")),
+        (RAJ, _("Rajdhani")),
+        (SUP, _("Super")),
+        (RLM, _("Regular")),
+    )
+
+    @classmethod
+    def get_choice(cls):
+        return cls.CHOICES
+
+
 class ErrorMessages:
     UNABLE_TO_PROCESS_TRY_AGAIN_LATER = _(
         "Unable to process your request. Please try again later."

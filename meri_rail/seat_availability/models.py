@@ -1,1 +1,2 @@
-# Create your models here.
+from django.db.models import *  # noqa
+from django_extensions.db.models import *  # noqa
