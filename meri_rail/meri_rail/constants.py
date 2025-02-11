@@ -33,3 +33,39 @@ class Messages:
     TRAINS_DUMPED = _("Successfully loaded trains data, took %.6f")
     TRAINS_DETAILS_DUMPED = _("Successfully loaded trains details, took %.6f")
     TRAINS_DETAILS_FETCHED = _("Successfully fetched trains details, took %.6f")
+
+
+class ModelVerbose:
+    NOTIFICATION = _("Notification")
+    NOTIFICATIONS = _("Notifications")
+
+    EMAIL_TEMPLATE = _("Email Template")
+    EMAIL_TEMPLATES = _("Email Templates")
+
+
+class EmailType:
+    REGISTRATION_SUCCESS = "registration_success"
+    VERIFICATION_PENDING = "verification_pending"
+    VERIFICATION_DONE = "verification_done"
+    PNR_STATUS = "pnr_status"
+    SEAT_AVAILABILITY = "seat_availability"
+    TRAIN_STATUS = "train_status"
+    PASSWORD_RESET = "password_reset"
+    PASSWORD_RESET_DONE = "password_reset_done"
+    PASSWORD_FORGOT = "password_forgot"
+
+    CHOICES = (
+        (REGISTRATION_SUCCESS, _("Registration Success")),
+        (VERIFICATION_PENDING, _("Verification Pending")),
+        (VERIFICATION_DONE, _("Verification Done")),
+        (PNR_STATUS, _("PNR Status")),
+        (SEAT_AVAILABILITY, _("Seat Availability")),
+        (TRAIN_STATUS, _("Train Status")),
+        (PASSWORD_RESET, _("Password Reset")),
+        (PASSWORD_RESET_DONE, _("Password Reset Done")),
+        (PASSWORD_FORGOT, _("Password Forgot")),
+    )
+
+    @classmethod
+    def get_choices(cls):
+        return cls.CHOICES

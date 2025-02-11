@@ -55,7 +55,6 @@ class Command(BaseCommand):
             with open(
                 file=Fixtures.INVALID_TRAIN_FIXTURE, mode="w", encoding="utf8"
             ) as file:
-                breakpoint()
                 dump(self.invalid_trains, file)
         self.stdout.write(
             self.style.SUCCESS(Messages.TRAINS_DETAILS_FETCHED % (time() - start_from))
