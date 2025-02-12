@@ -18,6 +18,7 @@ urlpatterns = [
     path("api/seat_type/", seat_type_view, name="seat_type"),
     path("api/", include("pnrs.urls")),
     path("api/", include("fare_enquiry.urls")),
+    path("api/", include("trains_between_station.urls")),
     path("users/", include("users.urls")),
     path("admin/", admin.site.urls),
 ] + debug_toolbar_urls()

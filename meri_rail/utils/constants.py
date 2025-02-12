@@ -67,6 +67,9 @@ class SeleniumServices:
 
     PNR_STATUS = "pnr_status"
     FARE_ENQUIRY = "fare_enquiry"
+    TBIS = "tbis"
+    TRAIN_SCHEDULE = "train_schedule"
+    SPOT_TRAIN = "spot_train"
 
 
 class TrainQuota:
@@ -242,3 +245,4 @@ class ValidationErrorConstants:
     TRAIN_NOT_FOUND = _("Train not found")
     FROM_TO_STATION_SAME = _("From and to station cannot be same")
     DATE_AFTER_THREE_MONTHS = _("Date cannot be more than 3 months from today")
+    INVALID_TRAIN_NUMBER = _("Train number is invalid")

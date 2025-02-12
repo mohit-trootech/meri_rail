@@ -37,16 +37,15 @@ class UrlServiceV1:
         return cls.BASE_URL + (UrlsV1.FARE % data)
 
     @classmethod
-    def get_train_between_stations_url(
-        cls,
-        captcha: str,
-        date: str,
-        source: str,
-        destination: str,
-        time: str,
-        flexi: str = "n",
-    ):
-        return cls.BASE_URL + (
-            UrlsV1.TRAIN_BETWEEN_STATIONS
-            % (captcha, date, source, destination, flexi, time)
+    def get_tbis_url(cls, captcha: str, time: str, data: dict):
+        data.update(
+            {
+                "captcha": captcha,
+                "time": time,
+            }
         )
+        return cls.BASE_URL + (UrlsV1.TRAIN_BETWEEN_STATIONS % data)
+
+    @classmethod
+    def get_spot_train_url(cls):
+        return cls.BASE_URL + (UrlsV1.SPOT_TRAIN % UrlTypesV1.SPOT_TRAIN)

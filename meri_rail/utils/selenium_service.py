@@ -40,7 +40,7 @@ class SeleniumService:
         solved_captcha = image_filter.get_solved_capcha_from_image()
         return solved_captcha
 
-    def load_train_details(self, captcha: int, train: str):
+    def load_train_details(self, captcha: str, train: str):
         """load train details"""
         self.driver.get(
             self.url_service.get_train_schedule_url(
@@ -49,12 +49,12 @@ class SeleniumService:
         )
         return self.get_json()
 
-    def load_pnr_details(self, captcha: int, data: dict):
+    def load_pnr_details(self, captcha: str, data: dict):
         """load pnr details"""
         self.driver.get(self.url_service.get_pnr_status_url(captcha=captcha, data=data))
         return self.get_json()
 
-    def fare_enquiry(self, captcha: int, data: dict):
+    def fare_enquiry(self, captcha: str, data: dict):
         """
         fare enquiry
         """
@@ -66,3 +66,28 @@ class SeleniumService:
             )
         )
         return self.get_json()
+
+    def tbis_details(self, captcha: str, data: dict):
+        """
+        tbis details
+        """
+        self.driver.get(
+            self.url_service.get_tbis_url(
+                captcha=captcha,
+                time=self.time,
+                data=data,
+            )
+        )
+        return self.get_json()
+
+    def spot_train_details(self, captcha: str, data: dict):
+        """
+        spot train details
+        """
+        self.driver.get(
+            self.url_service.get_spot_train_url(
+                captcha=captcha,
+                time=self.time,
+                data=data,
+            )
+        )

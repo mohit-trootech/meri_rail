@@ -70,4 +70,4 @@ class TrainAvailableClass(Model):
     train = ForeignKey(
         "trains.Train", on_delete=CASCADE, related_name="train_available_class"
     )
-    joruney_class = CharField(max_length=16, choices=JourneyClass.get_choice())
+    journey_class = CharField(max_length=16, choices=JourneyClass.get_choice())

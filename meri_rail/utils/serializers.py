@@ -10,6 +10,20 @@ from django.utils.timezone import now, timedelta
 from utils.utils import get_model
 
 Station = get_model(app_label="stations", model_name="Station")
+Train = get_model(app_label="trains", model_name="Train")
+
+
+class TrainNumberBaseSerializer(Serializer):
+    train = CharField(max_length=5, required=True)
+
+    def validate_train(self, value):
+        if 0 > len(value) > 5:
+            raise ValidationError(ValidationErrorConstants.INVALID_TRAIN_NUMBER)
+        try:
+            Train.objects.filter(number=value).exists()
+        except ValueError:
+            raise ValidationError(ValidationErrorConstants.INVALID_TRAIN_NUMBER)
+        return value
 
 
 class DynamicModelSerializer(ModelSerializer):
