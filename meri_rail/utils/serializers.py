@@ -1,4 +1,15 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer,
+    Serializer,
+    DateField,
+    CharField,
+    ValidationError,
+)
+from utils.constants import ValidationErrorConstants
+from django.utils.timezone import now, timedelta
+from utils.utils import get_model
+
+Station = get_model(app_label="stations", model_name="Station")
 
 
 class DynamicModelSerializer(ModelSerializer):
@@ -10,3 +21,34 @@ class DynamicModelSerializer(ModelSerializer):
             existing = set(self.fields)
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
+
+
+class DateFromToBaseSerializer(Serializer):
+    dt = DateField()
+    from_station = CharField(max_length=5)
+    to_station = CharField(max_length=5)
+
+    def validate_dt(self, value):
+        """Date must not be in past and not after 3 months from today"""
+        if value < now().date():
+            raise ValidationError(ValidationErrorConstants.DATE_IN_PAST)
+        if value > now().date() + timedelta(days=90):
+            raise ValidationError(ValidationErrorConstants.DATE_AFTER_THREE_MONTHS)
+        return value.strftime("%d-%m-%Y")
+
+    def validate(self, data):
+        if data["from_station"].lower() == data["to_station"].lower():
+            raise ValidationError(ValidationErrorConstants.FROM_TO_STATION_SAME)
+        return super(DateFromToBaseSerializer, self).validate(data)
+
+    def validate_from_station(self, value):
+        try:
+            return Station.objects.get(code=value.upper()).name_code_format
+        except Station.DoesNotExist:
+            raise ValidationError(ValidationErrorConstants.STATION_NOT_FOUND)
+
+    def validate_to_station(self, value):
+        try:
+            return Station.objects.get(code=value.upper()).name_code_format
+        except Station.DoesNotExist:
+            raise ValidationError(ValidationErrorConstants.STATION_NOT_FOUND)

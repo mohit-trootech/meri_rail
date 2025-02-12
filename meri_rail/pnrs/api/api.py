@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from utils.api_views import BaseAPIView
 import rest_framework
 from utils.constants import SeleniumServices
+from http import HTTPStatus
 
 Pnr = get_model(app_label="pnrs", model_name="Pnr")
 
@@ -28,7 +29,7 @@ class PnrApiView(BaseAPIView):
         )
         if pnr_details:
             serializer = self.serializer_class(pnr_details)
-            return Response(serializer.data)
+            return Response(serializer.data, status=HTTPStatus.OK)
         return self.create(pnr_validation)
 
     def create(self, pnr_validation):
@@ -37,4 +38,4 @@ class PnrApiView(BaseAPIView):
         serializer = self.serializer_class(data=formatted_data)
         serializer.is_valid(raise_exception=True)
         serializer.save(**formatted_data)
-        return Response(serializer.data)
+        return Response(serializer.data, status=HTTPStatus.CREATED)

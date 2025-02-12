@@ -4,6 +4,12 @@ import json
 from django.utils.timezone import datetime
 from trains.models import Train
 from stations.models import Station
+from logging import getLogger
+
+
+def log_errors(name: str, message: str):
+    logger = getLogger(name)
+    logger.error(message)
 
 
 def load_data(filepath: str) -> dict:

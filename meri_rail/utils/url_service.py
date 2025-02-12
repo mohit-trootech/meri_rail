@@ -17,16 +17,24 @@ class UrlServiceV1:
 
     @classmethod
     def get_train_schedule_url(cls, captcha: str, train: str, time: str):
-        return cls.BASE_URL + (UrlsV1.TRAIN_SCHEDULE % (captcha, train, time))
+        return cls.BASE_URL + (
+            UrlsV1.TRAIN_SCHEDULE
+            % {
+                "captcha": captcha,
+                "train": train,
+                "time": time,
+            }
+        )
 
     @classmethod
     def get_pnr_status_url(cls, captcha: str, data: dict):
-        print(cls.BASE_URL + (UrlsV1.PNR_STATUS % (captcha, *data.values())))
-        return cls.BASE_URL + (UrlsV1.PNR_STATUS % (captcha, *data.values()))
+        data.update({"captcha": captcha})
+        return cls.BASE_URL + (UrlsV1.PNR_STATUS % data)
 
     @classmethod
     def get_fare_url(cls, captcha: str, time: str, data: dict):
-        return cls.BASE_URL + (UrlsV1.FARE % (captcha, *data.values(), time))
+        data.update({"captcha": captcha, "time": time})
+        return cls.BASE_URL + (UrlsV1.FARE % data)
 
     @classmethod
     def get_train_between_stations_url(

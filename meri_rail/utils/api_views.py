@@ -3,6 +3,7 @@ from utils.selenium_service import SeleniumService
 from json import loads
 from rest_framework.exceptions import ValidationError
 from utils.constants import ErrorMessages, SeleniumServices
+from utils.utils import log_errors
 
 
 class BaseAPIView(APIView):
@@ -16,14 +17,14 @@ class BaseAPIView(APIView):
             return self.driver.load_pnr_details
         elif SeleniumServices.FARE_ENQUIRY == self.service:
             return self.driver.fare_enquiry
-        return None
+        raise ValueError(ErrorMessages.INVALID_SERVICE)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.model is None:
-            raise ValueError("model must not be None")
+            raise ValueError(ErrorMessages.MODEL_IS_NONE)
         if self.service is None:
-            raise ValueError("service must not be None")
+            raise ValueError(ErrorMessages.SERVICE_IS_NONE)
 
     def use_selenium(self, data: dict):
         self.driver = self.selenium_service()
@@ -31,7 +32,8 @@ class BaseAPIView(APIView):
             captcha = self.driver.validate_captcha()
             service_method = self.get_service_method()
             data = loads(service_method(captcha, data))
-        except Exception:
+        except Exception as err:
+            log_errors(__name__, str(err))
             raise ValidationError(
                 {"error": ErrorMessages.UNABLE_TO_PROCESS_TRY_AGAIN_LATER}
             )

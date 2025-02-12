@@ -69,3 +69,7 @@ class EmailType:
     @classmethod
     def get_choices(cls):
         return cls.CHOICES
+
+
+class ErrorMessages:
+    CHOICE_CLASS_NOT_SET = _("choice_class must be set")

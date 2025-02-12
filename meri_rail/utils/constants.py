@@ -56,10 +56,10 @@ class UrlsV1:
 
     CAPTCHA_CONFIG = "%s"
     CAPTCHA_DRAW = "%s?%s"
-    TRAIN_SCHEDULE = "CommonCaptcha?inputCaptcha=%s&trainNo=%s&inputPage=TRAIN_SCHEDULE&language=en&_=%s"
-    PNR_STATUS = "CommonCaptcha?inputCaptcha=%s&inputPnrNo=%s&inputPage=PNR&language=en"
-    FARE = "CommonCaptcha?inputCaptcha=%s&trainNo=%s&dt=%s&sourceStation=%s&destinationStation=%s&classc=%s&quota=%s&inputPage=FARE&language=en&_=%s"
-    TRAIN_BETWEEN_STATIONS = "CommonCaptcha?inputCaptcha=%s&dt=%s&sourceStation=%s&destinationStation=%s&flexiWithDate=%s&inputPage=TBIS&language=en&_=%s"
+    TRAIN_SCHEDULE = "CommonCaptcha?inputCaptcha=%(captcha)s&trainNo=%(train)s&inputPage=TRAIN_SCHEDULE&language=en&_=%(time)s"
+    PNR_STATUS = "CommonCaptcha?inputCaptcha=%(captcha)s&inputPnrNo=%(pnr)s&inputPage=PNR&language=en"
+    FARE = "CommonCaptcha?inputCaptcha=%(captcha)s&trainNo=%(train)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&classc=%(train_cls)s&quota=%(quota)s&inputPage=FARE&language=en&_=%(time)s"
+    TRAIN_BETWEEN_STATIONS = "CommonCaptcha?inputCaptcha=%(captcha)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&flexiWithDate=n&inputPage=TBIS&language=en&_=%(time)s"
 
 
 class SeleniumServices:
@@ -227,6 +227,18 @@ class TrainType:
 
 
 class ErrorMessages:
+    NOT_DEFINED = "%s is not defined as class atrribute"
     UNABLE_TO_PROCESS_TRY_AGAIN_LATER = _(
         "Unable to process your request. Please try again later."
     )
+    MODEL_IS_NONE = NOT_DEFINED % "Model"
+    SERVICE_IS_NONE = NOT_DEFINED % "Service"
+    INVALID_SERVICE = _("Invalid Service Defined")
+
+
+class ValidationErrorConstants:
+    DATE_IN_PAST = _("Date must be greater than or equal to today")
+    STATION_NOT_FOUND = _("Station not found")
+    TRAIN_NOT_FOUND = _("Train not found")
+    FROM_TO_STATION_SAME = _("From and to station cannot be same")
+    DATE_AFTER_THREE_MONTHS = _("Date cannot be more than 3 months from today")

@@ -7,7 +7,7 @@ from django.db.models import (
     Model,
 )
 from django_extensions.db.models import TimeStampedModel
-from trains_between_station.utils.constants import (
+from trains_between_station.constants import (
     ModelVebose,
     TRAIN_BETWEEN_STATION,
     TRAINS_LIST,

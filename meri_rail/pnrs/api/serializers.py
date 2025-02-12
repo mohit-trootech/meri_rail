@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
-from pnrs.utils.constants import ValidationErrors
+from pnrs.constants import ValidationErrorsConstants
 from trains.api.serializers import TrainSerializer
 from stations.api.serializers import StationSerializer
 
@@ -15,7 +15,9 @@ class PnrNumberSerializer(serializers.Serializer):
     def validate_pnr(self, value):
         """Validate Pnr Number"""
         if len(value) != 10:
-            raise serializers.ValidationError(ValidationErrors.INVALID_PNR_NUMBER)
+            raise serializers.ValidationError(
+                ValidationErrorsConstants.INVALID_PNR_NUMBER
+            )
         return value
 
 

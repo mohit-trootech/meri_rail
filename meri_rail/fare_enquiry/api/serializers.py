@@ -1,16 +1,14 @@
 from utils.utils import get_model
-from utils.serializers import DynamicModelSerializer
+from utils.serializers import DynamicModelSerializer, DateFromToBaseSerializer
 from trains.api.serializers import TrainSerializer
 from stations.api.serializers import StationSerializer
 from rest_framework.serializers import (
-    Serializer,
     DateField,
     CharField,
     ChoiceField,
     ValidationError,
 )
 from utils.constants import TrainQuota, JourneyClass
-from django.utils.timezone import now
 
 Fare = get_model(app_label="fare_enquiry", model_name="Fare")
 FareBreakDown = get_model(app_label="fare_enquiry", model_name="FareBreakDown")
@@ -18,9 +16,9 @@ Train = get_model(app_label="trains", model_name="Train")
 Station = get_model(app_label="stations", model_name="Station")
 
 
-class FareEnquirySerializer(Serializer):
+class FareEnquirySerializer(DateFromToBaseSerializer):
     train = CharField(required=True)
-    date = DateField(required=True)
+    dt = DateField(required=True)
     from_station = CharField(required=True)
     to_station = CharField(required=True)
     train_cls = ChoiceField(required=True, choices=JourneyClass.get_choice())
@@ -34,30 +32,6 @@ class FareEnquirySerializer(Serializer):
             return train.name_number_format
         except Train.DoesNotExist:
             raise ValidationError("Train number is invalid")
-
-    def validate_from_station(self, value):
-        if 0 > len(value) > 5:
-            raise ValidationError("From station code must be 1-4 digits long")
-        try:
-            station = Station.objects.get(code=value)
-            return station.name_code_format
-        except Station.DoesNotExist:
-            raise ValidationError("From station code is invalid")
-
-    def validate_to_station(self, value):
-        if 0 > len(value) > 5:
-            raise ValidationError("From station code must be 1-4 digits long")
-        try:
-            station = Station.objects.get(code=value)
-            return station.name_code_format
-        except Station.DoesNotExist:
-            raise ValidationError("To station code is invalid")
-
-    def validate_date(self, value):
-        """validate date is gte today & return in format dd-mm-yyyy"""
-        if value < now().date():
-            raise ValidationError("Date must be greater than or equal to today")
-        return value.strftime("%d-%m-%Y")
 
 
 class FareBreakDownSerializer(DynamicModelSerializer):

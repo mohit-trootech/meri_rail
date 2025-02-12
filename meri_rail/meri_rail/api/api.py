@@ -3,6 +3,7 @@ from utils.constants import TrainQuota, SeatType, JourneyClass
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from http import HTTPStatus
+from meri_rail.constants import ErrorMessages
 
 
 class BaseChoicesView(APIView):
@@ -12,7 +13,7 @@ class BaseChoicesView(APIView):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.choice_class is None:
-            raise ValueError("choice_class must be set")
+            raise ValueError(ErrorMessages.CHOICE_CLASS_NOT_SET)
 
     def get(self, request, *args, **kwargs):
         return Response(self.choice_class.get_api_choices(), status=HTTPStatus.OK)

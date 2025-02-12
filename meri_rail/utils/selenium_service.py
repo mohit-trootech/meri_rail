@@ -6,7 +6,6 @@ from utils.image_filter_service import ImageFiltering
 from os.path import join
 from utils.url_service import UrlServiceV1
 
-
 PAGE_SCREENSHOT = join(settings.BASE_DIR, "fixtures/temp/page_screenshot.png")
 
 
@@ -55,15 +54,15 @@ class SeleniumService:
         self.driver.get(self.url_service.get_pnr_status_url(captcha=captcha, data=data))
         return self.get_json()
 
-    def fare_enquiry(self, captcha: int, fare_enquiry_data: dict):
+    def fare_enquiry(self, captcha: int, data: dict):
         """
         fare enquiry
         """
         self.driver.get(
             self.url_service.get_fare_url(
                 captcha=captcha,
-                fare_enquiry_data=fare_enquiry_data,
                 time=self.time,
+                data=data,
             )
         )
         return self.get_json()
