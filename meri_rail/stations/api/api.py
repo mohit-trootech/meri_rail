@@ -12,3 +12,4 @@ class StationViewSet(
     queryset = Station.objects.all()
     serializer_class = StationSerializer
     lookup_field = "code"
+    search_fields = ("name", "code", "district__name_ascii")

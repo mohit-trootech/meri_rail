@@ -19,7 +19,6 @@ class Train(Model):
     name = CharField(max_length=100)
 
     class Meta:
-        ordering = ("number",)
         verbose_name = ModelVerbose.TRAIN
         verbose_name_plural = ModelVerbose.TRAINS
 

@@ -31,14 +31,18 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "phonenumber_field",
     "django_elasticsearch_dsl",
+    "django_filters",
 ]
 
 
 # add certificate token
 ELASTICSEARCH_DSL = {
     "default": {
-        "hosts": ["http://localhost:9200"],
-        "http_auth": ("elastic", "Gnvol0yDXYgTi*yNouij"),
+        "hosts": [env.get("ELASTIC_HOST", "http://localhost:9200")],
+        "http_auth": (
+            env.get("ELASTIC_USERNAME", "elastics"),
+            env.get("ELASTIC_PASSWORD"),
+        ),
     },
 }
 ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = (
@@ -188,6 +192,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -246,3 +254,6 @@ CAPTCHA_DRAW_URL = env.get("CAPTCHA_DRAW_URL")
 TRAIN_ROUTE_URL = env.get("TRAIN_ROUTE_URL")
 FETCH_TRAIN_DATA_URL = env.get("FETCH_TRAIN_DATA_URL")
 PNR_STATUS_URL = env.get("PNR_STATUS_URL")
+
+
+MODEL_MANAGERS = {"Train": "trains.documents.TrainDocument"}

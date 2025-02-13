@@ -28,7 +28,7 @@ class RouteInline(StackedInline):
 
 @register(Train)
 class TrainAdmin(ModelAdmin):
-    list_display = ("name", "number")
+    list_display = ("name", "number", "details__distance")
     search_fields = ("name", "number")
     ordering = ("number",)
     fields = ("number", "name")

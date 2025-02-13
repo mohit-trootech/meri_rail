@@ -6,7 +6,6 @@ from trains.api.serializers import (
     TrainDetailSerializer,
 )
 
-
 Train = get_model(app_label="trains", model_name="Train")
 TrainDetail = get_model(app_label="trains", model_name="TrainDetail")
 
@@ -16,7 +15,14 @@ class TrainViewSet(
 ):
     queryset = TrainDetail.objects.all()
     serializer_class = TrainDetailSerializer
+    permission_classes = []
     lookup_field = "train__number"
+    ordering_fields = [
+        "number",
+        "name",
+        "details__distance",
+    ]
+    search_fields = ["name", "number"]
 
     def get_queryset(self):
         if self.action == "list":
