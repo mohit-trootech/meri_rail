@@ -1,10 +1,9 @@
-from utils.api_views import BaseAPIView
 from utils.utils import get_model
 from trains_between_station.api.serializer import (
     TbisSerializer,
     TrainBetweenStationSerializer,
 )
-from utils.constants import SeleniumServices
+from rest_framework.views import APIView
 from http import HTTPStatus
 from rest_framework.response import Response
 from utils.tbis_queryset import find_trains_between_stations
@@ -12,10 +11,8 @@ from utils.tbis_queryset import find_trains_between_stations
 Route = get_model(app_label="trains", model_name="Route")
 
 
-class TrainBetweenStationApiView(BaseAPIView):
-    service = SeleniumServices.TBIS
+class TrainBetweenStationApiView(APIView):
     permission_classes = []  # TODO : Remove allow any
-    model = "He"
 
     def get(self, request):
         tbis_serializer = TbisSerializer(data=request.data)

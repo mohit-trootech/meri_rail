@@ -60,6 +60,7 @@ PROJECT_APPS = [
     "pnrs.apps.PnrsConfig",
     "fare_enquiry.apps.FareEnquiryConfig",
     "trains_between_station.apps.TrainsBetweenStationConfig",
+    "seat_availability.apps.SeatAvailabilityConfig",
     "meri_rail",
 ]
 DJANGO_APPS = [

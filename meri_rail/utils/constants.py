@@ -60,6 +60,7 @@ class UrlsV1:
     PNR_STATUS = "CommonCaptcha?inputCaptcha=%(captcha)s&inputPnrNo=%(pnr)s&inputPage=PNR&language=en"
     FARE = "CommonCaptcha?inputCaptcha=%(captcha)s&trainNo=%(train)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&classc=%(train_cls)s&quota=%(quota)s&inputPage=FARE&language=en&_=%(time)s"
     TRAIN_BETWEEN_STATIONS = "CommonCaptcha?inputCaptcha=%(captcha)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&flexiWithDate=n&inputPage=TBIS&language=en&_=%(time)s"
+    SEAT_AVAILABILITY = "CommonCaptcha?inputCaptcha=%(captcha)s&trainNo=%(train)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&classc=%(train_cls)s&quota=%(quota)s&inputPage=SEAT&language=en&_=%(time)s"
 
 
 class SeleniumServices:
@@ -67,9 +68,9 @@ class SeleniumServices:
 
     PNR_STATUS = "pnr_status"
     FARE_ENQUIRY = "fare_enquiry"
-    TBIS = "tbis"
     TRAIN_SCHEDULE = "train_schedule"
     SPOT_TRAIN = "spot_train"
+    SEAT_AVAILABILITY = "seat_availability"
 
 
 class TrainQuota:

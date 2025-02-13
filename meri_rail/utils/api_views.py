@@ -17,10 +17,10 @@ class BaseAPIView(APIView):
             return self.driver.load_pnr_details
         elif SeleniumServices.FARE_ENQUIRY == self.service:
             return self.driver.fare_enquiry
-        elif SeleniumServices.TBIS == self.service:
-            return self.driver.tbis_details
         elif SeleniumServices.SPOT_TRAIN == self.service:
             return self.driver.spot_train_details
+        elif SeleniumServices.SEAT_AVAILABILITY == self.service:
+            return self.driver.seat_availability
         raise ValueError(ErrorMessages.INVALID_SERVICE)
 
     def __init__(self, **kwargs):

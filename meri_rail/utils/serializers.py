@@ -20,8 +20,8 @@ class TrainNumberBaseSerializer(Serializer):
         if 0 > len(value) > 5:
             raise ValidationError(ValidationErrorConstants.INVALID_TRAIN_NUMBER)
         try:
-            Train.objects.filter(number=value).exists()
-        except ValueError:
+            value = Train.objects.get(number=value)
+        except Train.DoesNotExist:
             raise ValidationError(ValidationErrorConstants.INVALID_TRAIN_NUMBER)
         return value
 

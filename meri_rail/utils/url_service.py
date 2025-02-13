@@ -49,3 +49,13 @@ class UrlServiceV1:
     @classmethod
     def get_spot_train_url(cls):
         return cls.BASE_URL + (UrlsV1.SPOT_TRAIN % UrlTypesV1.SPOT_TRAIN)
+
+    @classmethod
+    def get_seat_availability(cls, captcha: str, time: str, data: dict):
+        data.update(
+            {
+                "captcha": captcha,
+                "time": time,
+            }
+        )
+        return cls.BASE_URL + (UrlsV1.SEAT_AVAILABILITY % data)

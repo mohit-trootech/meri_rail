@@ -67,12 +67,12 @@ class SeleniumService:
         )
         return self.get_json()
 
-    def tbis_details(self, captcha: str, data: dict):
+    def seat_availability(self, captcha: str, data: dict):
         """
         tbis details
         """
         self.driver.get(
-            self.url_service.get_tbis_url(
+            self.url_service.get_seat_availability(
                 captcha=captcha,
                 time=self.time,
                 data=data,
