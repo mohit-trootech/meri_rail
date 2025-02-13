@@ -48,7 +48,7 @@ class DateFromToBaseSerializer(Serializer):
             raise ValidationError(ValidationErrorConstants.DATE_IN_PAST)
         if value > now().date() + timedelta(days=90):
             raise ValidationError(ValidationErrorConstants.DATE_AFTER_THREE_MONTHS)
-        return value.strftime("%d-%m-%Y")
+        return value
 
     def validate(self, data):
         if data["from_station"].lower() == data["to_station"].lower():

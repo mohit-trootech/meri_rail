@@ -7,11 +7,12 @@ from django.db.models import (
     TimeField,
     IntegerField,
 )
-from trains.utils.constants import (
+from trains.constants import (
     TRAIN_NAME_NUMBER_VALID_FORMAT,
     ModelVerbose,
     TRAIN_STR,
 )
+from utils.constants import DayFormat
 
 
 class Train(Model):
@@ -89,3 +90,23 @@ class Route(Model):
 
     def __str__(self):
         return TRAIN_STR % (self.train.number, self.train.name)
+
+    @property
+    def runs_on_days(self):
+        """list of weekdays train runs on"""
+        week_days = []
+        if self.train.schedule.monday == "Y":
+            week_days.append(DayFormat.MONDAY + self.day_count - 1)
+        if self.train.schedule.tuesday == "Y":
+            week_days.append(DayFormat.TUESDAY + self.day_count - 1)
+        if self.train.schedule.wednesday == "Y":
+            week_days.append(DayFormat.WEDNESDAY + self.day_count - 1)
+        if self.train.schedule.thursday == "Y":
+            week_days.append(DayFormat.THURSDAY + self.day_count - 1)
+        if self.train.schedule.friday == "Y":
+            week_days.append(DayFormat.FRIDAY + self.day_count - 1)
+        if self.train.schedule.saturday == "Y":
+            week_days.append(DayFormat.SATURDAY + self.day_count - 1)
+        if self.train.schedule.sunday == "Y":
+            week_days.append(DayFormat.SUNDAY + self.day_count - 1)
+        return week_days

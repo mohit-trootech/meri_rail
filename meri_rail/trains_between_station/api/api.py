@@ -1,38 +1,34 @@
 from utils.api_views import BaseAPIView
 from utils.utils import get_model
 from trains_between_station.api.serializer import (
-    TrainBetweenStationSerializer,
     TbisSerializer,
+    TrainBetweenStationSerializer,
 )
-from utils.format_data import format_tbis_trains_list
 from utils.constants import SeleniumServices
 from http import HTTPStatus
 from rest_framework.response import Response
+from utils.tbis_queryset import find_trains_between_stations
 
-
-TrainsList = get_model(app_label="trains_between_station", model_name="TrainsList")
-TrainBetweenStation = get_model(
-    app_label="trains_between_station", model_name="TrainBetweenStation"
-)
+Route = get_model(app_label="trains", model_name="Route")
 
 
 class TrainBetweenStationApiView(BaseAPIView):
-    model = TrainBetweenStationSerializer
     service = SeleniumServices.TBIS
     permission_classes = []  # TODO : Remove allow any
+    model = "He"
 
     def get(self, request):
         tbis_serializer = TbisSerializer(data=request.data)
         tbis_serializer.is_valid(raise_exception=True)
-        return self.create(tbis_serializer)
-
-    def create(self, tbis_serializer):
-        data = self.use_selenium(data=tbis_serializer.validated_data)
-        tbis_formatted = format_tbis_trains_list(data)
-        tbis_serializer = TrainBetweenStationSerializer(data=tbis_formatted, many=True)
-        tbis_serializer.is_valid(raise_exception=True)
-        tbis_serializer.save()
-        return Response(tbis_serializer.data, status=HTTPStatus.CREATED)
+        qs = find_trains_between_stations(
+            station_from_code=tbis_serializer.validated_data["from_station"],
+            station_to_code=tbis_serializer.validated_data["to_station"],
+            date=tbis_serializer.validated_data["dt"],
+        )
+        serializer = TrainBetweenStationSerializer(
+            {"trains": qs, **tbis_serializer.validated_data}
+        )
+        return Response(serializer.data, status=HTTPStatus.OK)
 
 
 train_between_station_view = TrainBetweenStationApiView.as_view()

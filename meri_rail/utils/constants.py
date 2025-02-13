@@ -229,6 +229,42 @@ class TrainType:
         return cls.CHOICES
 
 
+class DayFormat:
+    MONDAY = 0
+    TUESDAY = 1
+    WEDNESDAY = 2
+    THURSDAY = 3
+    FRIDAY = 4
+    SATURDAY = 5
+    SUNDAY = 6
+
+    CHOICES = (
+        (MONDAY, _("Monday")),
+        (TUESDAY, _("Tuesday")),
+        (WEDNESDAY, _("Wednesday")),
+        (THURSDAY, _("Thursday")),
+        (FRIDAY, _("Friday")),
+        (SATURDAY, _("Saturday")),
+        (SUNDAY, _("Sunday")),
+    )
+
+    @classmethod
+    def get_choice(cls):
+        return cls.CHOICES
+
+    @classmethod
+    def get_api_choices(cls):
+        return {
+            cls.MONDAY: _("Monday"),
+            cls.TUESDAY: _("Tuesday"),
+            cls.WEDNESDAY: _("Wednesday"),
+            cls.THURSDAY: _("Thursday"),
+            cls.FRIDAY: _("Friday"),
+            cls.SATURDAY: _("Saturday"),
+            cls.SUNDAY: _("Sunday"),
+        }
+
+
 class ErrorMessages:
     NOT_DEFINED = "%s is not defined as class atrribute"
     UNABLE_TO_PROCESS_TRY_AGAIN_LATER = _(
