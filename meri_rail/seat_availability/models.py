@@ -8,6 +8,12 @@ class SeatAvailability(TimeStampedModel):
     train = ForeignKey(
         "trains.Train", on_delete=CASCADE, related_name="seats_availability"
     )
+    from_station = ForeignKey(
+        "stations.Station", on_delete=CASCADE, related_name="from_seats_availability"
+    )
+    to_station = ForeignKey(
+        "stations.Station", on_delete=CASCADE, related_name="to_seats_availability"
+    )
     dt = DateField(verbose_name=ModelVerbose.DATE)
     available = CharField(max_length=64)
     quota = CharField(max_length=64, choices=TrainQuota.get_choice())

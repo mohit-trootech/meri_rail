@@ -8,11 +8,13 @@ from utils.serializers import (
 from rest_framework.serializers import ChoiceField
 from utils.constants import JourneyClass, TrainQuota
 from rest_framework import serializers
+from stations.api.serializers import StationSerializer
 
 SeatAvailability = get_model(
     app_label="seat_availability", model_name="SeatAvailability"
 )
 Train = get_model(app_label="trains", model_name="Train")
+Station = get_model(app_label="stations", model_name="Station")
 
 
 class SeatAvailabilityFilterSerializer(
@@ -52,12 +54,16 @@ class CustomListSerializer(serializers.ListSerializer):
 
 class SeatAvailabilitySerializer(DynamicModelSerializer):
     train = TrainSerializer(many=False, read_only=True)
+    from_station = StationSerializer(many=False, read_only=True)
+    to_station = StationSerializer(many=False, read_only=True)
 
     class Meta:
         model = SeatAvailability
         fields = (
             "train",
             "dt",
+            "from_station",
+            "to_station",
             "available",
             "created",
             "modified",
@@ -71,7 +77,13 @@ class SeatAvailabilitySerializer(DynamicModelSerializer):
             {
                 "train_id": Train.objects.get(
                     number=self.context["request"].data["train"]
-                ).id
+                ).id,
+                "from_station_id": Station.objects.get(
+                    code=self.context["request"].data["from_station"]
+                ).id,
+                "to_station_id": Station.objects.get(
+                    code=self.context["request"].data["to_station"]
+                ).id,
             }
         )
         return super().create(validated_data)

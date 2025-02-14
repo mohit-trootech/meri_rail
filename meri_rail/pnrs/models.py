@@ -9,6 +9,7 @@ from django.db.models import (
 )
 from django_extensions.db.models import TimeStampedModel
 from phonenumber_field.modelfields import PhoneNumberField
+from utils.constants import TrainQuota
 
 
 class Pnr(TimeStampedModel):
@@ -30,7 +31,9 @@ class Pnr(TimeStampedModel):
     cancel_status = CharField(max_length=64, null=True, blank=True)
     booking_fare = IntegerField(null=True, blank=True)
     ticket_fare = IntegerField(null=True, blank=True)
-    quota = CharField(max_length=16, null=True, blank=True)
+    quota = CharField(
+        max_length=16, choices=TrainQuota.get_choice(), null=True, blank=True
+    )
     vikalp_otp = CharField(max_length=8, null=True, blank=True)
     booking_date = DateField(null=True, blank=True)
     mobile_number = PhoneNumberField(region="IN", null=True, blank=True)
@@ -47,7 +50,9 @@ class Pnr(TimeStampedModel):
 class Passengers(Model):
     pnr = ForeignKey("pnrs.Pnr", on_delete=CASCADE, related_name="passengers")
     serial_number = IntegerField()
-    quota = CharField(max_length=16, null=True, blank=True)
+    quota = CharField(
+        max_length=16, choices=TrainQuota.get_choice(), null=True, blank=True
+    )
     nationality = CharField(max_length=8, null=True, blank=True)
     waitlist_type = CharField(max_length=16, null=True, blank=True)
     booking_status = CharField(max_length=16, null=True, blank=True)
