@@ -22,5 +22,7 @@ class PnrAdmin(ModelAdmin):
         "boarding__code",
     )
     search_fields = ("pnr", "train__number")
+    readonly_fields = ("created", "modified")
     list_filter = ("date_of_journey",)
     inlines = (PassengersInline,)
+    filter_horizontal = ["users"]

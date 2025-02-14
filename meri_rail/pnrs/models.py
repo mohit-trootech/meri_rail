@@ -6,6 +6,7 @@ from django.db.models import (
     BigIntegerField,
     CASCADE,
     ForeignKey,
+    ManyToManyField,
 )
 from django_extensions.db.models import TimeStampedModel
 from phonenumber_field.modelfields import PhoneNumberField
@@ -13,6 +14,7 @@ from utils.constants import TrainQuota
 
 
 class Pnr(TimeStampedModel):
+    users = ManyToManyField("users.User", related_name="pnrs")
     pnr = BigIntegerField(unique=True)
     date_of_journey = DateField()
     train = ForeignKey("trains.Train", on_delete=CASCADE, related_name="pnrs")
@@ -42,6 +44,10 @@ class Pnr(TimeStampedModel):
     class Meta:
         verbose_name = "Pnr"
         verbose_name_plural = "Pnr"
+
+    def add_user_to_pnr(self, user):
+        """Adds the given user to the pnr's users field."""
+        self.users.add(user.pk)
 
     def __str__(self):
         return str(self.pnr)

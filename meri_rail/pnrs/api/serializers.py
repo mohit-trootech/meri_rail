@@ -73,6 +73,20 @@ class PnrDetailSerializer(DynamicModelSerializer):
             "passengers",
         )
 
+    def update(self, instance, validated_data):
+        passengers = validated_data.pop("passengers")
+        instance = super().update(instance, validated_data)
+        for passenger in passengers:
+            try:
+                Passengers.objects.filter(
+                    pnr=instance, serial_number=passenger["serial_number"]
+                ).update(**passenger)
+            except Exception as err:
+                raise serializers.ValidationError({"message": str(err)})
+        instance.users.add(self.context["request"].user.pk)
+        print(instance.modified)
+        return instance
+
     def create(self, validated_data):
         passengers = validated_data.pop("passengers")
         instance = super().create(validated_data)
@@ -82,4 +96,5 @@ class PnrDetailSerializer(DynamicModelSerializer):
             except Exception as err:
                 instance.delete()
                 raise serializers.ValidationError({"message": str(err)})
+        instance.users.add(self.context["request"].user.pk)
         return instance
