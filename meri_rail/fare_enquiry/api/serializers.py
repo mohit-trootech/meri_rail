@@ -1,12 +1,15 @@
 from utils.utils import get_model
-from utils.serializers import DynamicModelSerializer, DateFromToBaseSerializer
+from utils.serializers import (
+    DynamicModelSerializer,
+    DateFromToBaseSerializer,
+    TrainNumberBaseSerializer,
+)
 from trains.api.serializers import TrainSerializer
 from stations.api.serializers import StationSerializer
 from rest_framework.serializers import (
     DateField,
     CharField,
     ChoiceField,
-    ValidationError,
 )
 from utils.constants import TrainQuota, JourneyClass
 
@@ -16,7 +19,7 @@ Train = get_model(app_label="trains", model_name="Train")
 Station = get_model(app_label="stations", model_name="Station")
 
 
-class FareEnquirySerializer(DateFromToBaseSerializer):
+class FareEnquirySerializer(DateFromToBaseSerializer, TrainNumberBaseSerializer):
     train = CharField(required=True)
     dt = DateField(required=True)
     from_station = CharField(required=True)
@@ -29,13 +32,8 @@ class FareEnquirySerializer(DateFromToBaseSerializer):
         return value.strftime("%d-%m-%Y")
 
     def validate_train(self, value):
-        if len(value) != 5:
-            raise ValidationError("Train number must be 5 digits")
-        try:
-            train = Train.objects.get(number=value)
-            return train.name_number_format
-        except Train.DoesNotExist:
-            raise ValidationError("Train number is invalid")
+        value = super().validate_train(value)
+        return value.name_number_format
 
 
 class FareBreakDownSerializer(DynamicModelSerializer):

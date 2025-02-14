@@ -3,23 +3,20 @@ from fare_enquiry.api.serializers import (
     FareSerializer,
 )
 from utils.utils import get_model, format_fare_serializer
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from utils.api_views import BaseAPIView
 from http import HTTPStatus
 from utils.constants import SeleniumServices
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
+from django.core.cache import cache
+from fare_enquiry.constants import CACHE_KEY
 
 Fare = get_model(app_label="fare_enquiry", model_name="Fare")
 
 
-@method_decorator(cache_page(60 * 60), name="dispatch")
 class FareView(BaseAPIView):
     model = Fare
     serializer_class = FareEnquirySerializer
     service = SeleniumServices.FARE_ENQUIRY
-    permission_classes = [AllowAny]  # TODO: Remove AllowAny permissions
 
     def get(self, request):
         """
@@ -27,6 +24,10 @@ class FareView(BaseAPIView):
         """
         enquiry_serializer = FareEnquirySerializer(data=request.data)
         enquiry_serializer.is_valid(raise_exception=True)
+        cache_data = cache.get(CACHE_KEY % enquiry_serializer.validated_data)
+        if cache_data:
+            fare_serializer = FareSerializer(cache_data)
+            return Response(fare_serializer.data)
         fare = self.get_object(
             {
                 "train__number": request.data["train"],
@@ -47,6 +48,7 @@ class FareView(BaseAPIView):
         fare_serializer = FareSerializer(data=formatted_data)
         fare_serializer.is_valid(raise_exception=True)
         fare_serializer.save(**formatted_data)
+        cache.set(CACHE_KEY % enquiry_serializer.validated_data, fare_serializer.data)
         return Response(fare_serializer.data, status=HTTPStatus.CREATED)
 
 

@@ -4,8 +4,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from http import HTTPStatus
 from meri_rail.constants import ErrorMessages
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(cache_page(60 * 1440), name="dispatch")
 class BaseChoicesView(APIView):
     permission_classes = [AllowAny]
     choice_class = None
