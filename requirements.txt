@@ -37,6 +37,8 @@ executing==2.2.0
 factory_boy==3.3.1
 Faker==35.0.0
 firebase-admin==6.6.0
+geographiclib==2.0
+geopy==2.4.1
 google-api-core==2.24.1
 google-api-python-client==2.160.0
 google-auth==2.38.0
