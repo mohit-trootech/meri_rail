@@ -99,9 +99,9 @@ def format_pnr_details_in_valid_format(data: dict) -> dict:
     :return: dict
     """
     train = Train.objects.get(number=data["trainNumber"]).id
-    source = Station.objects.get(code=data["sourceStation"]).id
-    destination = Station.objects.get(code=data["destinationStation"]).id
-    boarding = Station.objects.get(code=data["reservationUpto"]).id
+    source = Station.objects.get(code=data["sourceStation"].upper()).id
+    destination = Station.objects.get(code=data["destinationStation"].upper()).id
+    boarding = Station.objects.get(code=data["reservationUpto"].upper()).id
     return {
         "pnr": data["pnrNumber"],
         "date_of_journey": parse_date_string(data["dateOfJourney"]),
@@ -137,8 +137,8 @@ def format_fare_serializer(data: dict, payload) -> dict:
     :return: dict
     """
     train = Train.objects.get(number=payload["train"]).id
-    from_station = Station.objects.get(code=payload["from_station"]).id
-    to_station = Station.objects.get(code=payload["to_station"]).id
+    from_station = Station.objects.get(code=payload["from_station"].upper()).id
+    to_station = Station.objects.get(code=payload["to_station"].upper()).id
     return {
         "train_id": train,
         "from_station_id": from_station,

@@ -36,10 +36,10 @@ class Command(BaseCommand):
                     try:
                         station_list = data["stationList"]
                         station_from = Station.objects.get(
-                            code=station_list[0]["stationCode"]
+                            code=station_list[0]["stationCode"].upper()
                         )
                         station_to = Station.objects.get(
-                            code=station_list[-1]["stationCode"]
+                            code=station_list[-1]["stationCode"].upper()
                         )
                         self.valid_trains.append(
                             TrainDetail(
@@ -73,7 +73,9 @@ class Command(BaseCommand):
                                 "dayCount": "1",
                                 "stnSerialNumber": "1",
                             }
-                            station = Station.objects.get(code=item["stationCode"])
+                            station = Station.objects.get(
+                                code=item["stationCode"].upper()
+                            )
                             route = Route(
                                 train=train,
                                 station=station,

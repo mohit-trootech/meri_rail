@@ -24,6 +24,10 @@ class FareEnquirySerializer(DateFromToBaseSerializer):
     train_cls = ChoiceField(required=True, choices=JourneyClass.get_choice())
     quota = ChoiceField(required=True, choices=TrainQuota.get_choice())
 
+    def validate_dt(self, value):
+        value = super().validate_dt(value)
+        return value.strftime("%d-%m-%Y")
+
     def validate_train(self, value):
         if len(value) != 5:
             raise ValidationError("Train number must be 5 digits")

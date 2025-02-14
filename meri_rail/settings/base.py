@@ -256,5 +256,11 @@ TRAIN_ROUTE_URL = env.get("TRAIN_ROUTE_URL")
 FETCH_TRAIN_DATA_URL = env.get("FETCH_TRAIN_DATA_URL")
 PNR_STATUS_URL = env.get("PNR_STATUS_URL")
 
-
-MODEL_MANAGERS = {"Train": "trains.documents.TrainDocument"}
+# Cache Configuration
+# =====================================================
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "meri_rail_cache",
+    }
+}

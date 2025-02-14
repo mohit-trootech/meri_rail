@@ -79,10 +79,10 @@ class SeatAvailabilitySerializer(DynamicModelSerializer):
                     number=self.context["request"].data["train"]
                 ).id,
                 "from_station_id": Station.objects.get(
-                    code=self.context["request"].data["from_station"]
+                    code=self.context["request"].data["from_station"].upper()
                 ).id,
                 "to_station_id": Station.objects.get(
-                    code=self.context["request"].data["to_station"]
+                    code=self.context["request"].data["to_station"].upper()
                 ).id,
             }
         )
