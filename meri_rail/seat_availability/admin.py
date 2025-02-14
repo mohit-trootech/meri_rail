@@ -1,9 +1,8 @@
 from django.contrib.admin import register, ModelAdmin
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-SeatAvailability = get_model(
-    app_label="seat_availability", model_name="SeatAvailability"
-)
+SeatAvailability = get_model(**AppLabelsModel.SEAT_AVAILABILITY)
 
 
 @register(SeatAvailability)

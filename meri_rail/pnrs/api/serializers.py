@@ -2,11 +2,12 @@ from rest_framework import serializers
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
 from pnrs.constants import ValidationErrorsConstants
+from utils.constants import AppLabelsModel
 from trains.api.serializers import TrainSerializer
 from stations.api.serializers import StationSerializer
 
-Pnr = get_model(app_label="pnrs", model_name="Pnr")
-Passengers = get_model(app_label="pnrs", model_name="Passengers")
+Pnr = get_model(**AppLabelsModel.PNR)
+Passengers = get_model(**AppLabelsModel.PASSENGER)
 
 
 class PnrNumberSerializer(serializers.Serializer):

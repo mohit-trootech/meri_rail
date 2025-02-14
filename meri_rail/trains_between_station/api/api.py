@@ -9,8 +9,9 @@ from rest_framework.response import Response
 from utils.tbis_queryset import find_trains_between_stations
 from trains_between_station.constants import TBIS_CACHE_KEY
 from django.core.cache import cache
+from utils.constants import AppLabelsModel, CacheTimeout
 
-Route = get_model(app_label="trains", model_name="Route")
+Route = get_model(**AppLabelsModel.ROUTE)
 
 
 class TrainBetweenStationApiView(APIView):
@@ -31,7 +32,7 @@ class TrainBetweenStationApiView(APIView):
         cache.set(
             TBIS_CACHE_KEY % tbis_serializer.validated_data,
             serializer.data,
-            60 * 60 * 24,
+            CacheTimeout.ONE_DAY,
         )
         return Response(serializer.data, status=HTTPStatus.OK)
 

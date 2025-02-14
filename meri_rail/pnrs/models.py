@@ -11,6 +11,7 @@ from django.db.models import (
 from django_extensions.db.models import TimeStampedModel
 from phonenumber_field.modelfields import PhoneNumberField
 from utils.constants import TrainQuota
+from pnrs.constants import ModelVerbose
 
 
 class Pnr(TimeStampedModel):
@@ -42,8 +43,8 @@ class Pnr(TimeStampedModel):
     distance = IntegerField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Pnr"
-        verbose_name_plural = "Pnr"
+        verbose_name = ModelVerbose.PNR
+        verbose_name_plural = ModelVerbose.PNR
 
     def add_user_to_pnr(self, user):
         """Adds the given user to the pnr's users field."""
@@ -71,8 +72,8 @@ class Passengers(Model):
     current_details = CharField(max_length=32, null=True, blank=True)
 
     class Meta:
-        verbose_name = "Passengers"
-        verbose_name_plural = "Passengers"
+        verbose_name = ModelVerbose.PASSENGERS
+        verbose_name_plural = ModelVerbose.PASSENGERS
 
     def __str__(self):
         return str(self.serial_number)

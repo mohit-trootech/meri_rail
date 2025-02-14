@@ -11,12 +11,12 @@ from rest_framework.serializers import (
     CharField,
     ChoiceField,
 )
-from utils.constants import TrainQuota, JourneyClass
+from utils.constants import TrainQuota, JourneyClass, AppLabelsModel, DD_MM_YYYY
 
-Fare = get_model(app_label="fare_enquiry", model_name="Fare")
-FareBreakDown = get_model(app_label="fare_enquiry", model_name="FareBreakDown")
-Train = get_model(app_label="trains", model_name="Train")
-Station = get_model(app_label="stations", model_name="Station")
+Fare = get_model(**AppLabelsModel.FARE)
+FareBreakDown = get_model(**AppLabelsModel.FARE_BREAKDOWN)
+Train = get_model(**AppLabelsModel.TRAIN)
+Station = get_model(**AppLabelsModel.STATION)
 
 
 class FareEnquirySerializer(DateFromToBaseSerializer, TrainNumberBaseSerializer):
@@ -29,7 +29,7 @@ class FareEnquirySerializer(DateFromToBaseSerializer, TrainNumberBaseSerializer)
 
     def validate_dt(self, value):
         value = super().validate_dt(value)
-        return value.strftime("%d-%m-%Y")
+        return value.strftime(DD_MM_YYYY)
 
     def validate_train(self, value):
         value = super().validate_train(value)

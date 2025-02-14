@@ -5,12 +5,12 @@ from rest_framework.serializers import (
     CharField,
     ValidationError,
 )
-from utils.constants import ValidationErrorConstants
+from utils.constants import ValidationErrorConstants, AppLabelsModel
 from django.utils.timezone import now, timedelta
 from utils.utils import get_model
 
-Station = get_model(app_label="stations", model_name="Station")
-Train = get_model(app_label="trains", model_name="Train")
+Station = get_model(**AppLabelsModel.STATION)
+Train = get_model(**AppLabelsModel.TRAIN)
 
 
 class TrainNumberBaseSerializer(Serializer):

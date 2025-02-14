@@ -1,11 +1,12 @@
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
 from stations.api.serializers import StationSerializer
+from utils.constants import AppLabelsModel
 
-Train = get_model(app_label="trains", model_name="Train")
-TrainDetail = get_model(app_label="trains", model_name="TrainDetail")
-Schedule = get_model(app_label="trains", model_name="Schedule")
-Route = get_model(app_label="trains", model_name="Route")
+Train = get_model(**AppLabelsModel.TRAIN)
+TrainDetail = get_model(**AppLabelsModel.TRAIN_DETAIL)
+Schedule = get_model(**AppLabelsModel.SCHEDULE)
+Route = get_model(**AppLabelsModel.ROUTE)
 
 
 class RouteSerializer(DynamicModelSerializer):

@@ -1,5 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 
+DD_MM_YYYY = "%d-%m-%Y"
+YYYY_MM_DD = "%Y-%m-%d"
+
 
 # Settings Constants
 # =====================================================
@@ -283,3 +286,57 @@ class ValidationErrorConstants:
     FROM_TO_STATION_SAME = _("From and to station cannot be same")
     DATE_AFTER_THREE_MONTHS = _("Date cannot be more than 3 months from today")
     INVALID_TRAIN_NUMBER = _("Train number is invalid")
+
+
+class AppLabelsModel:
+    ROUTE = {"app_label": "trains", "model_name": "Route"}
+    SCHEDULE = {"app_label": "trains", "model_name": "Schedule"}
+    EMAIL_TEMPLATE = {"app_label": "meri_rail", "model_name": "EmailTemplate"}
+    NOTIFICATION = {"app_label": "meri_rail", "model_name": "Notification"}
+    FARE = {
+        "app_label": "fare_enquiry",
+        "model_name": "Fare",
+    }
+    FARE_BREAKDOWN = {"app_label": "fare_enquiry", "model_name": "FareBreakDown"}
+    TRAIN = {
+        "app_label": "trains",
+        "model_name": "Train",
+    }
+    TRAIN_DETAIL = {"app_label": "trains", "model_name": "TrainDetail"}
+    STATION = {
+        "app_label": "stations",
+        "model_name": "Station",
+    }
+    PASSENGER = {
+        "app_label": "pnrs",
+        "model_name": "Passengers",
+    }
+    PNR = {
+        "app_label": "pnrs",
+        "model_name": "Pnr",
+    }
+    SEAT_AVAILABILITY = {
+        "app_label": "seat_availability",
+        "model_name": "SeatAvailability",
+    }
+    UTTERANCES = {
+        "app_label": "stations",
+        "model_name": "Utterance",
+    }
+
+
+class CacheTimeout:
+    ONE_MINUTE = 60
+    TEN_MINUTES = 60 * 10
+    THIRTY_MINUTES = 60 * 30
+    ONE_HOUR = 60 * 60
+    ONE_DAY = 60 * 60 * 24
+
+    @classmethod
+    def x_minutes(cls, x: int):
+        return x * 60
+
+
+class LookUps:
+    STATION_CODE = "code__iexact"
+    TRAIN_NUMBER = "train__number"

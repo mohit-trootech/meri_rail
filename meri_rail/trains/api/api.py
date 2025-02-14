@@ -1,6 +1,7 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from utils.utils import get_model
+from utils.constants import AppLabelsModel, LookUps, CacheTimeout
 from trains.api.serializers import (
     TrainSerializer,
     TrainDetailSerializer,
@@ -10,8 +11,8 @@ from http import HTTPStatus
 from rest_framework.response import Response
 from trains.constants import TRAIN_CACHE_KEY
 
-Train = get_model(app_label="trains", model_name="Train")
-TrainDetail = get_model(app_label="trains", model_name="TrainDetail")
+Train = get_model(**AppLabelsModel.TRAIN)
+TrainDetail = get_model(**AppLabelsModel.TRAIN_DETAIL)
 
 
 class TrainViewSet(
@@ -19,7 +20,7 @@ class TrainViewSet(
 ):
     queryset = TrainDetail.objects.all()
     serializer_class = TrainDetailSerializer
-    lookup_field = "train__number"
+    lookup_field = LookUps.TRAIN_NUMBER
     ordering_fields = [
         "number",
         "name",
@@ -38,12 +39,14 @@ class TrainViewSet(
         return super().get_serializer_class()
 
     def retrieve(self, request, *args, **kwargs):
-        if "train__number" in kwargs:
-            cache_data = cache.get(TRAIN_CACHE_KEY % kwargs["train__number"])
+        if LookUps.TRAIN_NUMBER in kwargs:
+            cache_data = cache.get(TRAIN_CACHE_KEY % kwargs[LookUps.TRAIN_NUMBER])
             if cache_data:
                 return Response(cache_data, status=HTTPStatus.OK)
         response = super().retrieve(request, *args, **kwargs)
         cache.set(
-            TRAIN_CACHE_KEY % kwargs["train__number"], response.data, 60 * 60 * 24
+            TRAIN_CACHE_KEY % kwargs[LookUps.TRAIN_NUMBER],
+            response.data,
+            CacheTimeout.ONE_DAY,
         )
         return response

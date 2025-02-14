@@ -1,8 +1,9 @@
 from django.contrib.admin import ModelAdmin, register, StackedInline
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-Station = get_model(app_label="stations", model_name="Station")
-Uttrance = get_model(app_label="stations", model_name="Utterance")
+Station = get_model(**AppLabelsModel.STATION)
+Uttrance = get_model(**AppLabelsModel.UTTERANCES)
 
 
 class UtteranceAdmin(StackedInline):

@@ -6,15 +6,13 @@ from utils.serializers import (
     TrainNumberBaseSerializer,
 )
 from rest_framework.serializers import ChoiceField
-from utils.constants import JourneyClass, TrainQuota
+from utils.constants import JourneyClass, TrainQuota, AppLabelsModel, DD_MM_YYYY
 from rest_framework import serializers
 from stations.api.serializers import StationSerializer
 
-SeatAvailability = get_model(
-    app_label="seat_availability", model_name="SeatAvailability"
-)
-Train = get_model(app_label="trains", model_name="Train")
-Station = get_model(app_label="stations", model_name="Station")
+SeatAvailability = get_model(**AppLabelsModel.SEAT_AVAILABILITY)
+Train = get_model(**AppLabelsModel.TRAIN)
+Station = get_model(**AppLabelsModel.STATION)
 
 
 class SeatAvailabilityFilterSerializer(
@@ -29,7 +27,7 @@ class SeatAvailabilityFilterSerializer(
 
     def validate_dt(self, value):
         value = super().validate_dt(value)
-        return value.strftime("%d-%m-%Y")
+        return value.strftime(DD_MM_YYYY)
 
 
 class CustomListSerializer(serializers.ListSerializer):

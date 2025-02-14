@@ -1,8 +1,9 @@
 from django.contrib.admin import ModelAdmin, register, StackedInline
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-Fare = get_model(app_label="fare_enquiry", model_name="Fare")
-FareBreakDown = get_model(app_label="fare_enquiry", model_name="FareBreakDown")
+Fare = get_model(**AppLabelsModel.FARE)
+FareBreakDown = get_model(**AppLabelsModel.FARE_BREAKDOWN)
 
 
 class FareBreakDownInline(StackedInline):

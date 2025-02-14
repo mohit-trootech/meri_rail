@@ -1,14 +1,15 @@
-from utils.utils import get_model, format_pnr_details_in_valid_format
+from utils.utils import get_model
+from utils.format_data import format_pnr_details_in_valid_format
 from pnrs.api.serializers import PnrNumberSerializer, PnrDetailSerializer
 from rest_framework.response import Response
 from utils.api_views import BaseAPIView
-from utils.constants import SeleniumServices
+from utils.constants import SeleniumServices, AppLabelsModel
 from http import HTTPStatus
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 from django.utils.timezone import now, timedelta
 
-Pnr = get_model(app_label="pnrs", model_name="Pnr")
+Pnr = get_model(**AppLabelsModel.PNR)
 
 
 @method_decorator(never_cache, name="dispatch")

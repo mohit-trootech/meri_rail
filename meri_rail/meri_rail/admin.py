@@ -1,8 +1,9 @@
 from django.contrib.admin import register, ModelAdmin
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-EmailTemplate = get_model(app_label="meri_rail", model_name="EmailTemplate")
-Notification = get_model(app_label="meri_rail", model_name="Notification")
+EmailTemplate = get_model(**AppLabelsModel.EMAIL_TEMPLATE)
+Notification = get_model(**AppLabelsModel.NOTIFICATION)
 
 
 @register(EmailTemplate)

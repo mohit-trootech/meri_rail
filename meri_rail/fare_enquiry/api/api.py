@@ -2,15 +2,16 @@ from fare_enquiry.api.serializers import (
     FareEnquirySerializer,
     FareSerializer,
 )
-from utils.utils import get_model, format_fare_serializer
+from utils.utils import get_model
+from utils.format_data import format_fare_serializer
 from rest_framework.response import Response
 from utils.api_views import BaseAPIView
 from http import HTTPStatus
-from utils.constants import SeleniumServices
+from utils.constants import SeleniumServices, AppLabelsModel, CacheTimeout
 from django.core.cache import cache
 from fare_enquiry.constants import CACHE_KEY
 
-Fare = get_model(app_label="fare_enquiry", model_name="Fare")
+Fare = get_model(**AppLabelsModel.FARE)
 
 
 class FareView(BaseAPIView):
@@ -55,7 +56,7 @@ class FareView(BaseAPIView):
         cache.set(
             CACHE_KEY % enquiry_serializer.validated_data,
             fare_serializer.data,
-            60 * 1440,
+            CacheTimeout.ONE_DAY,
         )
         return Response(fare_serializer.data, status=HTTPStatus.CREATED)
 

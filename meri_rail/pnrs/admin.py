@@ -1,8 +1,9 @@
 from django.contrib.admin import ModelAdmin, register, StackedInline
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-Pnr = get_model(app_label="pnrs", model_name="Pnr")
-Passengers = get_model(app_label="pnrs", model_name="Passengers")
+Pnr = get_model(**AppLabelsModel.PNR)
+Passengers = get_model(**AppLabelsModel.PASSENGER)
 
 
 class PassengersInline(StackedInline):

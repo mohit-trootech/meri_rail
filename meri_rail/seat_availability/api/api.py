@@ -1,5 +1,5 @@
 from utils.api_views import BaseAPIView
-from utils.constants import SeleniumServices
+from utils.constants import SeleniumServices, AppLabelsModel, CacheTimeout, YYYY_MM_DD
 from seat_availability.api.serializer import (
     SeatAvailabilitySerializer,
     SeatAvailabilityFilterSerializer,
@@ -13,9 +13,7 @@ from django.core.cache import cache
 from seat_availability.constants import SEAT_AVAILABILITY_CACHE
 
 
-SeatAvailability = get_model(
-    app_label="seat_availability", model_name="SeatAvailability"
-)
+SeatAvailability = get_model(**AppLabelsModel.SEAT_AVAILABILITY)
 
 
 class SeatAvailabilityAPIView(BaseAPIView):
@@ -42,7 +40,7 @@ class SeatAvailabilityAPIView(BaseAPIView):
         cache.set(
             SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
             serializer.data,
-            timeout=60 * 10,
+            timeout=CacheTimeout.TEN_MINUTES,
         )
         return Response(serializer.data, status=HTTPStatus.CREATED)
 
@@ -56,25 +54,26 @@ class SeatAvailabilityAPIView(BaseAPIView):
         cache.set(
             SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
             serializer.data,
-            timeout=60 * 10,
+            timeout=CacheTimeout.TEN_MINUTES,
         )
         return Response(serializer.data, status=HTTPStatus.OK)
 
     def get(self, request, *args, **kwargs):
         filter_serializer = self.filter_serializer_class(data=request.data)
         filter_serializer.is_valid(raise_exception=True)
-        dates = [
-            (
-                now().strptime(self.request.data["dt"], "%Y-%m-%d")
-                + timedelta(days=counter)
-            ).strftime("%Y-%m-%d")
-            for counter in range(6)
-        ]
+
         cache_data = cache.get(
             SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
         )
         if cache_data:
             return Response(cache_data, status=HTTPStatus.OK)
+        dates = [
+            (
+                now().strptime(self.request.data["dt"], YYYY_MM_DD)
+                + timedelta(days=counter)
+            ).strftime(YYYY_MM_DD)
+            for counter in range(6)
+        ]
         qs = self.queryset.filter(
             **{
                 "train__number": request.data["train"],
@@ -91,7 +90,7 @@ class SeatAvailabilityAPIView(BaseAPIView):
         cache.set(
             SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
             serializer.data,
-            60 * 10,
+            CacheTimeout.TEN_MINUTES,
         )
         return Response(serializer.data, status=HTTPStatus.OK)
 

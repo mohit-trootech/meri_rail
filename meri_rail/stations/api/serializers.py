@@ -1,9 +1,10 @@
 from utils.serializers import DynamicModelSerializer
 from utils.utils import get_model
-from cities_light.models import City, Region, Country  # type:ignore
+from cities_light.models import City, Region, Country
+from utils.constants import AppLabelsModel
 
-Station = get_model(app_label="stations", model_name="Station")
-Utterance = get_model(app_label="stations", model_name="Utterance")
+Station = get_model(**AppLabelsModel.STATION)
+Utterance = get_model(**AppLabelsModel.UTTERANCES)
 
 
 class CitiesLightBaseSerializer(DynamicModelSerializer):
