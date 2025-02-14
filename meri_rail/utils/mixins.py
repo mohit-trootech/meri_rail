@@ -37,7 +37,7 @@ class ElasticFilterMixin:
         wildcard_query = Q(
             "bool",
             should=[
-                Q("wildcard", **{field: "*{search_term.lower()}*"})
+                Q("wildcard", **{field: f"*{search_term.lower()}*"})
                 for field in self.get_elastic_search_fields()
             ],
         )
@@ -51,7 +51,7 @@ class ElasticFilterMixin:
                     filters.append(Q("term", **{field: param_filters[field]}))
             filter_query = Q("bool", should=[query], filter=filters)
             query = query & filter_query
-        return query
+        return wildcard_query
 
     def filter_queryset(self, queryset):
         """
@@ -64,9 +64,10 @@ class ElasticFilterMixin:
         """
         Filter queryset by elasticsearch.
         """
+
         search_term = self.get_search_term()
         if not search_term:
             return queryset
         query = self.get_elastic_queryset(search_term)
-        search = self.document_class.search().query(query)
+        search = self.document_class.search().extra(size=20).query(query)
         return search.to_queryset()
