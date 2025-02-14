@@ -8,10 +8,13 @@ from rest_framework.response import Response
 from utils.api_views import BaseAPIView
 from http import HTTPStatus
 from utils.constants import SeleniumServices
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 Fare = get_model(app_label="fare_enquiry", model_name="Fare")
 
 
+@method_decorator(cache_page(60 * 60), name="dispatch")
 class FareView(BaseAPIView):
     model = Fare
     serializer_class = FareEnquirySerializer
