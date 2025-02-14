@@ -1,23 +1,25 @@
-"""
-URL configuration for meri_rail project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from trains.urls import router as train_router
+from stations.urls import router as station_router
+from rest_framework.routers import DefaultRouter
+from debug_toolbar.toolbar import debug_toolbar_urls
+from meri_rail.api.api import train_quota_view, journey_class_view, seat_type_view
+
+router = DefaultRouter()
+router.registry.extend(train_router.registry)
+router.registry.extend(station_router.registry)
+
 
 urlpatterns = [
+    path("api/", include(router.urls)),
+    path("api/train_quota/", train_quota_view, name="train_quota"),
+    path("api/journey_class/", journey_class_view, name="journey_class"),
+    path("api/seat_type/", seat_type_view, name="seat_type"),
+    path("api/", include("pnrs.urls")),
+    path("api/", include("fare_enquiry.urls")),
+    path("api/", include("trains_between_station.urls")),
+    path("api/", include("seat_availability.urls")),
+    path("users/", include("users.urls")),
     path("admin/", admin.site.urls),
-]
+] + debug_toolbar_urls()

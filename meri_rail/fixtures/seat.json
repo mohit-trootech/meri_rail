@@ -1,0 +1,457 @@
+[
+  {
+    "trainName": "ASHRAM EXPRESS",
+    "prsSiteId": "B",
+    "travelInsuranceCharge": 0,
+    "travelInsuranceServiceTax": 0,
+    "insuredPsgnCount": 0,
+    "serverId": "aposch02:instance1",
+    "timeStamp": "2025-02-11T18:25:48.485+05:30",
+    "bkgCfg": {
+      "seniorCitizenApplicable": true,
+      "foodChoiceEnabled": false,
+      "idRequired": false,
+      "bedRollFlagEnabled": false,
+      "maxPassengers": 6,
+      "maxInfants": 2,
+      "minNameLength": 3,
+      "maxNameLength": 16,
+      "srctznAge": 60,
+      "srctnwAge": 58,
+      "maxARPDays": 60,
+      "maxRetentionDays": 5,
+      "minPassengerAge": 5,
+      "maxPassengerAge": 125,
+      "maxChildAge": 11,
+      "minIdCardLength": 4,
+      "maxIdCardLength": 16,
+      "minPassportLength": 6,
+      "maxPassportLength": 11,
+      "lowerBerthApplicable": true,
+      "newTimeTable": true,
+      "childBerthMandatory": false,
+      "validIdCardTypes": [
+        "NULL_IDCARD",
+        "DRIVING_LICENSE",
+        "PASSPORT",
+        "PANCARD",
+        "VOTER_ICARD",
+        "GOVT_ICARD",
+        "STUDENT_ICARD",
+        "BANK_PASSBOOK",
+        "CREDIT_CARD",
+        "UNIQUE_ICARD"
+      ],
+      "applicableBerthTypes": ["LB", "MB", "UB", "SL", "SU"],
+      "suvidhaTrain": false,
+      "specialTatkal": false,
+      "atasEnable": false,
+      "gatimaanTrain": false,
+      "travelInsuranceEnabled": true,
+      "travelInsuranceFareMsg": "Do you want to take Travel Insurance\n(₹0.92/person)?",
+      "uidVerificationPsgnInputFlag": 0,
+      "uidVerificationMasterListFlag": 2,
+      "uidMandatoryFlag": 0,
+      "gstDetailInputFlag": false,
+      "gstinPattern": "^([0]{1}[1-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-7]{1}|[2]{1}[9]{1}|[3]{1}[0-8]{1})[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[a-zA-Z0-9]{1}[A-Za-z]{1}[a-zA-Z0-9]{1}$",
+      "forgoConcession": true
+    },
+    "avlDayList": [
+      {
+        "availablityDate": "16-2-2025",
+        "availablityStatus": "PQWL70/WL58",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 3,
+        "currentBkgFlag": "N",
+        "waitListType": 10
+      },
+      {
+        "availablityDate": "17-2-2025",
+        "availablityStatus": "AVAILABLE-0007",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "18-2-2025",
+        "availablityStatus": "AVAILABLE-0013",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "19-2-2025",
+        "availablityStatus": "AVAILABLE-0004",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "20-2-2025",
+        "availablityStatus": "PQWL71/WL54",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 3,
+        "currentBkgFlag": "N",
+        "waitListType": 10
+      },
+      {
+        "availablityDate": "21-2-2025",
+        "availablityStatus": "PQWL77/WL69",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 3,
+        "currentBkgFlag": "N",
+        "waitListType": 10
+      }
+    ],
+    "informationMessage": [
+      {
+        "message": "* IR recovers only 57% of cost of travel on an average.\n* Rounding off  to next multiple of Rs. 5 is included in Base fare.\n",
+        "popup": false,
+        "paramName": "FARE_BREAKUP"
+      },
+      {
+        "message": "Forgo Concession Opted",
+        "popup": false,
+        "paramName": "FORGO_CONC"
+      }
+    ],
+    "generatedTimeStamp": {
+      "year": 2025,
+      "month": 2,
+      "day": 11,
+      "hour": 18,
+      "minute": 25,
+      "second": 48
+    }
+  },
+  {
+    "trainName": "ASHRAM EXPRESS",
+    "prsSiteId": "B",
+    "travelInsuranceCharge": 0.8,
+    "travelInsuranceServiceTax": 0.12,
+    "insuredPsgnCount": 1,
+    "serverId": "aposch02:instance1",
+    "timeStamp": "2025-02-13T16:04:16.065+05:30",
+    "bkgCfg": {
+      "seniorCitizenApplicable": true,
+      "foodChoiceEnabled": false,
+      "idRequired": false,
+      "bedRollFlagEnabled": false,
+      "maxPassengers": 6,
+      "maxInfants": 2,
+      "minNameLength": 3,
+      "maxNameLength": 16,
+      "srctznAge": 60,
+      "srctnwAge": 58,
+      "maxARPDays": 60,
+      "maxRetentionDays": 5,
+      "minPassengerAge": 5,
+      "maxPassengerAge": 125,
+      "maxChildAge": 11,
+      "minIdCardLength": 4,
+      "maxIdCardLength": 16,
+      "minPassportLength": 6,
+      "maxPassportLength": 11,
+      "lowerBerthApplicable": false,
+      "newTimeTable": true,
+      "childBerthMandatory": false,
+      "validIdCardTypes": [
+        "NULL_IDCARD",
+        "DRIVING_LICENSE",
+        "PASSPORT",
+        "PANCARD",
+        "VOTER_ICARD",
+        "GOVT_ICARD",
+        "STUDENT_ICARD",
+        "BANK_PASSBOOK",
+        "CREDIT_CARD",
+        "UNIQUE_ICARD"
+      ],
+      "applicableBerthTypes": ["LB", "UB", "CB", "CP"],
+      "suvidhaTrain": false,
+      "specialTatkal": false,
+      "atasEnable": false,
+      "gatimaanTrain": false,
+      "travelInsuranceEnabled": true,
+      "travelInsuranceFareMsg": "Do you want to take Travel Insurance\n(₹0.92/person)?",
+      "uidVerificationPsgnInputFlag": 0,
+      "uidVerificationMasterListFlag": 2,
+      "uidMandatoryFlag": 0,
+      "gstDetailInputFlag": false,
+      "gstinPattern": "^([0]{1}[1-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-7]{1}|[2]{1}[9]{1}|[3]{1}[0-8]{1})[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[a-zA-Z0-9]{1}[A-Za-z]{1}[a-zA-Z0-9]{1}$",
+      "forgoConcession": true
+    },
+    "avlDayList": [
+      {
+        "availablityDate": "13-2-2025",
+        "availablityStatus": "CURR_AVBL-0001",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "Y",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "14-2-2025",
+        "availablityStatus": "PQWL9/WL6",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 3,
+        "currentBkgFlag": "N",
+        "waitListType": 10
+      },
+      {
+        "availablityDate": "15-2-2025",
+        "availablityStatus": "PQWL6/WL5",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 3,
+        "currentBkgFlag": "N",
+        "waitListType": 10
+      },
+      {
+        "availablityDate": "16-2-2025",
+        "availablityStatus": "AVAILABLE-0001",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "17-2-2025",
+        "availablityStatus": "AVAILABLE-0001",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "18-2-2025",
+        "availablityStatus": "AVAILABLE-0002",
+        "reasonType": "S",
+        "reason": "",
+        "availablityType": 1,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      }
+    ],
+    "informationMessage": [
+      {
+        "message": "* IR recovers only 57% of cost of travel on an average.\n* Rounding off  to next multiple of Rs. 5 is included in Base fare.\n",
+        "popup": false,
+        "paramName": "FARE_BREAKUP"
+      },
+      {
+        "message": "Forgo Concession Opted",
+        "popup": false,
+        "paramName": "FORGO_CONC"
+      }
+    ],
+    "generatedTimeStamp": {
+      "year": 2025,
+      "month": 2,
+      "day": 13,
+      "hour": 16,
+      "minute": 4,
+      "second": 16
+    }
+  },
+  {
+    "trainName": "ASHRAM EXPRESS",
+    "prsSiteId": "B",
+    "travelInsuranceCharge": 0.0,
+    "travelInsuranceServiceTax": 0.0,
+    "insuredPsgnCount": 0,
+    "serverId": "aposnd02:instance3",
+    "timeStamp": "2025-02-13T16:05:05.644+05:30",
+    "bkgCfg": {
+      "seniorCitizenApplicable": false,
+      "foodChoiceEnabled": false,
+      "idRequired": false,
+      "bedRollFlagEnabled": false,
+      "maxPassengers": 6,
+      "maxInfants": 2,
+      "minNameLength": 3,
+      "maxNameLength": 16,
+      "srctznAge": 60,
+      "srctnwAge": 58,
+      "maxARPDays": 1,
+      "maxRetentionDays": 5,
+      "minPassengerAge": 5,
+      "maxPassengerAge": 125,
+      "maxChildAge": 11,
+      "minIdCardLength": 4,
+      "maxIdCardLength": 16,
+      "minPassportLength": 6,
+      "maxPassportLength": 11,
+      "lowerBerthApplicable": false,
+      "newTimeTable": true,
+      "childBerthMandatory": false,
+      "validIdCardTypes": [
+        "NULL_IDCARD",
+        "DRIVING_LICENSE",
+        "PASSPORT",
+        "PANCARD",
+        "VOTER_ICARD",
+        "GOVT_ICARD",
+        "STUDENT_ICARD",
+        "BANK_PASSBOOK",
+        "CREDIT_CARD",
+        "UNIQUE_ICARD"
+      ],
+      "applicableBerthTypes": ["LB", "UB", "CB", "CP"],
+      "suvidhaTrain": false,
+      "specialTatkal": false,
+      "atasEnable": false,
+      "gatimaanTrain": false,
+      "travelInsuranceEnabled": true,
+      "travelInsuranceFareMsg": "Do you want to take Travel Insurance\n(₹0.92/person)?",
+      "uidVerificationPsgnInputFlag": 0,
+      "uidVerificationMasterListFlag": 2,
+      "uidMandatoryFlag": 0,
+      "gstDetailInputFlag": false,
+      "gstinPattern": "^([0]{1}[1-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-7]{1}|[2]{1}[9]{1}|[3]{1}[0-8]{1})[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[a-zA-Z0-9]{1}[A-Za-z]{1}[a-zA-Z0-9]{1}$",
+      "forgoConcession": false
+    },
+    "avlDayList": [
+      {
+        "availablityDate": "13-2-2025",
+        "availablityStatus": "NOT AVAILABLE",
+        "reasonType": "W",
+        "reason": "",
+        "availablityType": 0,
+        "currentBkgFlag": "Y",
+        "waitListType": 8224
+      },
+      {
+        "availablityDate": "14-2-2025",
+        "availablityStatus": "NOT AVAILABLE",
+        "reasonType": "W",
+        "reason": "",
+        "availablityType": 0,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      }
+    ],
+    "informationMessage": [
+      {
+        "message": "* IR recovers only 57% of cost of travel on an average.\n* Rounding off  to next multiple of Rs. 5 is included in Base fare.\n",
+        "popup": false,
+        "paramName": "FARE_BREAKUP"
+      },
+      {
+        "message": "Forgo Concession Opted",
+        "popup": false,
+        "paramName": "FORGO_CONC"
+      }
+    ],
+    "generatedTimeStamp": {
+      "year": 2025,
+      "month": 2,
+      "day": 13,
+      "hour": 16,
+      "minute": 5,
+      "second": 5
+    }
+  },
+  {
+    "trainName": "ASHRAM EXPRESS",
+    "prsSiteId": "B",
+    "travelInsuranceCharge": 0.0,
+    "travelInsuranceServiceTax": 0.0,
+    "insuredPsgnCount": 0,
+    "serverId": "aposnd01:instance1",
+    "timeStamp": "2025-02-13T16:05:22.483+05:30",
+    "bkgCfg": {
+      "seniorCitizenApplicable": false,
+      "foodChoiceEnabled": false,
+      "idRequired": false,
+      "bedRollFlagEnabled": false,
+      "maxPassengers": 6,
+      "maxInfants": 2,
+      "minNameLength": 3,
+      "maxNameLength": 16,
+      "srctznAge": 60,
+      "srctnwAge": 58,
+      "maxARPDays": 1,
+      "maxRetentionDays": 5,
+      "minPassengerAge": 5,
+      "maxPassengerAge": 125,
+      "maxChildAge": 11,
+      "minIdCardLength": 4,
+      "maxIdCardLength": 16,
+      "minPassportLength": 6,
+      "maxPassportLength": 11,
+      "lowerBerthApplicable": false,
+      "newTimeTable": true,
+      "childBerthMandatory": false,
+      "validIdCardTypes": [
+        "NULL_IDCARD",
+        "DRIVING_LICENSE",
+        "PASSPORT",
+        "PANCARD",
+        "VOTER_ICARD",
+        "GOVT_ICARD",
+        "STUDENT_ICARD",
+        "BANK_PASSBOOK",
+        "CREDIT_CARD",
+        "UNIQUE_ICARD"
+      ],
+      "applicableBerthTypes": ["LB", "UB", "CB", "CP"],
+      "suvidhaTrain": false,
+      "specialTatkal": false,
+      "atasEnable": false,
+      "gatimaanTrain": false,
+      "travelInsuranceEnabled": true,
+      "travelInsuranceFareMsg": "Do you want to take Travel Insurance\n(₹0.92/person)?",
+      "uidVerificationPsgnInputFlag": 0,
+      "uidVerificationMasterListFlag": 2,
+      "uidMandatoryFlag": 0,
+      "gstDetailInputFlag": false,
+      "gstinPattern": "^([0]{1}[1-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-7]{1}|[2]{1}[9]{1}|[3]{1}[0-8]{1})[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[a-zA-Z0-9]{1}[A-Za-z]{1}[a-zA-Z0-9]{1}$",
+      "forgoConcession": false
+    },
+    "avlDayList": [
+      {
+        "availablityDate": "14-2-2025",
+        "availablityStatus": "NOT AVAILABLE",
+        "reasonType": "W",
+        "reason": "",
+        "availablityType": 0,
+        "currentBkgFlag": "N",
+        "waitListType": 8224
+      }
+    ],
+    "informationMessage": [
+      {
+        "message": "* IR recovers only 57% of cost of travel on an average.\n* Rounding off  to next multiple of Rs. 5 is included in Base fare.\n",
+        "popup": false,
+        "paramName": "FARE_BREAKUP"
+      },
+      {
+        "message": "Forgo Concession Opted",
+        "popup": false,
+        "paramName": "FORGO_CONC"
+      }
+    ],
+    "generatedTimeStamp": {
+      "year": 2025,
+      "month": 2,
+      "day": 13,
+      "hour": 16,
+      "minute": 5,
+      "second": 22
+    }
+  }
+]

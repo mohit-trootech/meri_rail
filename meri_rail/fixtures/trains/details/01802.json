@@ -1,0 +1,178 @@
+{
+  "trainNumber": "01802",
+  "trainName": "SFG VGLJ SPL",
+  "stationFrom": "SFG",
+  "stationTo": "V LAKSHMIBAIJHS",
+  "trainRunsOnMon": "N",
+  "trainRunsOnTue": "N",
+  "trainRunsOnWed": "N",
+  "trainRunsOnThu": "N",
+  "trainRunsOnFri": "N",
+  "trainRunsOnSat": "Y",
+  "trainRunsOnSun": "Y",
+  "timeStamp": "Feb 4, 2025 7:05:12 PM",
+  "stationList": [
+    {
+      "stationCode": "SFG",
+      "stationName": "SUBEDARGANJ",
+      "arrivalTime": "00:00",
+      "departureTime": "14:45",
+      "routeNumber": "0",
+      "haltTime": "--",
+      "distance": "0.0",
+      "dayCount": "1",
+      "stnSerialNumber": "1"
+    },
+    {
+      "stationCode": "BRE",
+      "stationName": "BHARWARI",
+      "arrivalTime": "15:20",
+      "departureTime": "15:22",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "33.5",
+      "dayCount": "1",
+      "stnSerialNumber": "2"
+    },
+    {
+      "stationCode": "SRO",
+      "stationName": "SIRATHU",
+      "arrivalTime": "15:43",
+      "departureTime": "15:45",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "53.15",
+      "dayCount": "1",
+      "stnSerialNumber": "3"
+    },
+    {
+      "stationCode": "KGA",
+      "stationName": "KHAGA",
+      "arrivalTime": "16:15",
+      "departureTime": "16:17",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "78.45",
+      "dayCount": "1",
+      "stnSerialNumber": "4"
+    },
+    {
+      "stationCode": "FTP",
+      "stationName": "FATEHPUR",
+      "arrivalTime": "16:48",
+      "departureTime": "16:50",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "112.91",
+      "dayCount": "1",
+      "stnSerialNumber": "5"
+    },
+    {
+      "stationCode": "BKO",
+      "stationName": "BINDKI ROAD",
+      "arrivalTime": "17:25",
+      "departureTime": "17:27",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "144.28",
+      "dayCount": "1",
+      "stnSerialNumber": "6"
+    },
+    {
+      "stationCode": "GOY",
+      "stationName": "GOVINDPURI",
+      "arrivalTime": "18:35",
+      "departureTime": "18:40",
+      "routeNumber": "0",
+      "haltTime": "05:00",
+      "distance": "192.51",
+      "dayCount": "1",
+      "stnSerialNumber": "7"
+    },
+    {
+      "stationCode": "PHN",
+      "stationName": "POKHRAYAN",
+      "arrivalTime": "19:33",
+      "departureTime": "19:35",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "248.39",
+      "dayCount": "1",
+      "stnSerialNumber": "8"
+    },
+    {
+      "stationCode": "KPI",
+      "stationName": "KALPI",
+      "arrivalTime": "19:49",
+      "departureTime": "19:50",
+      "routeNumber": "0",
+      "haltTime": "01:00",
+      "distance": "262.45",
+      "dayCount": "1",
+      "stnSerialNumber": "9"
+    },
+    {
+      "stationCode": "ORAI",
+      "stationName": "ORAI",
+      "arrivalTime": "20:15",
+      "departureTime": "20:17",
+      "routeNumber": "0",
+      "haltTime": "02:00",
+      "distance": "295.99",
+      "dayCount": "1",
+      "stnSerialNumber": "10"
+    },
+    {
+      "stationCode": "AIT",
+      "stationName": "AIT",
+      "arrivalTime": "20:36",
+      "departureTime": "20:37",
+      "routeNumber": "0",
+      "haltTime": "01:00",
+      "distance": "320.77",
+      "dayCount": "1",
+      "stnSerialNumber": "11"
+    },
+    {
+      "stationCode": "MOTH",
+      "stationName": "MOTH",
+      "arrivalTime": "21:01",
+      "departureTime": "21:02",
+      "routeNumber": "0",
+      "haltTime": "01:00",
+      "distance": "354.66",
+      "dayCount": "1",
+      "stnSerialNumber": "12"
+    },
+    {
+      "stationCode": "CGN",
+      "stationName": "CHIRGAON",
+      "arrivalTime": "21:20",
+      "departureTime": "21:21",
+      "routeNumber": "0",
+      "haltTime": "01:00",
+      "distance": "377.99",
+      "dayCount": "1",
+      "stnSerialNumber": "13"
+    },
+    {
+      "stationCode": "VGLJ",
+      "stationName": "V LAKSHMIBAIJHS",
+      "arrivalTime": "22:35",
+      "departureTime": "00:00",
+      "routeNumber": "0",
+      "haltTime": "--",
+      "distance": "409.74",
+      "dayCount": "1",
+      "stnSerialNumber": "14"
+    }
+  ],
+  "generatedTimeStamp": {
+    "year": 2025,
+    "month": 2,
+    "day": 4,
+    "hour": 19,
+    "minute": 5,
+    "second": 12
+  }
+}

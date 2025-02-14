@@ -19,7 +19,7 @@ APPEND_SLASH = True
 # -------------------------------------------------
 SECRET_KEY = env.get("SECRET_KEY")
 
-
+CITIES_LIGHT_INCLUDE_COUNTRIES = ["IN"]
 # Application definition
 # -------------------------------------------------
 THIRD_PARTY_APPS = [
@@ -27,9 +27,41 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "corsheaders",
     "email_validator",
+    "cities_light",
+    "rest_framework_simplejwt",
+    "phonenumber_field",
+    "django_elasticsearch_dsl",
+    "django_filters",
 ]
+
+
+# add certificate token
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": [env.get("ELASTIC_HOST", "http://localhost:9200")],
+        "http_auth": (
+            env.get("ELASTIC_USERNAME", "elastics"),
+            env.get("ELASTIC_PASSWORD"),
+        ),
+    },
+}
+ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = (
+    "django_elasticsearch_dsl.signals.RealTimeSignalProcessor"
+)
+ELASTICSEARCH_DSL_INDEX_SETTINGS = {}
+ELASTICSEARCH_DSL_AUTOSYNC = True
+ELASTICSEARCH_DSL_AUTO_REFRESH = True
+ELASTICSEARCH_DSL_PARALLEL = False
+# eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMjo5MjAwIl0sImZnciI6IjFlMzE0M2I5ZWRkMDY3YTEzMmUyODg3Yjc1NWE0MjhkYWEzNTkwZjdjNDI3NWU4OTY1ODBjOGJmMjVmMDhmNTQiLCJrZXkiOiJ0UTBDMnBRQjFRUTY4QS0tZkVRSjpBRzJPVjVFa1RRcUxkaEpkSEJKZ2JnIn0=
 PROJECT_APPS = [
     "users.apps.UsersConfig",
+    "stations.apps.StationsConfig",
+    "trains.apps.TrainsConfig",
+    "pnrs.apps.PnrsConfig",
+    "fare_enquiry.apps.FareEnquiryConfig",
+    "trains_between_station.apps.TrainsBetweenStationConfig",
+    "seat_availability.apps.SeatAvailabilityConfig",
+    "meri_rail",
 ]
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -48,6 +80,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -110,6 +143,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 # -------------------------------------------------
 LANGUAGE_CODE = Settings.LANGUAGE_CODE
+USE_TZ = True
+LANGUAGES = [
+    ("en", "English"),
+    ("hi", "Hindi"),
+]
+LOCALE_PATHS = [
+    join(BASE_DIR, "locale"),
+]
 
 TIME_ZONE = Settings.TIME_ZONE
 
@@ -151,6 +192,10 @@ EMAIL_HOST_PASSWORD = env.get("EMAIL_HOST_PASSWORD")
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
@@ -201,4 +246,21 @@ LOGGING = {
         "handlers": ["console", "file"],
         "level": "INFO",
     },
+}
+
+# Railway Configuration Urls
+# =====================================================
+NTES_V1_BASE_URL = env.get("NTES_V1_BASE_URL")
+CAPTCHA_DRAW_URL = env.get("CAPTCHA_DRAW_URL")
+TRAIN_ROUTE_URL = env.get("TRAIN_ROUTE_URL")
+FETCH_TRAIN_DATA_URL = env.get("FETCH_TRAIN_DATA_URL")
+PNR_STATUS_URL = env.get("PNR_STATUS_URL")
+
+# Cache Configuration
+# =====================================================
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "meri_rail_cache",
+    }
 }
