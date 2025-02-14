@@ -9,6 +9,9 @@ from utils.format_data import format_seat_availability
 from http import HTTPStatus
 from rest_framework.response import Response
 from django.utils.timezone import timedelta, now
+from django.core.cache import cache
+from seat_availability.constants import SEAT_AVAILABILITY_CACHE
+
 
 SeatAvailability = get_model(
     app_label="seat_availability", model_name="SeatAvailability"
@@ -21,7 +24,6 @@ class SeatAvailabilityAPIView(BaseAPIView):
     model = SeatAvailability
     serializer_class = SeatAvailabilitySerializer
     filter_serializer_class = SeatAvailabilityFilterSerializer
-    permission_classes = []
 
     def seat_availability_scrap(self, filter_serializer):
         data = self.use_selenium(filter_serializer.validated_data)
@@ -37,6 +39,11 @@ class SeatAvailabilityAPIView(BaseAPIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        cache.set(
+            SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
+            serializer.data,
+            timeout=60 * 10,
+        )
         return Response(serializer.data, status=HTTPStatus.CREATED)
 
     def update(self, filter_serializer, qs):
@@ -46,6 +53,11 @@ class SeatAvailabilityAPIView(BaseAPIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        cache.set(
+            SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
+            serializer.data,
+            timeout=60 * 10,
+        )
         return Response(serializer.data, status=HTTPStatus.OK)
 
     def get(self, request, *args, **kwargs):
@@ -58,6 +70,11 @@ class SeatAvailabilityAPIView(BaseAPIView):
             ).strftime("%Y-%m-%d")
             for counter in range(6)
         ]
+        cache_data = cache.get(
+            SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
+        )
+        if cache_data:
+            return Response(cache_data, status=HTTPStatus.OK)
         qs = self.queryset.filter(
             **{
                 "train__number": request.data["train"],
@@ -71,6 +88,11 @@ class SeatAvailabilityAPIView(BaseAPIView):
         if not qs.filter(modified__gte=now() - timedelta(minutes=10)):
             return self.update(filter_serializer=filter_serializer, qs=qs)
         serializer = self.serializer_class(qs, many=True)
+        cache.set(
+            SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
+            serializer.data,
+            60 * 10,
+        )
         return Response(serializer.data, status=HTTPStatus.OK)
 
 

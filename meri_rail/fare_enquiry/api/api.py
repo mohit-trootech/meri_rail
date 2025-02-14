@@ -26,8 +26,7 @@ class FareView(BaseAPIView):
         enquiry_serializer.is_valid(raise_exception=True)
         cache_data = cache.get(CACHE_KEY % enquiry_serializer.validated_data)
         if cache_data:
-            fare_serializer = FareSerializer(cache_data)
-            return Response(fare_serializer.data)
+            return Response(cache_data, status=HTTPStatus.OK)
         fare = self.get_object(
             {
                 "train__number": request.data["train"],
@@ -39,6 +38,11 @@ class FareView(BaseAPIView):
         )
         if fare:
             fare_serializer = FareSerializer(fare)
+            cache.set(
+                CACHE_KEY % enquiry_serializer.validated_data,
+                fare_serializer.data,
+                60 * 1440,
+            )
             return Response(fare_serializer.data)
         return self.create(enquiry_serializer)
 
@@ -48,7 +52,11 @@ class FareView(BaseAPIView):
         fare_serializer = FareSerializer(data=formatted_data)
         fare_serializer.is_valid(raise_exception=True)
         fare_serializer.save(**formatted_data)
-        cache.set(CACHE_KEY % enquiry_serializer.validated_data, fare_serializer.data)
+        cache.set(
+            CACHE_KEY % enquiry_serializer.validated_data,
+            fare_serializer.data,
+            60 * 1440,
+        )
         return Response(fare_serializer.data, status=HTTPStatus.CREATED)
 
 
