@@ -5,6 +5,8 @@ from stations.urls import router as station_router
 from rest_framework.routers import DefaultRouter
 from debug_toolbar.toolbar import debug_toolbar_urls
 from meri_rail.api.api import train_quota_view, journey_class_view, seat_type_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.registry.extend(train_router.registry)
@@ -20,6 +22,9 @@ urlpatterns = [
     path("api/", include("fare_enquiry.urls")),
     path("api/", include("trains_between_station.urls")),
     path("api/", include("seat_availability.urls")),
-    path("users/", include("users.urls")),
+    path("auth/", include("users.urls")),
     path("admin/", admin.site.urls),
 ] + debug_toolbar_urls()
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

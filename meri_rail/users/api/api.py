@@ -191,14 +191,16 @@ class GoogleLoginView(CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            return Response(
-                AuthService().get_auth_tokens_for_user(
-                    User.objects.get(google_id=serializer.data["google_id"])
-                ),
-                status=status.HTTP_200_OK,
-            )
+            user = User.objects.get(google_id=serializer.data["google_id"])
         except User.DoesNotExist:
-            return Response(
-                {"message": ResponseMessages.USER_NOT_FOUND},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+            try:
+                user = User.objects.get(email=serializer.data["email"])
+            except User.DoesNotExist:
+                return Response(
+                    {"message": ResponseMessages.USER_NOT_FOUND},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+        return Response(
+            AuthService().get_auth_tokens_for_user(user),
+            status=status.HTTP_200_OK,
+        )

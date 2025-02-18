@@ -58,7 +58,10 @@ class ElasticFilterMixin:
 
         Filter queryset using elasticsearch.
         """
-        return self.filter_queryset_by_elastic(queryset)
+        filtered_queryset = self.filter_queryset_by_elastic(queryset)
+        if filtered_queryset:
+            return filtered_queryset
+        return super().filter_queryset(queryset)
 
     def filter_queryset_by_elastic(self, queryset):
         """
@@ -69,5 +72,5 @@ class ElasticFilterMixin:
         if not search_term:
             return queryset
         query = self.get_elastic_queryset(search_term)
-        search = self.document_class.search().extra(size=20).query(query)
+        search = self.document_class.search().extra(size=999).query(query)
         return search.to_queryset()

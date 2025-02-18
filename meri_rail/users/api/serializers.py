@@ -9,7 +9,8 @@ from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
 from email_validator import validate_email as email_validation
 from email_validator import EmailNotValidError
-
+from django.core.files.base import ContentFile
+from requests import get
 
 User = get_model("users", "User")
 Otp = get_model("users", "Otp")
@@ -64,14 +65,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     """User Login Serializer"""
 
-    username = serializers.CharField()
+    email = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, attrs):
         """Validate User Credentials"""
         login_data = {
             "password": attrs.get("password"),
-            "username": attrs.get("username"),
+            "email": attrs.get("email"),
         }
         user = authenticate(**login_data)
         if not user:
@@ -234,6 +235,16 @@ class GoogleAuthenticationLogin(serializers.Serializer):
 
 class GoogleAuthenticationSignup(GoogleAuthenticationLogin):
     first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=False)
+    image = serializers.CharField(required=False)
+
+    def validate_image(self, value):
+        try:
+            if value:
+                image_byte = get(value)
+                return ContentFile(content=image_byte.content, name="profile_image.jpg")
+        except Exception as err:
+            raise serializers.ValidationError(str(err))
 
     def create(self, validated_data):
         validated_data["username"] = validated_data["email"]

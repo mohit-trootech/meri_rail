@@ -13,7 +13,9 @@ from users.constants import VerboseNames
 
 def _upload_to(self, filename):
     """Upload User Profile Image"""
-    return "users/{id}/{filename}".format(id=self.id, filename=filename)
+    return "users/{username}/{filename}".format(
+        username=self.username, filename=filename
+    )
 
 
 def _random_otp(self):
@@ -46,6 +48,8 @@ class User(AbstractUser):
         unique=True,
         max_length=255,
     )
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     @property
     def profile_image(self):
