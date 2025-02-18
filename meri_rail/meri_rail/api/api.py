@@ -18,6 +18,27 @@ class MapplsSecretView(APIView):
 mappls_secret_view = MapplsSecretView.as_view()
 
 
+class FireStoreConfiguration(APIView):
+    """Fire Store DB Configuration"""
+
+    def get(self, request):
+        return Response(
+            {
+                "apiKey": settings.FIRESTORE_API_KEY,
+                "authDomain": settings.AUTH_DOMAIN,
+                "projectId": settings.PROJECT_ID,
+                "storageBucket": settings.STORAGE_BUCKET,
+                "messagingSenderId": settings.MESSAGING_SENDER_ID,
+                "appId": settings.APP_ID,
+                "measurementId": settings.MEASUREMENT_ID,
+            },
+            status=HTTPStatus.OK,
+        )
+
+
+firestore_configuration_view = FireStoreConfiguration.as_view()
+
+
 @method_decorator(cache_page(60 * 1440), name="dispatch")
 class BaseChoicesView(APIView):
     permission_classes = [AllowAny]

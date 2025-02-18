@@ -9,6 +9,7 @@ from meri_rail.api.api import (
     journey_class_view,
     seat_type_view,
     mappls_secret_view,
+    firestore_configuration_view,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,6 +31,7 @@ urlpatterns = [
     path("auth/", include("users.urls")),
     path("admin/", admin.site.urls),
     path("api/secrets/mappls/", mappls_secret_view, name="mappls"),
+    path("api/secrets/firestore/", firestore_configuration_view, name="firestore"),
 ] + debug_toolbar_urls()
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
