@@ -52,7 +52,7 @@ ELASTICSEARCH_DSL_INDEX_SETTINGS = {}
 ELASTICSEARCH_DSL_AUTOSYNC = True
 ELASTICSEARCH_DSL_AUTO_REFRESH = True
 ELASTICSEARCH_DSL_PARALLEL = False
-# eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMjo5MjAwIl0sImZnciI6IjFlMzE0M2I5ZWRkMDY3YTEzMmUyODg3Yjc1NWE0MjhkYWEzNTkwZjdjNDI3NWU4OTY1ODBjOGJmMjVmMDhmNTQiLCJrZXkiOiJ0UTBDMnBRQjFRUTY4QS0tZkVRSjpBRzJPVjVFa1RRcUxkaEpkSEJKZ2JnIn0=
+
 PROJECT_APPS = [
     "users.apps.UsersConfig",
     "stations.apps.StationsConfig",
@@ -206,8 +206,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
@@ -264,3 +264,6 @@ CACHES = {
         "LOCATION": "meri_rail_cache",
     }
 }
+
+# Mappls Api Configuration
+MAPPLS_API_KEY = env.get("MAPPLS_API_KEY")

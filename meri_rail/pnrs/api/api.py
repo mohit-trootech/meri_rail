@@ -20,9 +20,9 @@ class PnrApiView(BaseAPIView):
 
     service = SeleniumServices.PNR_STATUS
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
-        get method that uses request payload to fetch the pnr details from database if exist else use selenium.
+        post method that uses request payload to fetch the pnr details from database if exist else use selenium.
         """
         pnr_validation = PnrNumberSerializer(data=request.data)
         pnr_validation.is_valid(raise_exception=True)

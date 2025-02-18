@@ -6,6 +6,16 @@ from http import HTTPStatus
 from meri_rail.constants import ErrorMessages
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.conf import settings
+
+
+class MapplsSecretView(APIView):
+    def get(self, request):
+        token = settings.MAPPLS_API_KEY
+        return Response({"token": token}, status=HTTPStatus.OK)
+
+
+mappls_secret_view = MapplsSecretView.as_view()
 
 
 @method_decorator(cache_page(60 * 1440), name="dispatch")

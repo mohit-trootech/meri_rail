@@ -12,7 +12,10 @@ Station = get_model(**AppLabelsModel.STATION)
 
 
 class StationViewSet(
-    ListModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet
+    ListModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    GenericViewSet,
 ):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
