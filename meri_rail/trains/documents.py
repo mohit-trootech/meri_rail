@@ -21,11 +21,9 @@ class TrainDocument(Document):
                 .prefetch_related("route")
             )
 
-        def get_instances_from_related(self, related_instance):
-            if isinstance(related_instance, TrainDetail):
-                return related_instance.train
-            elif isinstance(related_instance, Schedule):
-                return related_instance.train
-            elif isinstance(related_instance, Route):
-                return related_instance.train
-            return None
+    def get_instances_from_related(self, obj):
+        return [
+            obj.train,
+            obj.train.schedule,
+            *obj.train.route.all(),
+        ]

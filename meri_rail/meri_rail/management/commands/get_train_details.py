@@ -1,7 +1,7 @@
 from utils.utils import get_model
 from django.core.management import BaseCommand
 from time import time
-from json import dump
+from json import dump, loads
 from meri_rail.constants import Fixtures, ManagementHelp, Messages
 from utils.selenium_service import SeleniumService
 
@@ -39,6 +39,7 @@ class Command(BaseCommand):
                             captcha=captcha, train=train.name_number_format
                         )
                         if "errorMessage" in data:
+                            print(loads(data)["errorMessage"])
                             self.invalid_trains.append(train.number)
                             continue
                         if data:
@@ -49,6 +50,7 @@ class Command(BaseCommand):
                             print("Train Data Fetched ", train.name_number_format)
                     except Exception as err:
                         print(err)
+                        self.invalid_trains.append(train.number)
                         continue
         self.manager_driver.driver.quit()
         if self.invalid_trains:

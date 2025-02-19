@@ -13,3 +13,9 @@ class InvalidPnrNumber(ValidationError):
     """Invalid PNR Number Exception"""
 
     pass
+
+
+class UnableTosolveCaptcha(ValidationError):
+    """Unable To Solve Captcha Exception"""
+
+    pass

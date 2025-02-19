@@ -1,6 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from elasticsearch_dsl import Q
+from logging import getLogger
 
+logger = getLogger("Elastic Search Mixin")
 DOCUMENT_CLASS_REQUIRED = _("document_class is required")
 
 
@@ -67,10 +69,14 @@ class ElasticFilterMixin:
         """
         Filter queryset by elasticsearch.
         """
+        try:
+            search_term = self.get_search_term()
+            if not search_term:
+                return queryset
 
-        search_term = self.get_search_term()
-        if not search_term:
-            return queryset
-        query = self.get_elastic_queryset(search_term)
-        search = self.document_class.search().extra(size=999).query(query)
-        return search.to_queryset()
+            query = self.get_elastic_queryset(search_term)
+            search = self.document_class.search().extra(size=50).query(query)
+            return search.to_queryset()
+        except Exception as err:
+            logger.error(err)
+            return None
