@@ -1,3 +1,4 @@
+import os
 from rest_framework import permissions, views, status
 from rest_framework.response import Response
 from utils.utils import get_model
@@ -16,7 +17,10 @@ from utils.auth_service import AuthService
 from rest_framework.generics import UpdateAPIView, CreateAPIView
 from users.constants import ResponseMessages
 from utils.constants import AppLabelsModel
+from rest_framework.decorators import action
 
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 User = get_model(**AppLabelsModel.USERS)
 
 SCOPES = [
@@ -227,23 +231,53 @@ from django.views.decorators.csrf import csrf_exempt  # noqa
 from django.http import JsonResponse  # noqa
 
 
-@csrf_exempt
-def google_auth_init(request):
-    flow = Flow.from_client_config(
-        client_config=settings.CLIENT_CONFIG_JSON,
-        scopes=SCOPES,
-        redirect_uri="http://localhost:8000/auth/google/callback",
-    )
-    authorization_url, state = flow.authorization_url(
-        access_type="offline", prompt="consent"
-    )
-    request.session["state"] = state
-    return JsonResponse({"auth_url": authorization_url, "state": state})
+from rest_framework.viewsets import ViewSet
 
 
-import os
+class GoogleAuthServiceView(ViewSet):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = GoogleAuthenticationSignup
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    def get_flow_from_client_config(self, **kwargs):
+        return Flow.from_client_secrets_file(settings.CLIENT_CONFIG_JSON, **kwargs)
+
+    @action(methods="GET", detail=False)
+    def init(self, request):
+        flow = self.get_flow_from_client_config(
+            {
+                "scopes": SCOPES,
+                "redirect_uri": "http://localhost:8000/auth/google/callback",
+            }
+        )
+        if not flow:
+            return Response(
+                {"message": "Google Auth Init Failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        auth_url, state = flow.authorization_url(
+            access_type="offline", prompt="consent"
+        )
+        request.session["state"] = state
+        return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
+
+    @action(methods="GET", detail=False)
+    def callback(self, request):
+        state = request.session.pop("state", "")
+        flow = self.get_flow_from_client(
+            {
+                "scopes": SCOPES,
+                "state": state,
+                "redirect_uri": "http://localhost:8000/auth/google/callback",
+            }
+        )
+        flow.fetch_token(authorization_response=request.build_absolute_uri())
+        credentials = flow.credentials
+        service = build("oauth2", "v2", credentials=credentials)
+        user_info = service.userinfo().get().execute()
+        breakpoint()
+
+
+google_auth_service_view = GoogleAuthServiceView.as_view()
 
 
 @csrf_exempt
