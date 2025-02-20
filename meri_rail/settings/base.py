@@ -277,3 +277,7 @@ STORAGE_BUCKET = env.get("STORAGE_BUCKET")
 MESSAGING_SENDER_ID = env.get("MESSAGING_SENDER_ID")
 APP_ID = env.get("APP_ID")
 MEASUREMENT_ID = env.get("MEASUREMENT_ID")
+
+# Coogle Api Credentials Path
+CREDENTIALS_JSON = join(BASE_DIR, "fixtures/google/credentials.json")
+TOKEN_JSON = join(BASE_DIR, "fixtures/google/token.json")

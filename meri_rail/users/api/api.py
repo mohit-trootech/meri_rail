@@ -15,8 +15,17 @@ from users.api.serializers import (
 from utils.auth_service import AuthService
 from rest_framework.generics import UpdateAPIView, CreateAPIView
 from users.constants import ResponseMessages
+from utils.constants import AppLabelsModel
 
-User = get_model("users", "User")
+User = get_model(**AppLabelsModel.USERS)
+
+SCOPES = [
+    "https://www.googleapis.com/auth/calendar.readonly",
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "openid",
+]
 
 
 class RegistrationApiView(CreateAPIView):
@@ -204,3 +213,72 @@ class GoogleLoginView(CreateAPIView):
             AuthService().get_auth_tokens_for_user(user),
             status=status.HTTP_200_OK,
         )
+
+
+from django.shortcuts import redirect  # noqa
+from django.contrib.auth import login, get_user_model  # noqa
+from google.oauth2.credentials import Credentials  # noqa
+from googleapiclient.discovery import build  # noqa
+from google_auth_oauthlib.flow import Flow  # noqa
+from django.conf import settings  # noqa
+import datetime  # noqa
+from users.models import GoogleOAuth2Token  # noqa
+from django.views.decorators.csrf import csrf_exempt  # noqa
+from django.http import JsonResponse  # noqa
+
+
+@csrf_exempt
+def google_auth_init(request):
+    flow = Flow.from_client_config(
+        client_config=settings.CLIENT_CONFIG_JSON,
+        scopes=SCOPES,
+        redirect_uri="http://localhost:8000/auth/google/callback",
+    )
+    authorization_url, state = flow.authorization_url(
+        access_type="offline", prompt="consent"
+    )
+    request.session["state"] = state
+    return JsonResponse({"auth_url": authorization_url, "state": state})
+
+
+import os
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+
+@csrf_exempt
+def google_auth_callback(request):
+    state = request.session.pop("state", "")
+    flow = Flow.from_client_config(
+        client_config=settings.CLIENT_CONFIG_JSON,
+        scopes=SCOPES,
+        state=state,
+        redirect_uri="http://localhost:8000/auth/google/callback",
+    )
+
+    flow.fetch_token(authorization_response=request.build_absolute_uri())
+
+    credentials = flow.credentials
+    User = get_user_model()
+
+    # Get user info
+    service = build("oauth2", "v2", credentials=credentials)
+    user_info = service.userinfo().get().execute()
+
+    # Create or update user
+    user, created = User.objects.get_or_create(email=user_info["email"])
+    if created:
+        user.username = user_info["email"]
+        user.save()
+    GoogleOAuth2Token.objects.update_or_create(
+        user=user,
+        defaults={
+            "access_token": credentials.token,
+            "refresh_token": credentials.refresh_token,
+            "expires_at": credentials.expiry,
+        },
+    )
+
+    login(request, user)
+    print(user)
+    return redirect("http://localhost:3000/")

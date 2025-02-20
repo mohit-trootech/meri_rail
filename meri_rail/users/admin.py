@@ -1,11 +1,17 @@
 from django.contrib import admin
 from utils.utils import get_model
 from django.contrib.auth.admin import UserAdmin
+from users.models import GoogleOAuth2Token
 
 User = get_model("users", "User")
 Otp = get_model("users", "Otp")
 
 admin.site.register(Otp)
+
+
+@admin.register(GoogleOAuth2Token)
+class GoogleOAuth2TokenAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(User)

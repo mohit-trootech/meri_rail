@@ -13,6 +13,8 @@ from meri_rail.api.api import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from users.api.api import google_auth_init, google_auth_callback
+
 
 router = DefaultRouter()
 router.registry.extend(train_router.registry)
@@ -32,6 +34,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/secrets/mappls/", mappls_secret_view, name="mappls"),
     path("api/secrets/firestore/", firestore_configuration_view, name="firestore"),
+    path("auth/google/", google_auth_init, name="google_auth_init"),
+    path("auth/google/callback/", google_auth_callback, name="google_auth_callback"),
 ] + debug_toolbar_urls()
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

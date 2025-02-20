@@ -323,6 +323,10 @@ class AppLabelsModel:
         "app_label": "stations",
         "model_name": "Utterance",
     }
+    USERS = {
+        "app_label": "users",
+        "model_name": "User",
+    }
 
 
 class CacheTimeout:

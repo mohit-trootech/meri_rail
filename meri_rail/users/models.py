@@ -76,3 +76,10 @@ class Otp(TimeStampedModel):
 
     def __str__(self):
         return "{user}'s OTP".format(user=self.user.username)
+
+
+class GoogleOAuth2Token(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    access_token = models.CharField(max_length=255)
+    refresh_token = models.CharField(max_length=255)
+    expires_at = models.DateTimeField()

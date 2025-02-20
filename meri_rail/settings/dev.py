@@ -12,6 +12,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "http://localhost:3000",
     "http://192.168.0.31:3000",
+    "https://accounts.google.com/",
 ]
 
 
