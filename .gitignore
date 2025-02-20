@@ -3,7 +3,7 @@
 
 meri_rail/fixtures/*.txt
 meri_rail/fixtures/temp/*
-
+meri_rail/fixtures/google/*
 ### Django ###
 *.log
 *.pot
