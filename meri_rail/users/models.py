@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse_lazy
 from users.constants import (
-    ModelFields,
     THUMBNAIL_PREVIEW_TAG,
     THUMBNAIL_PREVIEW_HTML,
 )
@@ -34,11 +33,6 @@ class User(AbstractUser):
         null=True,
     )
     email = models.EmailField(verbose_name=VerboseNames.EMAIL_ADDRESS, unique=True)
-    is_verified = models.IntegerField(
-        verbose_name=VerboseNames.VERIFICATION_STATUS,
-        choices=ModelFields.STATUS_CHOICES,
-        default=ModelFields.INACTIVE_STATUS,
-    )
     age = models.IntegerField(verbose_name=VerboseNames.AGE, blank=True, null=True)
     address = models.TextField(verbose_name=VerboseNames.ADDRESS, blank=True, null=True)
     google_id = models.CharField(

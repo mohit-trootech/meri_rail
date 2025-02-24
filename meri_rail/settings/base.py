@@ -281,3 +281,11 @@ MEASUREMENT_ID = env.get("MEASUREMENT_ID")
 # Coogle Api Credentials Path
 CREDENTIALS_JSON = join(BASE_DIR, "fixtures/google/credentials.json")
 TOKEN_JSON = join(BASE_DIR, "fixtures/google/token.json")
+CLIENT_CONFIG = {
+    "web": {
+        "client_id": env.get("CLIENT_ID"),
+        "client_secret": env.get("CLIENT_SECRET"),
+        "auth_uri": env.get("AUTH_URI"),
+        "token_uri": env.get("TOKEN_URI"),
+    }
+}

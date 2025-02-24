@@ -1,7 +1,9 @@
 from utils.utils import get_model
+from utils.constants import AppLabelsModel
 
-Train = get_model(app_label="trains", model_name="Train")
-Route = get_model(app_label="trains", model_name="Route")
+Train = get_model(**AppLabelsModel.TRAIN)
+Route = get_model(**AppLabelsModel.ROUTE)
+TrainDetail = get_model(**AppLabelsModel.TRAIN_DETAIL)
 
 
 def find_trains_between_stations(
@@ -59,4 +61,4 @@ def find_trains_between_stations(
         if from_index is not None and to_index is not None and from_index < to_index:
             valid_trains.append(train.id)
 
-    return Train.objects.filter(id__in=valid_trains)
+    return TrainDetail.objects.filter(train__id__in=valid_trains)

@@ -15,7 +15,7 @@ Route = get_model(**AppLabelsModel.ROUTE)
 
 
 class TrainBetweenStationApiView(APIView):
-    def get(self, request):
+    def post(self, request):
         tbis_serializer = TbisSerializer(data=request.data)
         tbis_serializer.is_valid(raise_exception=True)
         cache_data = cache.get(TBIS_CACHE_KEY % tbis_serializer.validated_data)

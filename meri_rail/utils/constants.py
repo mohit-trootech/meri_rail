@@ -327,6 +327,14 @@ class AppLabelsModel:
         "app_label": "users",
         "model_name": "User",
     }
+    GOOGLE_OAUTH2_TOKEN = {
+        "app_label": "users",
+        "model_name": "GoogleOAuth2Token",
+    }
+    OTP = {
+        "app_label": "users",
+        "model_name": "Otp",
+    }
 
 
 class CacheTimeout:

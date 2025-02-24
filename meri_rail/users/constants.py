@@ -2,6 +2,8 @@
 
 from django.utils.translation import gettext_lazy as _
 
+AUTHENTICATED_USER_CACHE_KEY = "USER_%s"
+
 
 class ModelFields:
     """Model Contants - QuickPnr Users"""
