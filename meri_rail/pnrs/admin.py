@@ -26,4 +26,4 @@ class PnrAdmin(ModelAdmin):
     readonly_fields = ("created", "modified")
     list_filter = ("date_of_journey",)
     inlines = (PassengersInline,)
-    filter_horizontal = ["users"]
+    filter_horizontal = ["users", "emailed_users"]

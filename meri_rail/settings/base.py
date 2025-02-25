@@ -289,3 +289,13 @@ CLIENT_CONFIG = {
         "token_uri": env.get("TOKEN_URI"),
     }
 }
+CREDENTIALS_CONFIG = {
+    "token_uri": env.get("TOKEN_URI"),
+    "client_id": env.get("CLIENT_ID"),
+    "client_secret": env.get("CLIENT_SECRET"),
+    "scopes": [
+        "https://www.googleapis.com/auth/calendar.readonly",
+        "https://www.googleapis.com/auth/calendar.events",
+    ],
+    "universe_domain": "googleapis.com",
+}

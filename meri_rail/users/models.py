@@ -7,7 +7,7 @@ from users.constants import (
 )
 from django.utils.html import format_html
 from django_extensions.db.models import TimeStampedModel
-from users.constants import VerboseNames
+from users.constants import VerboseNames, ModelFields
 
 
 def _upload_to(self, filename):
@@ -42,6 +42,11 @@ class User(AbstractUser):
         unique=True,
         max_length=255,
     )
+    activity_status = models.BooleanField(
+        verbose_name=VerboseNames.ACTIVITY_STATUS,
+        choices=ModelFields.STATUS_CHOICES,
+        default=ModelFields.ACTIVE_STATUS,
+    )
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
@@ -57,6 +62,15 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse_lazy("user:details", kwargs={"username": self.username})
+
+    @property
+    def get_credentials(self):
+        google_oauth_token = self.googleoauth2token
+        return {
+            "access_token": google_oauth_token.access_token,
+            "refresh_token": google_oauth_token.refresh_token,
+            "expires_at": google_oauth_token.expires_at.isoformat() + "Z",
+        }
 
 
 class Otp(TimeStampedModel):

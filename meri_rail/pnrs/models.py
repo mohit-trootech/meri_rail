@@ -15,7 +15,10 @@ from pnrs.constants import ModelVerbose
 
 
 class Pnr(TimeStampedModel):
-    users = ManyToManyField("users.User", related_name="pnrs")
+    users = ManyToManyField("users.User", related_name="pnrs", blank=True)
+    emailed_users = ManyToManyField(
+        "users.User", related_name="emailed_pnrs", blank=True
+    )
     pnr = BigIntegerField(unique=True)
     date_of_journey = DateField()
     train = ForeignKey("trains.Train", on_delete=CASCADE, related_name="pnrs")

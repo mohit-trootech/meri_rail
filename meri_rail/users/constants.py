@@ -11,8 +11,8 @@ class ModelFields:
     INACTIVE_STATUS = 0
     ACTIVE_STATUS = 1
     STATUS_CHOICES = (
-        (INACTIVE_STATUS, "Unverified"),
         (ACTIVE_STATUS, "Verified"),
+        (INACTIVE_STATUS, "Unverified"),
     )
 
 
@@ -81,3 +81,4 @@ class VerboseNames:
     AGE = _("Age")
     ADDRESS = _("Address")
     GOOGLE_ID = _("Google ID")
+    ACTIVITY_STATUS = _("Activity Status")
