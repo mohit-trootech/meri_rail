@@ -33,8 +33,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/secrets/mappls/", mappls_secret_view, name="mappls"),
     path("api/secrets/firestore/", firestore_configuration_view, name="firestore"),
-    # path("auth/google/callback/", google_auth_callback, name="google_auth_callback"),
-    # path("google/auth/", google_auth_service_view, name="google-auth"),
 ] + debug_toolbar_urls()
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,6 +7,7 @@ from meri_rail.constants import ErrorMessages
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.conf import settings
+from utils.constants import CacheTimeout
 
 
 class MapplsSecretView(APIView):
@@ -39,7 +40,7 @@ class FireStoreConfiguration(APIView):
 firestore_configuration_view = FireStoreConfiguration.as_view()
 
 
-@method_decorator(cache_page(60 * 1440), name="dispatch")
+@method_decorator(cache_page(CacheTimeout.ONE_WEEK), name="dispatch")
 class BaseChoicesView(APIView):
     permission_classes = [AllowAny]
     choice_class = None

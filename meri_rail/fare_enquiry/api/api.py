@@ -56,7 +56,7 @@ class FareView(BaseAPIView):
         cache.set(
             CACHE_KEY % enquiry_serializer.validated_data,
             fare_serializer.data,
-            CacheTimeout.ONE_DAY,
+            CacheTimeout.ONE_WEEK,
         )
         return Response(fare_serializer.data, status=HTTPStatus.CREATED)
 

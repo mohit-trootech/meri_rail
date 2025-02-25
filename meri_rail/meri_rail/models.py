@@ -25,7 +25,7 @@ class Notification(TimeStampedModel):
     is_sent = BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.email_template.name} to {self.user.email}"
+        return f"{self.email_template.email_type} to {self.user.email}"
 
     class Meta:
         verbose_name = ModelVerbose.NOTIFICATION
