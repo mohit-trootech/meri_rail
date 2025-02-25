@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.cache import cache
 from users.constants import AUTHENTICATED_USER_CACHE_KEY
+from users.tasks import registration_email
 
 User = get_model("users", "User")
 
@@ -21,6 +22,8 @@ def remove_cache(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def send_registration_mail(sender, instance, created, **kwargs):
     """Send Registration Mail When User Created"""
-    if created:
-        return True
-    return False
+    try:
+        if created:
+            registration_email.delay(id=instance.id)
+    except Exception:
+        pass
