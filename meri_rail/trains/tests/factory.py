@@ -7,7 +7,7 @@ from utils.utils import get_model
 
 class TrainFactory(DjangoModelFactory):
     class Meta:
-        model = get_model(AppLabelsModel.TRAIN)
+        model = get_model(**AppLabelsModel.TRAIN)
 
     number = Faker("numerify", text="#####")
     name = Faker("name")
@@ -15,7 +15,7 @@ class TrainFactory(DjangoModelFactory):
 
 class TrainDetailFactory(DjangoModelFactory):
     class Meta:
-        model = get_model(AppLabelsModel.TRAIN_DETAIL)
+        model = get_model(**AppLabelsModel.TRAIN_DETAIL)
 
     train = SubFactory(TrainFactory)
     station_from = SubFactory("stations.tests.factory.StationFactory")
@@ -25,7 +25,7 @@ class TrainDetailFactory(DjangoModelFactory):
 
 class ScheduleFactory(DjangoModelFactory):
     class Meta:
-        model = get_model(AppLabelsModel.SCHEDULE)
+        model = get_model(**AppLabelsModel.SCHEDULE)
 
     train = SubFactory(TrainFactory)
     monday = "Y"
@@ -39,7 +39,7 @@ class ScheduleFactory(DjangoModelFactory):
 
 class RouteFactory(DjangoModelFactory):
     class Meta:
-        model = get_model(AppLabelsModel.ROUTE)
+        model = get_model(**AppLabelsModel.ROUTE)
 
     train = SubFactory(TrainFactory)
     station = SubFactory("stations.tests.factory.StationFactory")
