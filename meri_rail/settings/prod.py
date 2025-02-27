@@ -1,6 +1,6 @@
 from settings.base import *  # noqa: F403
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*", "http://127.0.0.1/"]
 
 CORS_ALLOWED_ORIGINS = [

@@ -60,5 +60,8 @@ class GoogleAuthenticationSignup(GoogleAuthenticationLogin):
             raise serializers.ValidationError(str(err))
 
     def create(self, validated_data):
-        validated_data["username"] = validated_data["email"]
-        return User.objects.get_or_create(**validated_data)
+        try:
+            user = User.objects.get(google_id=validated_data["google_id"])
+            return user, False
+        except User.DoesNotExist:
+            return User.objects.create(**validated_data), True
