@@ -154,4 +154,4 @@ class GoogleAuthServiceView(GenericViewSet):
                 "expires_at": credentials.expiry,
             },
         )
-        return redirect("http://localhost:3000/auth/")
+        return redirect("https://meri-rail-web.vercel.app/auth/")
