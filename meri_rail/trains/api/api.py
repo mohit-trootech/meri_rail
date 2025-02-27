@@ -10,15 +10,12 @@ from django.core.cache import cache
 from http import HTTPStatus
 from rest_framework.response import Response
 from trains.constants import TRAIN_CACHE_KEY
-from utils.mixins import ElasticFilterMixin
-from trains.documents import TrainDocument
 
 Train = get_model(**AppLabelsModel.TRAIN)
 TrainDetail = get_model(**AppLabelsModel.TRAIN_DETAIL)
 
 
 class TrainViewSet(
-    ElasticFilterMixin,
     ListModelMixin,
     RetrieveModelMixin,
     UpdateModelMixin,
@@ -27,7 +24,6 @@ class TrainViewSet(
     queryset = TrainDetail.objects.all()
     serializer_class = TrainDetailSerializer
     lookup_field = LookUps.TRAIN_NUMBER
-    document_class = TrainDocument
     ordering_fields = [
         "number",
         "name",

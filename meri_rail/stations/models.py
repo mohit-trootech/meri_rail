@@ -20,8 +20,8 @@ class Station(Model):
     state = ForeignKey(
         Region, null=True, blank=True, on_delete=CASCADE, related_name="stations"
     )
-    latitude = CharField(null=True, blank=True)
-    longitude = CharField(null=True, blank=True)
+    latitude = CharField(max_length=255, null=True, blank=True)
+    longitude = CharField(max_length=255, null=True, blank=True)
     address = TextField(null=True, blank=True)
     trains_count = IntegerField(null=True, blank=True)
 
