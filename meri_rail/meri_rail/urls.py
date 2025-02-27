@@ -3,7 +3,6 @@ from django.urls import path, include
 from trains.urls import router as train_router
 from stations.urls import router as station_router
 from rest_framework.routers import DefaultRouter
-from debug_toolbar.toolbar import debug_toolbar_urls
 from meri_rail.api.api import (
     train_quota_view,
     journey_class_view,
@@ -33,7 +32,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/secrets/mappls/", mappls_secret_view, name="mappls"),
     path("api/secrets/firestore/", firestore_configuration_view, name="firestore"),
-] + debug_toolbar_urls()
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
