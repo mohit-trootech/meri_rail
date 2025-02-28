@@ -5,12 +5,14 @@ INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
 DEBUG = False
 ALLOWED_HOSTS = [
-    "3.110.47.167",
+    "https://3.110.47.167/",
     "http://127.0.0.1/",
     "ec2-3-110-47-167.ap-south-1.compute.amazonaws.com",
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "https://3.110.47.167/",
+    "https://ec2-3-110-47-167.ap-south-1.compute.amazonaws.com",
     "http://localhost:8080",
     "http://localhost:3000",
     "http://192.168.0.31:3000",
