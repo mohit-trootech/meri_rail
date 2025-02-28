@@ -248,16 +248,6 @@ CACHES = {
 # Mappls Api Configuration
 MAPPLS_API_KEY = env.get("MAPPLS_API_KEY")
 
-# Firestore Configurations
-
-FIRESTORE_API_KEY = env.get("FIRESTORE_API_KEY")
-AUTH_DOMAIN = env.get("AUTH_DOMAIN")
-PROJECT_ID = env.get("PROJECT_ID")
-STORAGE_BUCKET = env.get("STORAGE_BUCKET")
-MESSAGING_SENDER_ID = env.get("MESSAGING_SENDER_ID")
-APP_ID = env.get("APP_ID")
-MEASUREMENT_ID = env.get("MEASUREMENT_ID")
-
 # Coogle Api Credentials Path
 CREDENTIALS_JSON = join(BASE_DIR, "fixtures/google/credentials.json")
 TOKEN_JSON = join(BASE_DIR, "fixtures/google/token.json")
