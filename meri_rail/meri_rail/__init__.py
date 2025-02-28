@@ -1,3 +1,3 @@
-from settings.celery import app as celery_app  # noqa
+from meri_rail.settings.celery import app as celery_app  # noqa
 
 __all__ = ("celery_app",)
