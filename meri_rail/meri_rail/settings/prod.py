@@ -28,14 +28,14 @@ STORAGES = {
         "BACKEND": "storages.backends.s3.S3Storage",
     },
     "staticfiles": {
-        "BACKEND": "settings.storage.StaticStorage",
+        "BACKEND": "meri_rail.settings.storage.StaticStorage",
         "OPTIONS": {
             "location": "static",
             "file_overwrite": False,
         },
     },
     "media": {
-        "BACKEND": "settings.storage.MediaStorage",
+        "BACKEND": "meri_rail.settings.storage.MediaStorage",
         "OPTIONS": {
             "location": "media",
             "file_overwrite": False,
