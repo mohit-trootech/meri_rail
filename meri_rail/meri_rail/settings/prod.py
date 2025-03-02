@@ -10,9 +10,6 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://3.110.47.167",
-    "https://ec2-3-110-47-167.ap-south-1.compute.amazonaws.com",
-    "http://localhost:8080",
     "http://localhost:3000",
     "http://192.168.0.31:3000",
     "https://meri-rail-web.vercel.app",
