@@ -19,7 +19,9 @@ class SeleniumService:
         options = webdriver.FirefoxOptions()
         options.set_preference("devtools.jsonview.enabled", False)
         options.add_argument("--headless")
+        # Requires selenium == 3.11
         self.driver = webdriver.Firefox(
+            executable_path=settings.GECKODRIVER_PATH,
             options=options,
         )
 

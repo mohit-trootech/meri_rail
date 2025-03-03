@@ -10,7 +10,7 @@ env = dotenv_values(".env")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # -------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
+GECKODRIVER_PATH = join(BASE_DIR, "geckodriver")
 # Auth User Model
 AUTH_USER_MODEL = Settings.AUTH_USER_MODEL
 APPEND_SLASH = True
@@ -20,6 +20,7 @@ APPEND_SLASH = True
 SECRET_KEY = env.get("SECRET_KEY")
 
 CITIES_LIGHT_INCLUDE_COUNTRIES = ["IN"]
+
 # Application definition
 # -------------------------------------------------
 THIRD_PARTY_APPS = [
