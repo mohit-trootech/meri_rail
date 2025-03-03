@@ -250,6 +250,7 @@ CACHES = {
 MAPPLS_API_KEY = env.get("MAPPLS_API_KEY")
 
 # Coogle Api Credentials Path
+REDIRECT_URI = env.get("REDIRECT_URI")
 CREDENTIALS_JSON = join(BASE_DIR, "fixtures/google/credentials.json")
 TOKEN_JSON = join(BASE_DIR, "fixtures/google/token.json")
 CLIENT_CONFIG = {

@@ -106,7 +106,7 @@ class GoogleAuthServiceView(GenericViewSet):
         flow = self.get_flow_from_client_config(
             **{
                 "scopes": SCOPES,
-                "redirect_uri": "http://localhost:8000/auth/google/callback",
+                "redirect_uri": settings.REDIRECT_URI,
             }
         )
         if not flow:
