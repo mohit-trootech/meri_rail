@@ -14,6 +14,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.0.31:3000",
     "https://meri-rail-web.vercel.app",
+    "https://meri-rail-web-git-develop-mohit-trootechs-projects.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
