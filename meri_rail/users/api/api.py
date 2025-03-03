@@ -127,7 +127,7 @@ class GoogleAuthServiceView(GenericViewSet):
             **{
                 "scopes": SCOPES,
                 "state": state,
-                "redirect_uri": "http://localhost:8000/auth/google/callback",
+                "redirect_uri": settings.REDIRECT_URI,
             }
         )
         flow.fetch_token(authorization_response=request.build_absolute_uri())
