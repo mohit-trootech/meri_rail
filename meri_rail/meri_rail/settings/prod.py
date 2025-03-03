@@ -3,10 +3,12 @@ from meri_rail.settings.base import INSTALLED_APPS, MIDDLEWARE, env
 
 INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = [
     "65.1.248.240",
     "0.0.0.0",
+    "127.0.0.1",
+    "localhost",
     "ec2-65-1-248-240.ap-south-1.compute.amazonaws.com",
 ]
 
@@ -18,8 +20,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-# DEFAULT_FILE_STORAGE = "settings.storage_backends.MediaStorage"
-# STATICFILES_STORAGE = "settings.storage_backends.StaticStorage"
 # AWS S3 Configurations
 STORAGES = {
     "default": {

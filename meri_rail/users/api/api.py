@@ -58,20 +58,6 @@ class UserProfileView(GenericViewSet):
         """Return User Object"""
         return self.request.user
 
-    # def get(self, *args, **kwargs):
-    #     """Return User Profile"""
-    #     instance = self.get_object(*args, **kwargs)
-    #     serializer = self.serializer_class(instance)
-    #     return Response(serializer.data)
-
-    # def patch(self, request, *args, **kwargs):
-    #     """Update User Profile"""
-    #     instance = self.get_object()
-    #     serializer = self.serializer_class(instance, data=request.data, partial=True)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return Response(serializer.data)
-
 
 class GoogleAuthServiceView(GenericViewSet):
     permission_classes = [permissions.AllowAny]
@@ -103,6 +89,12 @@ class GoogleAuthServiceView(GenericViewSet):
 
     @action(methods=["GET"], detail=False)
     def init(self, request):
+        if not settings.REDIRECT_URI:
+            return Response(
+                {"message": "Redirect Url is not configured"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         flow = self.get_flow_from_client_config(
             **{
                 "scopes": SCOPES,
@@ -114,14 +106,17 @@ class GoogleAuthServiceView(GenericViewSet):
                 {"message": "Google Auth Init Failed"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        auth_url, state = flow.authorization_url(
-            access_type="offline", prompt="consent"
-        )
+        auth_url, state = flow.authorization_url()
         request.session["state"] = state
         return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
+        if not settings.REDIRECT_URI:
+            return Response(
+                {"message": "Redirect Url is not configured"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         state = request.session.pop("state", "")
         flow = self.get_flow_from_client_config(
             **{
@@ -154,4 +149,5 @@ class GoogleAuthServiceView(GenericViewSet):
                 "expires_at": credentials.expiry,
             },
         )
+
         return redirect("https://meri-rail-web.vercel.app/auth/")
