@@ -18,11 +18,11 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.invalid_trains = []
         self.trains = Train.objects.all()
+        self.manager_driver = SeleniumService()
         if not self.trains:
             return self.stdout.write(self.style.WARNING("No self.trains found"))
-        self.manager_driver = SeleniumService()
-        self.invalid_trains = []
 
     def handle(self, *args, **options):
         start_from = time()
