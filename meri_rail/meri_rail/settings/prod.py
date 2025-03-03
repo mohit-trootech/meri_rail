@@ -5,8 +5,9 @@ INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
 DEBUG = False
 ALLOWED_HOSTS = [
-    "13.126.36.53","0.0.0.0",
-    "ec2-13-126-36-53.ap-south-1.compute.amazonaws.com",
+    "65.1.248.240",
+    "0.0.0.0",
+    "ec2-65-1-248-240.ap-south-1.compute.amazonaws.com",
 ]
 
 CORS_ALLOWED_ORIGINS = [
