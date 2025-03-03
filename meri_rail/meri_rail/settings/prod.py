@@ -2,13 +2,14 @@ from meri_rail.settings.base import *  # noqa
 from meri_rail.settings.base import INSTALLED_APPS, MIDDLEWARE, env
 
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_SSL_REDIRECT = True
 INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
 DEBUG = True
 ALLOWED_HOSTS = [
     "65.1.248.240",
+    "halydeals.com",
     "0.0.0.0",
     "127.0.0.1",
     "localhost",
