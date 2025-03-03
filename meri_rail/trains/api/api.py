@@ -1,4 +1,5 @@
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from utils.utils import get_model
 from utils.constants import AppLabelsModel, LookUps, CacheTimeout
@@ -21,6 +22,7 @@ class TrainViewSet(
     UpdateModelMixin,
     GenericViewSet,
 ):
+    parser_classes = [AllowAny]
     queryset = TrainDetail.objects.all()
     serializer_class = TrainDetailSerializer
     lookup_field = LookUps.TRAIN_NUMBER

@@ -3,6 +3,7 @@ from trains_between_station.api.serializer import (
     TbisSerializer,
     TrainBetweenStationSerializer,
 )
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from http import HTTPStatus
 from rest_framework.response import Response
@@ -15,6 +16,8 @@ Route = get_model(**AppLabelsModel.ROUTE)
 
 
 class TrainBetweenStationApiView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         tbis_serializer = TbisSerializer(data=request.data)
         tbis_serializer.is_valid(raise_exception=True)
