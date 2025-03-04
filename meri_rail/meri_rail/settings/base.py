@@ -263,6 +263,14 @@ CLIENT_CONFIG = {
         "token_uri": env.get("TOKEN_URI"),
     }
 }
+WEB_CLIENT_CONFIG = {
+    "web": {
+        "client_id": env.get("WEB_CLIENT_ID"),
+        "client_secret": env.get("WEB_CLIENT_SECRET"),
+        "auth_uri": env.get("AUTH_URI"),
+        "token_uri": env.get("TOKEN_URI"),
+    }
+}
 CREDENTIALS_CONFIG = {
     "token_uri": env.get("TOKEN_URI"),
     "client_id": env.get("CLIENT_ID"),

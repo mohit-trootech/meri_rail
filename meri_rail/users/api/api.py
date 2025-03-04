@@ -89,17 +89,18 @@ class GoogleAuthServiceView(GenericViewSet):
 
     @action(methods=["GET"], detail=False)
     def init(self, request):
-        if not settings.REDIRECT_URI:
+        if not settings.REDIRECT_URI or not settings.WEB_CLIENT_CONFIG:
             return Response(
-                {"message": "Redirect Url is not configured"},
+                {
+                    "message": "message"
+                    "Redirect Url or Web Client Config is not configured"
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
-        flow = self.get_flow_from_client_config(
-            **{
-                "scopes": SCOPES,
-                "redirect_uri": settings.REDIRECT_URI,
-            }
+        flow = Flow.from_client_config(
+            client_config=settings.WEB_CLIENT_CONFIG,
+            scopes=SCOPES,
+            redirect_uri=settings.REDIRECT_URI,
         )
         if not flow:
             return Response(
@@ -113,18 +114,20 @@ class GoogleAuthServiceView(GenericViewSet):
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
-        if not settings.REDIRECT_URI:
+        if not settings.REDIRECT_URI or not settings.CLIENT_CONFIG:
             return Response(
-                {"message": "Redirect Url is not configured"},
+                {
+                    "message": "message"
+                    "Redirect Url or Web Client Config is not configured"
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
         state = request.session.pop("state", None)
-        flow = self.get_flow_from_client_config(
-            **{
-                "scopes": SCOPES,
-                "state": state,
-                "redirect_uri": settings.REDIRECT_URI,
-            }
+        flow = Flow.from_client_config(
+            client_config=settings.WEB_CLIENT_CONFIG,
+            scopes=SCOPES,
+            state=state,
+            redirect_uri=settings.REDIRECT_URI,
         )
         flow.fetch_token(authorization_response=request.build_absolute_uri())
         credentials = flow.credentials
