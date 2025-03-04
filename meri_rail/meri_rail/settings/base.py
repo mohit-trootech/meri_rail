@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 GECKODRIVER_PATH = join(BASE_DIR, "geckodriver")
 # Auth User Model
 AUTH_USER_MODEL = Settings.AUTH_USER_MODEL
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # -------------------------------------------------
