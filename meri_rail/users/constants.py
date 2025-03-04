@@ -5,6 +5,13 @@ from django.utils.translation import gettext_lazy as _
 AUTHENTICATED_USER_CACHE_KEY = "USER_%s"
 
 
+class Templates:
+    """Meri Rail Api Templates"""
+
+    SUCCESS_TEMPLATE = "api/success.html"
+    ERROR_TEMPLATE = "api/error.html"
+
+
 class ModelFields:
     """Model Contants - QuickPnr Users"""
 

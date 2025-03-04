@@ -9,10 +9,10 @@ from users.api.serializers import (
     GoogleAuthenticationSignup,
 )
 from utils.auth_service import AuthService
-from users.constants import ResponseMessages, AUTHENTICATED_USER_CACHE_KEY
+from users.constants import ResponseMessages, AUTHENTICATED_USER_CACHE_KEY, Templates
 from utils.constants import AppLabelsModel, CacheTimeout
 from rest_framework.decorators import action
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import Flow
 from django.conf import settings
@@ -112,37 +112,45 @@ class GoogleAuthServiceView(GenericViewSet):
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
-        if not settings.REDIRECT_URI:
-            return Response(
-                {
-                    "message": "message"
-                    "Redirect Url or Web Client Config is not configured"
-                },
-                status=status.HTTP_400_BAD_REQUEST,
+        try:
+            if not settings.REDIRECT_URI:
+                return Response(
+                    {
+                        "message": "message"
+                        "Redirect Url or Web Client Config is not configured"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            flow = self.get_flow_from_client_config()
+            flow.fetch_token(authorization_response=request.build_absolute_uri())
+            credentials = flow.credentials
+            service = build("oauth2", "v2", credentials=credentials)
+            user_info = service.userinfo().get().execute()
+            user = GoogleAuthenticationSignup(
+                data={
+                    "google_id": user_info["id"],
+                    "email": user_info["email"],
+                    "username": user_info["email"],
+                    "first_name": user_info["given_name"],
+                    "last_name": user_info["family_name"],
+                    "image": user_info.get("picture", None),
+                }
             )
-        flow = self.get_flow_from_client_config()
-        flow.fetch_token(authorization_response=request.build_absolute_uri())
-        credentials = flow.credentials
-        service = build("oauth2", "v2", credentials=credentials)
-        user_info = service.userinfo().get().execute()
-        user = GoogleAuthenticationSignup(
-            data={
-                "google_id": user_info["id"],
-                "email": user_info["email"],
-                "username": user_info["email"],
-                "first_name": user_info["given_name"],
-                "last_name": user_info["family_name"],
-                "image": user_info.get("picture", None),
+            user.is_valid(raise_exception=True)
+            instance, created = user.save()
+            GoogleOAuth2Token.objects.update_or_create(
+                user=instance,
+                defaults={
+                    "access_token": credentials.token,
+                    "refresh_token": credentials.refresh_token,
+                    "expires_at": credentials.expiry,
+                },
+            )
+            context = {
+                "title": "Meri Rail",
+                "content": "Welcome to Meri Rail, Please Close this Window and Continue Login.",
             }
-        )
-        user.is_valid(raise_exception=True)
-        instance, created = user.save()
-        GoogleOAuth2Token.objects.update_or_create(
-            user=instance,
-            defaults={
-                "access_token": credentials.token,
-                "refresh_token": credentials.refresh_token,
-                "expires_at": credentials.expiry,
-            },
-        )
-        return redirect("https://meri-rail-web.vercel.app/auth/")
+            return render(Templates.SUCCESS_TEMPLATE, context)
+        except Exception as err:
+            context = {"title": "Meri Rail Exception", "content": str(err)}
+            return render(Templates.ERROR_TEMPLATE, context)
