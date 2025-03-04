@@ -109,8 +109,7 @@ class GoogleAuthServiceView(GenericViewSet):
             )
         auth_url, state = flow.authorization_url()
         request.session["state"] = state
-        return redirect(auth_url)
-        # return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
+        return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
@@ -153,6 +152,4 @@ class GoogleAuthServiceView(GenericViewSet):
                 "expires_at": credentials.expiry,
             },
         )
-        return Response(
-            {"data": ResponseMessages.USER_REGISTERED}, status=status.HTTP_200_OK
-        )
+        return redirect("https://meri-rail-web.vercel.app/auth/")
