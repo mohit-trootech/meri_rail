@@ -63,6 +63,7 @@ class AuthConstantsMessages:
 class ResponseMessages:
     """Users Messages Constants"""
 
+    USER_REGISTERED = _("User Registered successfully, Please Continue Login...")
     OTP_GENERATED = _("OTP generated successfully")
     FAILED_TO_GENERATE_OTP = _("Failed to generate OTP, {err}")
     EMAIL_VERIFIED = _("Email verified successfully")

@@ -52,7 +52,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-INSTALLED_APPS = THIRD_PARTY_APPS + PROJECT_APPS + DJANGO_APPS
+INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 
 # Middlewares
@@ -95,6 +95,8 @@ TEMPLATES = [
 # -------------------------------------------------
 WSGI_APPLICATION = Settings.WSGI_APPLICATION
 
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_NAME = "sessionid"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

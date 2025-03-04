@@ -18,8 +18,6 @@ from google_auth_oauthlib.flow import Flow
 from django.conf import settings
 from rest_framework.viewsets import GenericViewSet
 from django.core.cache import cache
-from django.views.decorators.cache import never_cache
-from django.utils.decorators import method_decorator
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 User = get_model(**AppLabelsModel.USERS)
@@ -61,7 +59,6 @@ class UserProfileView(GenericViewSet):
         return self.request.user
 
 
-@method_decorator(never_cache, name="dispatch")
 class GoogleAuthServiceView(GenericViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = GoogleAuthenticationSignup
@@ -111,7 +108,8 @@ class GoogleAuthServiceView(GenericViewSet):
             )
         auth_url, state = flow.authorization_url()
         request.session["state"] = state
-        return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
+        return redirect(auth_url)
+        # return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
@@ -120,7 +118,7 @@ class GoogleAuthServiceView(GenericViewSet):
                 {"message": "Redirect Url is not configured"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        state = request.session.pop("state", "")
+        state = request.session.pop("state", None)
         flow = self.get_flow_from_client_config(
             **{
                 "scopes": SCOPES,
@@ -152,4 +150,6 @@ class GoogleAuthServiceView(GenericViewSet):
                 "expires_at": credentials.expiry,
             },
         )
-        return redirect("https://meri-rail-web.vercel.app/auth/")
+        return Response(
+            {"data": ResponseMessages.USER_REGISTERED}, status=status.HTTP_200_OK
+        )
