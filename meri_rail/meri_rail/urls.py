@@ -12,7 +12,7 @@ from meri_rail.api.api import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
-
+from meri_rail.views import success_view, error_view
 
 router = DefaultRouter()
 router.registry.extend(train_router.registry)
@@ -20,6 +20,9 @@ router.registry.extend(station_router.registry)
 
 
 urlpatterns = [
+    path("admin-meri-rail/", admin.site.urls),
+    path("success/", success_view, name="success"),
+    path("error/", error_view, name="error"),
     path("api/", include(router.urls)),
     path("api/train_quota/", train_quota_view, name="train_quota"),
     path("api/journey_class/", journey_class_view, name="journey_class"),
@@ -29,7 +32,6 @@ urlpatterns = [
     path("api/", include("trains_between_station.urls")),
     path("api/", include("seat_availability.urls")),
     path("auth/", include("users.urls")),
-    path("admin/", admin.site.urls),
     path("api/secrets/mappls/", mappls_secret_view, name="mappls"),
     path("api/secrets/firestore/", firestore_configuration_view, name="firestore"),
 ]

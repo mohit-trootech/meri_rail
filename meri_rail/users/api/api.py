@@ -9,10 +9,10 @@ from users.api.serializers import (
     GoogleAuthenticationSignup,
 )
 from utils.auth_service import AuthService
-from users.constants import ResponseMessages, AUTHENTICATED_USER_CACHE_KEY, Templates
+from users.constants import ResponseMessages, AUTHENTICATED_USER_CACHE_KEY
 from utils.constants import AppLabelsModel, CacheTimeout
 from rest_framework.decorators import action
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import Flow
 from django.conf import settings
@@ -146,14 +146,14 @@ class GoogleAuthServiceView(GenericViewSet):
                     "expires_at": credentials.expiry,
                 },
             )
-            context = {
+            request.session["context"] = {
                 "title": "Meri Rail",
                 "content": "Welcome to Meri Rail, Please Close this Window and Continue Login.",
             }
-            return render(request, Templates.SUCCESS_TEMPLATE, context)
+            return redirect("/success/")
         except Exception as err:
-            context = {"title": "Meri Rail Exception", "content": str(err)}
-            return render(
-                request,
-                Templates.ERROR_TEMPLATE,
-            )
+            request.session["context"] = {
+                "title": "Meri Rail Exception",
+                "content": str(err),
+            }
+            return redirect("/error/")

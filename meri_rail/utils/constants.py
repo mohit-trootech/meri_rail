@@ -4,6 +4,13 @@ DD_MM_YYYY = "%d-%m-%Y"
 YYYY_MM_DD = "%Y-%m-%d"
 
 
+class Templates:
+    """Meri Rail Api Templates"""
+
+    SUCCESS_TEMPLATE = "api/success.html"
+    ERROR_TEMPLATE = "api/error.html"
+
+
 # Settings Constants
 # =====================================================
 class Settings:
