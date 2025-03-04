@@ -84,12 +84,16 @@ class GoogleAuthServiceView(GenericViewSet):
             status=status.HTTP_200_OK,
         )
 
-    def get_flow_from_client_config(self, **kwargs):
-        return Flow.from_client_config(client_config=settings.CLIENT_CONFIG, **kwargs)
+    def get_flow_from_client_config(self):
+        return Flow.from_client_config(
+            client_config=settings.CLIENT_CONFIG,
+            scopes=SCOPES,
+            redirect_uri=settings.REDIRECT_URI,
+        )
 
     @action(methods=["GET"], detail=False)
     def init(self, request):
-        if not settings.REDIRECT_URI or not settings.WEB_CLIENT_CONFIG:
+        if not settings.REDIRECT_URI:
             return Response(
                 {
                     "message": "message"
@@ -97,23 +101,18 @@ class GoogleAuthServiceView(GenericViewSet):
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        flow = Flow.from_client_config(
-            client_config=settings.WEB_CLIENT_CONFIG,
-            scopes=SCOPES,
-            redirect_uri=settings.REDIRECT_URI,
-        )
+        flow = self.get_flow_from_client_config()
         if not flow:
             return Response(
                 {"message": "Google Auth Init Failed"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         auth_url, state = flow.authorization_url()
-        request.session["state"] = state
-        return Response({"auth_url": auth_url}, status=status.HTTP_200_OK)
+        return redirect(auth_url)
 
     @action(methods=["GET"], detail=False)
     def callback(self, request):
-        if not settings.REDIRECT_URI or not settings.CLIENT_CONFIG:
+        if not settings.REDIRECT_URI:
             return Response(
                 {
                     "message": "message"
@@ -121,13 +120,7 @@ class GoogleAuthServiceView(GenericViewSet):
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        state = request.session.pop("state", None)
-        flow = Flow.from_client_config(
-            client_config=settings.WEB_CLIENT_CONFIG,
-            scopes=SCOPES,
-            state=state,
-            redirect_uri=settings.REDIRECT_URI,
-        )
+        flow = self.get_flow_from_client_config()
         flow.fetch_token(authorization_response=request.build_absolute_uri())
         credentials = flow.credentials
         service = build("oauth2", "v2", credentials=credentials)
