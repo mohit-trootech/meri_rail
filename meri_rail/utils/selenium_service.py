@@ -18,6 +18,9 @@ class SeleniumService:
         self.time = round(time() * 1000)
         options = webdriver.FirefoxOptions()
         options.set_preference("devtools.jsonview.enabled", False)
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless")
         # Requires selenium == 3.11
         self.driver = webdriver.Firefox(
