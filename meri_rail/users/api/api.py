@@ -150,7 +150,10 @@ class GoogleAuthServiceView(GenericViewSet):
                 "title": "Meri Rail",
                 "content": "Welcome to Meri Rail, Please Close this Window and Continue Login.",
             }
-            return render(Templates.SUCCESS_TEMPLATE, context)
+            return render(request, Templates.SUCCESS_TEMPLATE, context)
         except Exception as err:
             context = {"title": "Meri Rail Exception", "content": str(err)}
-            return render(Templates.ERROR_TEMPLATE, context)
+            return render(
+                request,
+                Templates.ERROR_TEMPLATE,
+            )
