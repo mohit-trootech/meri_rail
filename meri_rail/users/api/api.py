@@ -17,6 +17,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import Flow
 from django.conf import settings
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import RetrieveModelMixin
 from django.core.cache import cache
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
@@ -31,7 +32,7 @@ SCOPES = [
 ]
 
 
-class UserProfileView(GenericViewSet):
+class UserProfileView(RetrieveModelMixin, GenericViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.filter(is_active=True)
     permission_classes = [permissions.IsAuthenticated]

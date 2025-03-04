@@ -9,8 +9,8 @@
 </head>
 <script src="{% static 'js/tailwind.js' %}"></script>
 <body data-theme="dark">
-    <div class="h-screen flex justify-center items-center">
-        <div class="p-14 border shadow-lg rounded-lg w-1/2 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+    <div className="h-screen flex justify-center items-center">
+        <div className="p-14 border shadow-lg rounded-lg w-1/2 hover:shadow-xl transition-shadow duration-300 ease-in-out">
             {% block content %}{%endblock%}
         </div>
     </div>

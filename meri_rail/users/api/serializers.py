@@ -33,11 +33,17 @@ class UserSerializer(UserSerializerBase):
             "last_name",
             "age",
             "address",
+            "google_id",
             "image",
-            "is_verified",
             "last_login",
             "date_joined",
+            "activity_status",
         )
+        extra_kwargs = {
+            "username": {"read_only": True},
+            "email": {"read_only": True},
+            "google_id": {"read_only": True},
+        }
 
 
 class GoogleAuthenticationLogin(serializers.Serializer):
