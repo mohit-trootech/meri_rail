@@ -4,7 +4,7 @@ from meri_rail.settings.base import INSTALLED_APPS, MIDDLEWARE, env
 
 INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     "ec2-65-0-61-241.ap-south-1.compute.amazonaws.com",
     "65.0.61.241",
