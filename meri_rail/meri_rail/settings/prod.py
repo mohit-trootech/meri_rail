@@ -6,8 +6,8 @@ INSTALLED_APPS += ["storages", "whitenoise.runserver_nostatic"]
 MIDDLEWARE += ["whitenoise.middleware.WhiteNoiseMiddleware"]
 DEBUG = True
 ALLOWED_HOSTS = [
-    "ec2-13-126-146-227.ap-south-1.compute.amazonaws.com",
-    "13.126.146.227",
+    "ec2-65-0-61-241.ap-south-1.compute.amazonaws.com",
+    "65.0.61.241",
     "halydeals.com",
     "0.0.0.0",
     "127.0.0.1",
