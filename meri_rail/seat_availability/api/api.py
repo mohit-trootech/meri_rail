@@ -58,7 +58,7 @@ class SeatAvailabilityAPIView(BaseAPIView):
         )
         return Response(serializer.data, status=HTTPStatus.OK)
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         filter_serializer = self.filter_serializer_class(data=request.data)
         filter_serializer.is_valid(raise_exception=True)
 
@@ -84,13 +84,15 @@ class SeatAvailabilityAPIView(BaseAPIView):
         )
         if not qs:
             return self.create(filter_serializer=filter_serializer)
-        if not qs.filter(modified__gte=now() - timedelta(minutes=10)):
+        if not qs.filter(
+            modified__gte=now() - timedelta(minutes=CacheTimeout.THIRTY_MINUTES)
+        ):
             return self.update(filter_serializer=filter_serializer, qs=qs)
         serializer = self.serializer_class(qs, many=True)
         cache.set(
             SEAT_AVAILABILITY_CACHE % filter_serializer.validated_data,
             serializer.data,
-            CacheTimeout.TEN_MINUTES,
+            CacheTimeout.THIRTY_MINUTES,
         )
         return Response(serializer.data, status=HTTPStatus.OK)
 

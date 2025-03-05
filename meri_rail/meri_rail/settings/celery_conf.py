@@ -1,9 +1,11 @@
 import os
 from celery import Celery
+from dotenv import dotenv_values
 from django.conf import settings
 
+env = dotenv_values(".env")
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "meri_rail.settings.prod")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", env.get("DJANGO_SETTINGS_MODULE"))
 
 app = Celery("meri_rail")
 

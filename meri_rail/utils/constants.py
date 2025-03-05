@@ -116,19 +116,19 @@ class TrainQuota:
 
     @classmethod
     def get_api_choices(cls):
-        return {
-            cls.TQ: _("Tatkal Quota)"),
-            cls.LD: _("Ladies Quota"),
-            cls.DF: _("Defence Quota"),
-            cls.FT: _("Foreign Tourist Quota"),
-            cls.SS: _("Lower Berth Quota"),
-            cls.PT: _("Premium Tatkal Quota"),
-            cls.YU: _("Yuva Quota"),
-            cls.DP: _("Duty Pass Quota"),
-            cls.HP: _("Handicapped Quota"),
-            cls.PH: _("Parliament House Quota"),
-            cls.GN: _("General Quota"),
-        }
+        return [
+            {"code": cls.TQ, "name": _("Tatkal Quota)")},
+            {"code": cls.LD, "name": _("Ladies Quota")},
+            {"code": cls.DF, "name": _("Defence Quota")},
+            {"code": cls.FT, "name": _("Foreign Tourist Quota")},
+            {"code": cls.SS, "name": _("Lower Berth Quota")},
+            {"code": cls.PT, "name": _("Premium Tatkal Quota")},
+            {"code": cls.YU, "name": _("Yuva Quota")},
+            {"code": cls.DP, "name": _("Duty Pass Quota")},
+            {"code": cls.HP, "name": _("Handicapped Quota")},
+            {"code": cls.PH, "name": _("Parliament House Quota")},
+            {"code": cls.GN, "name": _("General Quota")},
+        ]
 
 
 class JourneyClass:
@@ -172,23 +172,23 @@ class JourneyClass:
 
     @classmethod
     def get_api_choices(cls):
-        return {
-            cls.FIRST_AC: _("First AC"),
-            cls.SECOND_AC: _("Second AC"),
-            cls.THIRD_AC: _("Third AC"),
-            cls.THIRD_ECONOMY: _("Third AC Economy"),
-            cls.SECOND: _("Second Seating"),
-            cls.SL: _("Sleeper"),
-            cls.EC: _("Executive Class"),
-            cls.EA: _("Executive Anubhuti"),
-            cls.CC: _("AC Chair Car"),
-            cls.FC: _("First Class"),
-            cls.VS: _("Vista Dome Non AC"),
-            cls.CH: _("Chair Car High Capacity"),
-            cls.SH: _("Sleeper High Capacity"),
-            cls.VC: _("Vista Dome CC"),
-            cls.EV: _("Vista Dome AC"),
-        }
+        return [
+            {"code": cls.FIRST_AC, "name": _("First AC")},
+            {"code": cls.SECOND_AC, "name": _("Second AC")},
+            {"code": cls.THIRD_AC, "name": _("Third AC")},
+            {"code": cls.THIRD_ECONOMY, "name": _("Third AC Economy")},
+            {"code": cls.SECOND, "name": _("Second Seating")},
+            {"code": cls.SL, "name": _("Sleeper")},
+            {"code": cls.EC, "name": _("Executive Class")},
+            {"code": cls.EA, "name": _("Executive Anubhuti")},
+            {"code": cls.CC, "name": _("AC Chair Car")},
+            {"code": cls.FC, "name": _("First Class")},
+            {"code": cls.VS, "name": _("Vista Dome Non AC")},
+            {"code": cls.CH, "name": _("Chair Car High Capacity")},
+            {"code": cls.SH, "name": _("Sleeper High Capacity")},
+            {"code": cls.VC, "name": _("Vista Dome CC")},
+            {"code": cls.EV, "name": _("Vista Dome AC")},
+        ]
 
 
 class SeatType:
@@ -296,6 +296,7 @@ class ValidationErrorConstants:
 
 
 class AppLabelsModel:
+    TRAIN_CLASS = {"app_label": "trains", "model_name": "TrainClass"}
     ROUTE = {"app_label": "trains", "model_name": "Route"}
     SCHEDULE = {"app_label": "trains", "model_name": "Schedule"}
     EMAIL_TEMPLATE = {"app_label": "meri_rail", "model_name": "EmailTemplate"}

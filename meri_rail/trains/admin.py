@@ -31,5 +31,6 @@ class TrainAdmin(ModelAdmin):
     list_display = ("name", "number", "details__distance")
     search_fields = ("name", "number")
     ordering = ("number",)
-    fields = ("number", "name")
+    fields = ("number", "name", "journey_class")
     inlines = (ScheduleInline, TrainDetailsInline, RouteInline)
+    filter_horizontal = ("journey_class",)

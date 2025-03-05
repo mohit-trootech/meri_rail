@@ -43,10 +43,10 @@ class DateFromToBaseSerializer(Serializer):
     to_station = CharField(max_length=5)
 
     def validate_dt(self, value):
-        """Date must not be in past and not after 3 months from today"""
+        """Date must not be in past and not after 45 days from today"""
         if value < now().date():
             raise ValidationError(ValidationErrorConstants.DATE_IN_PAST)
-        if value > now().date() + timedelta(days=90):
+        if value > now().date() + timedelta(days=45):
             raise ValidationError(ValidationErrorConstants.DATE_AFTER_THREE_MONTHS)
         return value
 

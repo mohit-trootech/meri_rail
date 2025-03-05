@@ -1,5 +1,5 @@
 from django.utils.timezone import now
-from utils.constants import DD_MM_YYYY, AppLabelsModel
+from utils.constants import YYYY_MM_DD, AppLabelsModel
 from utils.utils import get_model
 from django.utils.timezone import datetime
 
@@ -18,7 +18,7 @@ def format_seat_availability(data: dict, **kwargs) -> dict:
             "quota": kwargs["quota"],
             "train_cls": kwargs["train_cls"],
             "dt": now()
-            .strptime(item["availablityDate"], DD_MM_YYYY)
+            .strptime(item["availablityDate"], YYYY_MM_DD)
             .strftime("%Y-%m-%d"),
             "available": item["availablityStatus"],
         }

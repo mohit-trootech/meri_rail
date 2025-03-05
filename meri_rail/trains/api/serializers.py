@@ -68,9 +68,4 @@ class TrainDetailSerializer(DynamicModelSerializer):
 
     class Meta:
         model = TrainDetail
-        fields = (
-            "train",
-            "station_from",
-            "station_to",
-            "distance",
-        )
+        fields = ("train", "station_from", "station_to", "distance")

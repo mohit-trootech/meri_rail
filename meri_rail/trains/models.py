@@ -6,18 +6,22 @@ from django.db.models import (
     OneToOneField,
     TimeField,
     IntegerField,
+    ManyToManyField,
 )
 from trains.constants import (
     TRAIN_NAME_NUMBER_VALID_FORMAT,
     ModelVerbose,
     TRAIN_STR,
 )
-from utils.constants import DayFormat
+from utils.constants import DayFormat, JourneyClass
 
 
 class Train(Model):
     number = CharField(max_length=5, unique=True)
     name = CharField(max_length=100)
+    journey_class = ManyToManyField(
+        "trains.TrainClass", related_name="trains", blank=True
+    )
 
     class Meta:
         verbose_name = ModelVerbose.TRAIN
@@ -110,3 +114,14 @@ class Route(Model):
         if self.train.schedule.sunday == "Y":
             week_days.append(DayFormat.SUNDAY + self.day_count - 1)
         return week_days
+
+
+class TrainClass(Model):
+    name = CharField(max_length=32, choices=JourneyClass.get_choice(), unique=True)
+
+    class Meta:
+        verbose_name = ModelVerbose.QUOTA
+        verbose_name_plural = ModelVerbose.QUOTA
+
+    def __str__(self):
+        return self.name

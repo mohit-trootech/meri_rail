@@ -42,9 +42,10 @@ class BaseAPIView(APIView):
                 {"error": ErrorMessages.UNABLE_TO_PROCESS_TRY_AGAIN_LATER}
             )
         finally:
-            self.driver.driver.close()
+            self.driver.driver.quit()
         if "errorMessage" in data:
-            raise ValidationError({"error": data["errorMessage"]})
+            if data["errorMessage"] is not None:
+                raise ValidationError({"error": data["errorMessage"]})
         return data
 
     def get_object(self, data):

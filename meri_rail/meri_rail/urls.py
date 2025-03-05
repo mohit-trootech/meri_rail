@@ -21,11 +21,11 @@ router.registry.extend(station_router.registry)
 
 urlpatterns = [
     path("admin-meri-rail/", admin.site.urls),
+    path("api/train_quota/", train_quota_view, name="train_quota"),
+    path("api/journey_class/", journey_class_view, name="journey_class"),
     path("success/", success_view, name="success"),
     path("error/", error_view, name="error"),
     path("api/", include(router.urls)),
-    path("api/train_quota/", train_quota_view, name="train_quota"),
-    path("api/journey_class/", journey_class_view, name="journey_class"),
     path("api/seat_type/", seat_type_view, name="seat_type"),
     path("api/", include("pnrs.urls")),
     path("api/", include("fare_enquiry.urls")),
