@@ -9,15 +9,6 @@ User = get_model(**AppLabelsModel.USERS)
 
 
 class UserSerializerBase(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
-    def get_image(self, obj):
-        request = self.context.get("request")
-        if request:
-            if obj.image:
-                return request.build_absolute_uri(obj.image.url)
-        return obj.image.url
-
     class Meta:
         model = User
         fields = ("id", "username", "email", "get_full_name", "image")

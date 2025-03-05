@@ -97,7 +97,7 @@ def format_pnr_details_in_valid_format(data: dict) -> dict:
     train = Train.objects.get(number=data["trainNumber"]).id
     source = Station.objects.get(code=data["sourceStation"].upper()).id
     destination = Station.objects.get(code=data["destinationStation"].upper()).id
-    boarding = Station.objects.get(code=data["reservationUpto"].upper()).id
+    boarding = Station.objects.get(code=data["boardingPoint"].upper()).id
     return {
         "pnr": data["pnrNumber"],
         "date_of_journey": parse_date_string(data["dateOfJourney"]),

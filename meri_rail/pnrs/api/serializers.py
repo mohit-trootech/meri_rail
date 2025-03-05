@@ -85,7 +85,6 @@ class PnrDetailSerializer(DynamicModelSerializer):
             except Exception as err:
                 raise serializers.ValidationError({"message": str(err)})
         instance.users.add(self.context["request"].user.pk)
-        print(instance.modified)
         return instance
 
     def create(self, validated_data):
