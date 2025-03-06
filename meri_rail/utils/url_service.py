@@ -6,6 +6,7 @@ class UrlServiceV1:
     """Url Service"""
 
     BASE_URL = settings.NTES_V1_BASE_URL
+    BASE_URL_V2 = settings.NTES_V2_BASE_URL
 
     @classmethod
     def get_captcha_config_url(cls):
@@ -59,3 +60,7 @@ class UrlServiceV1:
             }
         )
         return cls.BASE_URL + (UrlsV1.SEAT_AVAILABILITY % data)
+
+    @classmethod
+    def get_live_status_url(cls):
+        return cls.BASE_URL_V2

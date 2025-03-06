@@ -42,6 +42,7 @@ PROJECT_APPS = [
     "fare_enquiry.apps.FareEnquiryConfig",
     "trains_between_station.apps.TrainsBetweenStationConfig",
     "seat_availability.apps.SeatAvailabilityConfig",
+    "live_status.apps.LiveStatusConfig",
     "meri_rail",
 ]
 DJANGO_APPS = [
@@ -234,6 +235,7 @@ LOGGING = {
 # Railway Configuration Urls
 # =====================================================
 NTES_V1_BASE_URL = env.get("NTES_V1_BASE_URL")
+NTES_V2_BASE_URL = env.get("NTES_V2_BASE_URL")
 CAPTCHA_DRAW_URL = env.get("CAPTCHA_DRAW_URL")
 TRAIN_ROUTE_URL = env.get("TRAIN_ROUTE_URL")
 FETCH_TRAIN_DATA_URL = env.get("FETCH_TRAIN_DATA_URL")

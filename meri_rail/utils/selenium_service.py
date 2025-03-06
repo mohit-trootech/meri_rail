@@ -1,6 +1,7 @@
 from time import time
-from selenium import webdriver
+from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.common.by import By
+from undetected_geckodriver import Firefox
 from django.conf import settings
 from utils.image_filter_service import ImageFiltering
 from os.path import join
@@ -16,15 +17,13 @@ class SeleniumService:
 
     def __init__(self):
         self.time = round(time() * 1000)
-        options = webdriver.FirefoxOptions()
+        options = FirefoxOptions()
         options.set_preference("devtools.jsonview.enabled", False)
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless")
-        # Requires selenium == 3.11
-        self.driver = webdriver.Firefox(
-            executable_path=settings.GECKODRIVER_PATH,
+        self.driver = Firefox(
             options=options,
         )
 
@@ -98,3 +97,9 @@ class SeleniumService:
                 data=data,
             )
         )
+
+    def live_status(self):
+        """
+        live status
+        """
+        self.driver.get(self.url_service.get_live_status_url())
