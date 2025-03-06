@@ -1,4 +1,4 @@
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.viewsets import GenericViewSet
 from stations.api.serializers import StationSerializer
 from utils.utils import get_model
@@ -7,6 +7,7 @@ from django.core.cache import cache
 from rest_framework.response import Response
 from http import HTTPStatus
 from utils.constants import AppLabelsModel, LookUps, CacheTimeout
+from rest_framework.permissions import AllowAny
 
 Station = get_model(**AppLabelsModel.STATION)
 
@@ -14,10 +15,10 @@ Station = get_model(**AppLabelsModel.STATION)
 class StationViewSet(
     ListModelMixin,
     RetrieveModelMixin,
-    UpdateModelMixin,
     GenericViewSet,
 ):
     queryset = Station.objects.all()
+    permission_classes = [AllowAny]
     serializer_class = StationSerializer
     lookup_field = "code__iexact"
     lookup_url_kwarg = LookUps.STATION_CODE
