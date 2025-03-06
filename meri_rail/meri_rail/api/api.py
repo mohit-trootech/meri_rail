@@ -11,8 +11,6 @@ from utils.constants import CacheTimeout
 
 
 class MapplsSecretView(APIView):
-    permission_classes = [AllowAny]
-
     def get(self, request):
         token = settings.MAPPLS_API_KEY
         return Response({"token": token}, status=HTTPStatus.OK)

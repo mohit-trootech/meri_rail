@@ -7,7 +7,6 @@ from django.core.cache import cache
 from rest_framework.response import Response
 from http import HTTPStatus
 from utils.constants import AppLabelsModel, LookUps, CacheTimeout
-from rest_framework.permissions import AllowAny
 
 Station = get_model(**AppLabelsModel.STATION)
 
@@ -19,7 +18,6 @@ class StationViewSet(
     GenericViewSet,
 ):
     queryset = Station.objects.all()
-    permission_classes = [AllowAny]
     serializer_class = StationSerializer
     lookup_field = "code__iexact"
     lookup_url_kwarg = LookUps.STATION_CODE
