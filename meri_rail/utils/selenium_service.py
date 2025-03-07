@@ -17,6 +17,7 @@ class SeleniumService:
     """Selenium Service Class"""
 
     _instance = None
+    driver = None
 
     url_service = UrlServiceV1
 

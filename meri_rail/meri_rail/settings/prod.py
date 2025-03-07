@@ -8,7 +8,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "ec2-65-0-61-241.ap-south-1.compute.amazonaws.com",
     "65.0.61.241",
-    "halydeals.com",
+    "www.halydeals.com",
     "0.0.0.0",
     "127.0.0.1",
     "localhost",
