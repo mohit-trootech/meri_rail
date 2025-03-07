@@ -1,7 +1,9 @@
 from time import time
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.common.by import By
-from undetected_geckodriver import Firefox
+from selenium.webdriver import Firefox
+
+# from undetected_geckodriver import Firefox
 from django.conf import settings
 from utils.image_filter_service import ImageFiltering
 from os.path import join
@@ -41,6 +43,7 @@ class SeleniumService:
             options.add_argument("--headless")
             self.driver = Firefox(
                 options=options,
+                executable_path=settings.GECKODRIVER_PATH,
             )
         except Exception as err:
             logger.error(err)
