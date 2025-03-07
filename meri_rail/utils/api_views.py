@@ -7,7 +7,7 @@ from utils.utils import log_errors
 
 
 class BaseAPIView(APIView):
-    selenium_service = SeleniumService
+    selenium_service = SeleniumService()
     service = None
     model = None
     driver = None
@@ -31,7 +31,7 @@ class BaseAPIView(APIView):
             raise ValueError(ErrorMessages.SERVICE_IS_NONE)
 
     def use_selenium(self, data: dict):
-        self.driver = self.selenium_service()
+        self.driver = self.selenium_service
         try:
             captcha = self.driver.validate_captcha()
             service_method = self.get_service_method()
@@ -42,7 +42,8 @@ class BaseAPIView(APIView):
                 {"error": ErrorMessages.UNABLE_TO_PROCESS_TRY_AGAIN_LATER}
             )
         finally:
-            self.driver.driver.quit()
+            pass
+            # self.driver.driver.quit()
         if "errorMessage" in data:
             if data["errorMessage"] is not None:
                 raise ValidationError({"error": data["errorMessage"]})

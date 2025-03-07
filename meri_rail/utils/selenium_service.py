@@ -6,6 +6,9 @@ from django.conf import settings
 from utils.image_filter_service import ImageFiltering
 from os.path import join
 from utils.url_service import UrlServiceV1
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 PAGE_SCREENSHOT = join(settings.BASE_DIR, "fixtures/temp/page_screenshot.png")
 
@@ -13,19 +16,34 @@ PAGE_SCREENSHOT = join(settings.BASE_DIR, "fixtures/temp/page_screenshot.png")
 class SeleniumService:
     """Selenium Service Class"""
 
+    _instance = None
+
     url_service = UrlServiceV1
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(SeleniumService, cls).__new__(cls, *args, **kwargs)
+            cls._instance._initialized = False
+        return cls._instance
+
     def __init__(self):
-        self.time = round(time() * 1000)
-        options = FirefoxOptions()
-        options.set_preference("devtools.jsonview.enabled", False)
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless")
-        self.driver = Firefox(
-            options=options,
-        )
+        if self._initialized:
+            return
+        self._initialized = True
+        try:
+            self.time = round(time() * 1000)
+            options = FirefoxOptions()
+            options.set_preference("devtools.jsonview.enabled", False)
+            options.add_argument("--disable-gpu")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            # options.add_argument("--headless")
+            self.driver = Firefox(
+                options=options,
+            )
+        except Exception as err:
+            logger.error(err)
+            pass
 
     def get_json(self):
         counter = 0
