@@ -84,7 +84,6 @@ class PnrDetailSerializer(DynamicModelSerializer):
                 ).update(**passenger)
             except Exception as err:
                 raise serializers.ValidationError({"message": str(err)})
-        instance.users.add(self.context["request"].user.pk)
         return instance
 
     def create(self, validated_data):
@@ -96,5 +95,4 @@ class PnrDetailSerializer(DynamicModelSerializer):
             except Exception as err:
                 instance.delete()
                 raise serializers.ValidationError({"message": str(err)})
-        instance.users.add(self.context["request"].user.pk)
         return instance

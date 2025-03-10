@@ -62,7 +62,7 @@ def create_city_instance(station: json, region: Region):
 
 def temporary_station_instance(station: json, region: Region, city: City):
     """creates & return temporary station instance"""
-    station, created = Station.objects.get_or_create(
+    return Station(
         name=station.get("name"),
         code=station.get("code"),
         name_hi=station.get("name_hi"),
@@ -73,9 +73,6 @@ def temporary_station_instance(station: json, region: Region, city: City):
         address=station.get("address"),
         trains_count=station.get("trains_count"),
     )
-    if not created:
-        return None
-    return station
 
 
 class Command(BaseCommand):

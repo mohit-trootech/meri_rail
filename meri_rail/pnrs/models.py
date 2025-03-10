@@ -49,10 +49,6 @@ class Pnr(TimeStampedModel):
         verbose_name = ModelVerbose.PNR
         verbose_name_plural = ModelVerbose.PNR
 
-    def add_user_to_pnr(self, user):
-        """Adds the given user to the pnr's users field."""
-        self.users.add(user.pk)
-
     def __str__(self):
         return str(self.pnr)
 

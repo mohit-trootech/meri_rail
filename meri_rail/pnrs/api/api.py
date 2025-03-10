@@ -34,7 +34,6 @@ class PnrApiView(BaseAPIView):
         serializer = self.serializer_class(pnr_details)
         if pnr_details.modified < now() - timedelta(minutes=10):
             return self.update(pnr_validation, pnr_details)
-        pnr_details.add_user_to_pnr(request.user)
         return Response(serializer.data, status=HTTPStatus.OK)
 
     def create(self, pnr_validation):
