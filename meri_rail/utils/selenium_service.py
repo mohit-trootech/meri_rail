@@ -41,14 +41,11 @@ class SeleniumService:
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--headless")
-            # self.driver = Firefox(
-            #    options=options,
-            #    executable_path=settings.GECKODRIVER_PATH,
-            # )
             self.driver = Firefox(options=options)
+            logger.info("Firefox driver initialized successfully")
         except Exception as err:
-            logger.error(err)
-            pass
+            logger.error(f"Error initializing Firefox driver: {err}")
+            self.driver = None
 
     def get_json(self):
         counter = 0
