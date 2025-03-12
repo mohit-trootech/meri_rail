@@ -43,7 +43,7 @@ PROJECT_APPS = [
     "trains_between_station.apps.TrainsBetweenStationConfig",
     "seat_availability.apps.SeatAvailabilityConfig",
     "live_status.apps.LiveStatusConfig",
-    "meri_rail",
+    "meri_rail.apps.MeriRailConfig",
 ]
 DJANGO_APPS = [
     "django.contrib.admin",
