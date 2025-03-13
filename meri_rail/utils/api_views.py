@@ -1,25 +1,24 @@
 from rest_framework.views import APIView
-from utils.selenium_service import SeleniumService
-from json import loads
+from utils.socket_service import SocketService
 from rest_framework.exceptions import ValidationError
-from utils.constants import ErrorMessages, SeleniumServices
+from utils.constants import ErrorMessages, SocketServices
 from utils.utils import log_errors
 
 
 class BaseAPIView(APIView):
-    selenium_service = SeleniumService
+    service_class = SocketService
     service = None
     model = None
     driver = None
 
     def get_service_method(self):
-        if SeleniumServices.PNR_STATUS == self.service:
-            return self.driver.load_pnr_details
-        elif SeleniumServices.FARE_ENQUIRY == self.service:
+        if SocketServices.PNR_STATUS == self.service:
+            return self.service_class.pnr_service
+        elif SocketServices.FARE_ENQUIRY == self.service:
             return self.driver.fare_enquiry
-        elif SeleniumServices.SPOT_TRAIN == self.service:
+        elif SocketServices.SPOT_TRAIN == self.service:
             return self.driver.spot_train_details
-        elif SeleniumServices.SEAT_AVAILABILITY == self.service:
+        elif SocketServices.SEAT_AVAILABILITY == self.service:
             return self.driver.seat_availability
         raise ValueError(ErrorMessages.INVALID_SERVICE)
 
@@ -30,12 +29,11 @@ class BaseAPIView(APIView):
         if self.service is None:
             raise ValueError(ErrorMessages.SERVICE_IS_NONE)
 
-    def use_selenium(self, data: dict):
-        self.driver = self.selenium_service()
+    def use_socket_service(self, data: dict):
         try:
-            captcha = self.driver.validate_captcha()
             service_method = self.get_service_method()
-            data = loads(service_method(captcha, data))
+            data = service_method(data=data)
+            return data
         except Exception as err:
             log_errors(__name__, str(err))
             raise ValidationError(
@@ -43,11 +41,6 @@ class BaseAPIView(APIView):
             )
         finally:
             pass
-            # self.driver.driver.quit()
-        if "errorMessage" in data:
-            if data["errorMessage"] is not None:
-                raise ValidationError({"error": data["errorMessage"]})
-        return data
 
     def get_object(self, data):
         try:

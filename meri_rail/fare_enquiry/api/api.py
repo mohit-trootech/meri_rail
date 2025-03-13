@@ -7,7 +7,7 @@ from utils.format_data import format_fare_serializer
 from rest_framework.response import Response
 from utils.api_views import BaseAPIView
 from http import HTTPStatus
-from utils.constants import SeleniumServices, AppLabelsModel, CacheTimeout
+from utils.constants import SocketServices, AppLabelsModel, CacheTimeout
 from django.core.cache import cache
 from fare_enquiry.constants import CACHE_KEY
 from rest_framework.permissions import AllowAny
@@ -18,7 +18,7 @@ Fare = get_model(**AppLabelsModel.FARE)
 class FareView(BaseAPIView):
     model = Fare
     serializer_class = FareEnquirySerializer
-    service = SeleniumServices.FARE_ENQUIRY
+    service = SocketServices.FARE_ENQUIRY
     permission_classes = [AllowAny]
 
     def get(self, request):

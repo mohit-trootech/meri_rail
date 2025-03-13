@@ -3,22 +3,19 @@ from utils.format_data import format_pnr_details_in_valid_format
 from pnrs.api.serializers import PnrNumberSerializer, PnrDetailSerializer
 from rest_framework.response import Response
 from utils.api_views import BaseAPIView
-from utils.constants import SeleniumServices, AppLabelsModel
+from utils.constants import SocketServices, AppLabelsModel
 from http import HTTPStatus
-from django.views.decorators.cache import never_cache
-from django.utils.decorators import method_decorator
 from django.utils.timezone import now, timedelta
 
 Pnr = get_model(**AppLabelsModel.PNR)
 
 
-@method_decorator(never_cache, name="dispatch")
 class PnrApiView(BaseAPIView):
     serializer_class = PnrDetailSerializer
     model = Pnr
     lookup_field = "pnr"
 
-    service = SeleniumServices.PNR_STATUS
+    service = SocketServices.PNR_STATUS
 
     def post(self, request, *args, **kwargs):
         """
@@ -37,7 +34,7 @@ class PnrApiView(BaseAPIView):
         return Response(serializer.data, status=HTTPStatus.OK)
 
     def create(self, pnr_validation):
-        data = self.use_selenium(data=pnr_validation.validated_data)
+        data = self.use_socket_service(data=pnr_validation.validated_data)
         formatted_data = format_pnr_details_in_valid_format(data=data)
         serializer = self.serializer_class(
             data=formatted_data, context={"request": self.request}
@@ -47,7 +44,7 @@ class PnrApiView(BaseAPIView):
         return Response(serializer.data, status=HTTPStatus.CREATED)
 
     def update(self, pnr_validation, pnr_details):
-        data = self.use_selenium(data=pnr_validation.validated_data)
+        data = self.use_socket_service(data=pnr_validation.validated_data)
         formatted_data = format_pnr_details_in_valid_format(data=data)
         serializer = self.serializer_class(
             pnr_details, data=formatted_data, context={"request": self.request}

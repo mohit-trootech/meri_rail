@@ -73,8 +73,8 @@ class UrlsV1:
     SEAT_AVAILABILITY = "CommonCaptcha?inputCaptcha=%(captcha)s&trainNo=%(train)s&dt=%(dt)s&sourceStation=%(from_station)s&destinationStation=%(to_station)s&classc=%(train_cls)s&quota=%(quota)s&inputPage=SEAT&language=en&_=%(time)s"
 
 
-class SeleniumServices:
-    """Selenium Services"""
+class SocketServices:
+    """Socket Services"""
 
     PNR_STATUS = "pnr_status"
     FARE_ENQUIRY = "fare_enquiry"
@@ -283,6 +283,8 @@ class ErrorMessages:
     )
     MODEL_IS_NONE = NOT_DEFINED % "Model"
     SERVICE_IS_NONE = NOT_DEFINED % "Service"
+    FILTER_SERIALIZER_IS_NONE = NOT_DEFINED % "Filter Serializer"
+    CHOICE_CLASS_NOT_SET = _("Choice Class Not Set")
     INVALID_SERVICE = _("Invalid Service Defined")
 
 
@@ -296,6 +298,7 @@ class ValidationErrorConstants:
 
 
 class AppLabelsModel:
+    REQUESTS = {"app_label": "meri_rail", "model_name": "Requests"}
     TRAIN_CLASS = {"app_label": "trains", "model_name": "TrainClass"}
     ROUTE = {"app_label": "trains", "model_name": "Route"}
     SCHEDULE = {"app_label": "trains", "model_name": "Schedule"}

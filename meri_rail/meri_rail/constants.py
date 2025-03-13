@@ -3,6 +3,26 @@ from django.conf import settings
 from os.path import join
 
 
+class RequestTypes:
+    GET = "get"
+    POST = "post"
+    PUT = "put"
+    DELETE = "delete"
+    PATCH = "patch"
+
+    CHOICES = (
+        (GET, "GET"),
+        (POST, "POST"),
+        (PUT, "PUT"),
+        (DELETE, "DELETE"),
+        (PATCH, "PATCH"),
+    )
+
+    @classmethod
+    def get_choices(cls):
+        return cls.CHOICES
+
+
 class Fixtures:
     TRAIN_FIXTURE = join(settings.BASE_DIR, "fixtures/trains/trains.json")
     INVALID_TRAIN_FIXTURE = join(

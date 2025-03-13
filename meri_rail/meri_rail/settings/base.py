@@ -31,6 +31,7 @@ THIRD_PARTY_APPS = [
     "cities_light",
     "rest_framework_simplejwt",
     "phonenumber_field",
+    "channels",
 ]
 
 
@@ -43,7 +44,7 @@ PROJECT_APPS = [
     "trains_between_station.apps.TrainsBetweenStationConfig",
     "seat_availability.apps.SeatAvailabilityConfig",
     "live_status.apps.LiveStatusConfig",
-    "meri_rail.apps.MeriRailConfig",
+    "meri_rail",
 ]
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -53,7 +54,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + PROJECT_APPS + DJANGO_APPS
 
 
 # Middlewares
@@ -96,6 +97,7 @@ TEMPLATES = [
 # -------------------------------------------------
 WSGI_APPLICATION = Settings.WSGI_APPLICATION
 
+# ...existing code...
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_COOKIE_NAME = "sessionid"
 
@@ -190,8 +192,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=28),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }

@@ -1,7 +1,7 @@
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 from django.db.models import CharField, TextField, BooleanField, ForeignKey, CASCADE
 from django.db import models
-from meri_rail.constants import ModelVerbose, EmailType
+from meri_rail.constants import ModelVerbose, EmailType, RequestTypes
 
 
 class EmailTemplate(ActivatorModel):
@@ -33,5 +33,11 @@ class Notification(TimeStampedModel):
         verbose_name_plural = ModelVerbose.NOTIFICATIONS
 
 
-class Requests(TimeStampedModel):
-    body = models.JSONField(default=dict)
+class Requests(TimeStampedModel, ActivatorModel):
+    url = models.URLField(max_length=2048)
+    method = models.CharField(
+        max_length=10, choices=RequestTypes.get_choices(), default=RequestTypes.GET
+    )
+    headers = models.JSONField(default=dict)
+    params = models.JSONField(default=dict)
+    data = models.JSONField(default=dict)

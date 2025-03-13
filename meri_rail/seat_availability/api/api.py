@@ -1,5 +1,5 @@
 from utils.api_views import BaseAPIView
-from utils.constants import SeleniumServices, AppLabelsModel, CacheTimeout, YYYY_MM_DD
+from utils.constants import SocketServices, AppLabelsModel, CacheTimeout, YYYY_MM_DD
 from seat_availability.api.serializer import (
     SeatAvailabilitySerializer,
     SeatAvailabilityFilterSerializer,
@@ -18,7 +18,7 @@ SeatAvailability = get_model(**AppLabelsModel.SEAT_AVAILABILITY)
 
 class SeatAvailabilityAPIView(BaseAPIView):
     queryset = SeatAvailability.objects.filter(dt__gte=now().date())
-    service = SeleniumServices.SEAT_AVAILABILITY
+    service = SocketServices.SEAT_AVAILABILITY
     model = SeatAvailability
     serializer_class = SeatAvailabilitySerializer
     filter_serializer_class = SeatAvailabilityFilterSerializer

@@ -1,10 +1,10 @@
 from spot_train.api.serializers import TrainNumberSerializer
 from utils.api_views import BaseAPIView
-from utils.constants import SeleniumServices
+from utils.constants import SocketServices
 
 
 class SpotTrainView(BaseAPIView):
-    service = SeleniumServices.SPOT_TRAIN
+    service = SocketServices.SPOT_TRAIN
     model = "None"
 
     def get(self, request):
