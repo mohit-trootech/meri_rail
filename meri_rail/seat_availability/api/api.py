@@ -24,7 +24,7 @@ class SeatAvailabilityAPIView(BaseAPIView):
     filter_serializer_class = SeatAvailabilityFilterSerializer
 
     def seat_availability_scrap(self, filter_serializer):
-        data = self.use_selenium(filter_serializer.validated_data)
+        data = self.use_socket_service(filter_serializer.validated_data)
         formatted_data = format_seat_availability(
             data=data, **filter_serializer.validated_data
         )

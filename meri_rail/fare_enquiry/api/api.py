@@ -50,7 +50,7 @@ class FareView(BaseAPIView):
         return self.create(enquiry_serializer)
 
     def create(self, enquiry_serializer):
-        data = self.use_selenium(data=enquiry_serializer.validated_data)
+        data = self.use_socket_service(data=enquiry_serializer.validated_data)
         formatted_data = format_fare_serializer(data=data, payload=self.request.data)
         fare_serializer = FareSerializer(data=formatted_data)
         fare_serializer.is_valid(raise_exception=True)

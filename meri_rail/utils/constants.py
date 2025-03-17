@@ -4,6 +4,17 @@ DD_MM_YYYY = "%d-%m-%Y"
 YYYY_MM_DD = "%Y-%m-%d"
 
 
+class SocketUrl:
+    """Socket Url"""
+
+    BASE_SOCKET_URl = "ws://localhost:8001/ws/"
+    PNR_STATUS = BASE_SOCKET_URl + "pnr/"
+    FARE_ENQUIRY = BASE_SOCKET_URl + "fare/"
+    SEAT_AVAILABILITY = BASE_SOCKET_URl + "seat/"
+    SPOT_TRAIN = BASE_SOCKET_URl + "spot/"
+    TRAIN_SCHEDULE = BASE_SOCKET_URl + "schedule/"
+
+
 class Templates:
     """Meri Rail Api Templates"""
 
@@ -286,6 +297,7 @@ class ErrorMessages:
     FILTER_SERIALIZER_IS_NONE = NOT_DEFINED % "Filter Serializer"
     CHOICE_CLASS_NOT_SET = _("Choice Class Not Set")
     INVALID_SERVICE = _("Invalid Service Defined")
+    ERROR_IN_SERVICE = _("Error in Proccessing %s Service, ")
 
 
 class ValidationErrorConstants:

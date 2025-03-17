@@ -15,11 +15,11 @@ class BaseAPIView(APIView):
         if SocketServices.PNR_STATUS == self.service:
             return self.service_class.pnr_service
         elif SocketServices.FARE_ENQUIRY == self.service:
-            return self.driver.fare_enquiry
+            return self.service_class.fare_service
         elif SocketServices.SPOT_TRAIN == self.service:
-            return self.driver.spot_train_details
+            return self.service_class.spot_train_service
         elif SocketServices.SEAT_AVAILABILITY == self.service:
-            return self.driver.seat_availability
+            return self.service_class.seat_availability_service
         raise ValueError(ErrorMessages.INVALID_SERVICE)
 
     def __init__(self, **kwargs):
