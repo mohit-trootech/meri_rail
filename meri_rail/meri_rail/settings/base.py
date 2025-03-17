@@ -235,6 +235,7 @@ LOGGING = {
 
 # Railway Configuration Urls
 # =====================================================
+MERI_RAIL_CHANNELS_HOST = env.get("MERI_RAIL_CHANNELS_HOST")
 NTES_V1_BASE_URL = env.get("NTES_V1_BASE_URL")
 NTES_V2_BASE_URL = env.get("NTES_V2_BASE_URL")
 CAPTCHA_DRAW_URL = env.get("CAPTCHA_DRAW_URL")

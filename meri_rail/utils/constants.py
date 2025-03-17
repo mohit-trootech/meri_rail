@@ -7,7 +7,7 @@ YYYY_MM_DD = "%Y-%m-%d"
 class SocketUrl:
     """Socket Url"""
 
-    BASE_SOCKET_URl = "ws://localhost:8001/ws/"
+    BASE_SOCKET_URl = "ws://13.233.194.107:8000/ws/"
     PNR_STATUS = BASE_SOCKET_URl + "pnr/"
     FARE_ENQUIRY = BASE_SOCKET_URl + "fare/"
     SEAT_AVAILABILITY = BASE_SOCKET_URl + "seat/"
