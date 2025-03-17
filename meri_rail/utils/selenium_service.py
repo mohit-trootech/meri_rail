@@ -24,7 +24,7 @@ class SeleniumService:
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless")
         self.driver = Firefox(
-            options=options,
+            options=options, executable_path=settings.GECKODRIVER_PATH
         )
 
     def get_json(self):
