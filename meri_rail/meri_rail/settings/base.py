@@ -31,7 +31,6 @@ THIRD_PARTY_APPS = [
     "cities_light",
     "rest_framework_simplejwt",
     "phonenumber_field",
-    "channels",
 ]
 
 

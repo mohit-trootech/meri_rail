@@ -28,6 +28,7 @@ class SocketService:
             ws = create_connection(SocketUrl.FARE_ENQUIRY)
             ws.send(dumps(fare_data))
             result = loads(ws.recv())
+            ws.close()
             return result
         except Exception as err:
             logger.error(ErrorMessages.ERROR_IN_SERVICE % "FARE" + str(err))
@@ -40,6 +41,7 @@ class SocketService:
             ws = create_connection(SocketUrl.SEAT_AVAILABILITY)
             ws.send(dumps(seat_data))
             result = loads(ws.recv())
+            ws.close()
             return result
         except Exception as err:
             logger.error(ErrorMessages.ERROR_IN_SERVICE % "SEAT" + str(err))
@@ -52,6 +54,7 @@ class SocketService:
             ws = create_connection(SocketUrl.SPOT_TRAIN)
             ws.send(dumps(spot_data))
             result = loads(ws.recv())
+            ws.close()
             return result
         except Exception as err:
             logger.error(ErrorMessages.ERROR_IN_SERVICE % "SPOT" + str(err))
@@ -64,6 +67,7 @@ class SocketService:
             ws = create_connection(SocketUrl.TRAIN_SCHEDULE)
             ws.send(dumps(schedule_data))
             result = loads(ws.recv())
+            ws.close()
             return result
         except Exception as err:
             logger.error(ErrorMessages.ERROR_IN_SERVICE % "SCHEDULE" + str(err))
