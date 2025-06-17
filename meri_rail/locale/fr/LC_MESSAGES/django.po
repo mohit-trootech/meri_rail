@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-04 15:57+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: meri_rail/constants.py:23
+msgid "Load train data from JSON file"
+msgstr ""
+
+#: meri_rail/constants.py:24
+msgid "Dump train details data from JSON file"
+msgstr ""
+
+#: meri_rail/constants.py:25
+msgid "Fetch details from Selenium and Load data"
+msgstr ""
+
+#: meri_rail/constants.py:26
+msgid "Load station data from JSON file"
+msgstr ""
+
+#: meri_rail/constants.py:27
+msgid "Load invalid station data from JSON file"
+msgstr ""
+
+#: meri_rail/constants.py:31
+#, python-format
+msgid "Successfully loaded stations data, took %.6f"
+msgstr ""
+
+#: meri_rail/constants.py:32
+#, python-format
+msgid "Successfully loaded invalid stations data, took %.6f"
+msgstr ""
+
+#: meri_rail/constants.py:33
+#, python-format
+msgid "Successfully loaded trains data, took %.6f"
+msgstr ""
+
+#: meri_rail/constants.py:34
+#, python-format
+msgid "Successfully loaded trains details, took %.6f"
+msgstr ""
+
+#: stations/utils/constants.py:5
+msgid "Station"
+msgstr ""
+
+#: stations/utils/constants.py:6
+msgid "Stations"
+msgstr ""
+
+#: stations/utils/constants.py:8
+msgid "Utterance"
+msgstr ""
+
+#: stations/utils/constants.py:9
+msgid "Utterances"
+msgstr ""
+
+#: trains/utils/constants.py:9
+msgid "Train"
+msgstr ""
+
+#: trains/utils/constants.py:10
+msgid "Trains"
+msgstr ""
+
+#: trains/utils/constants.py:12
+msgid "Train Detail"
+msgstr ""
+
+#: trains/utils/constants.py:14
+msgid "Schedule"
+msgstr ""
+
+#: trains/utils/constants.py:16
+msgid "Route"
+msgstr ""
+
+#: trains/utils/constants.py:17
+msgid "Routes"
+msgstr ""
+
+#: users/constants.py:43 users/constants.py:56
+msgid "Password does not match"
+msgstr ""
+
+#: users/constants.py:44
+msgid "Email already exists"
+msgstr ""
+
+#: users/constants.py:45
+msgid "Username already exists"
+msgstr ""
+
+#: users/constants.py:51
+msgid "Invalid email or password"
+msgstr ""
+
+#: users/constants.py:52
+msgid "OTP expired, please generate a new OTP."
+msgstr ""
+
+#: users/constants.py:53
+msgid "Invalid OTP, please try again"
+msgstr ""
+
+#: users/constants.py:54
+msgid "OTP not found generate a new one.."
+msgstr ""
+
+#: users/constants.py:55
+msgid "User already exists with this email"
+msgstr ""
+
+#: users/constants.py:57
+msgid "New password cannot be same as old password"
+msgstr ""
+
+#: users/constants.py:58
+msgid "Invalid password"
+msgstr ""
+
+#: users/constants.py:64
+msgid "OTP generated successfully"
+msgstr ""
+
+#: users/constants.py:65
+#, python-brace-format
+msgid "Failed to generate OTP, {err}"
+msgstr ""
+
+#: users/constants.py:66
+msgid "Email verified successfully"
+msgstr ""
+
+#: users/constants.py:67
+msgid "Password changed successfully"
+msgstr ""
+
+#: users/constants.py:68
+msgid "Password reset OTP generated successfully"
+msgstr ""
+
+#: users/constants.py:69
+msgid "Password reset successfully"
+msgstr ""
+
+#: users/constants.py:70
+msgid "User not found"
+msgstr ""
+
+#: users/constants.py:76
+msgid "Profile Image"
+msgstr ""
+
+#: users/constants.py:77
+msgid "Email Address"
+msgstr ""
+
+#: users/constants.py:78
+msgid "Verification Status"
+msgstr ""
+
+#: users/constants.py:79
+msgid "Age"
+msgstr ""
+
+#: users/constants.py:80
+msgid "Address"
+msgstr ""
+
+#: users/constants.py:81
+msgid "Google ID"
+msgstr ""
